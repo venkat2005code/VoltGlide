@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltGlide | E-Scooter Repair & Parts Shop</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description" content="Premium E-Scooter diagnostic guides, repair booking, parts catalog, and DIY guides. Keep your e-scooter running like new.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Left: Logo -->
+            <div class="logo-area">
+                <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                    <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                    <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                </a>
+            </div>
+
+            <!-- Center: Navigation Menu -->
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <!-- Home Dropdown -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">
+                            Home <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="dropdown-link" onclick="navigateTo('home1')">Home 1</a></li>
+                            <li><a href="#" class="dropdown-link" onclick="navigateTo('home2')">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="navigateTo('about')">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="navigateTo('services')">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="navigateTo('contact')">Contact</a>
+                    </li>
+                    <!-- Dashboard Dropdown -->
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">
+                            Dashboard <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" class="dropdown-link" onclick="navigateTo('user-dashboard')">User Dashboard</a></li>
+                            <li><a href="#" class="dropdown-link" onclick="navigateTo('admin-dashboard')">Admin Dashboard</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Right: Controls & Actions -->
+            <div class="header-actions">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+
+                <!-- LTR/RTL Toggle Switch -->
+                <button id="rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction">
+                    <span class="rtl-circle">LTR</span>
+                </button>
+
+                <!-- Login Button -->
+                <button id="login-nav-btn" class="login-btn" onclick="navigateTo('login')">
+                    <i class="fa-solid fa-user-lock btn-icon"></i>
+                    <span class="btn-text">Login</span>
+                </button>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars hamburger"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE NAVIGATION SIDEBAR (Off-canvas) -->
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-nav-header" style="justify-content: flex-end;">
+            <button class="close-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mobile-nav-body">
+            <ul class="mobile-list">
+                <!-- Home Option with Dropdown -->
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)">
+                        <span>Home</span>
+                        <i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i>
+                    </button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="#" class="mobile-dropdown-link" onclick="navigateTo('home1')">Home 1</a></li>
+                        <li><a href="#" class="mobile-dropdown-link" onclick="navigateTo('home2')">Home 2</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#" class="mobile-link" onclick="navigateTo('about')">About Us</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#" class="mobile-link" onclick="navigateTo('services')">Services</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#" class="mobile-link" onclick="navigateTo('contact')">Contact</a>
+                </li>
+                <!-- Dashboard Option with Dropdown -->
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)">
+                        <span>Dashboard</span>
+                        <i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i>
+                    </button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="#" class="mobile-dropdown-link" onclick="navigateTo('user-dashboard')">User Dashboard</a></li>
+                        <li><a href="#" class="mobile-dropdown-link" onclick="navigateTo('admin-dashboard')">Admin Dashboard</a></li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <!-- Mobile Actions: Toggles and Login -->
+            <div class="mobile-nav-actions">
+                <div class="mobile-toggles-row">
+                    <!-- Theme Toggle Button -->
+                    <button id="mobile-theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                        <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                        <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                    </button>
+                    
+                    <!-- LTR/RTL Toggle Switch -->
+                    <button id="mobile-rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction">
+                        <span class="rtl-circle">LTR</span>
+                    </button>
+                </div>
+                
+                <!-- Login Button -->
+                <button id="mobile-login-btn" class="login-btn mobile-login-btn" onclick="navigateTo('login')">
+                    <i class="fa-solid fa-user-lock btn-icon"></i>
+                    <span class="btn-text">Login</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==============================================
+         HOME 1 VIEW: Landing Page Default
+         ============================================== -->
+    <main id="home1-view" class="view-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="section-container grid-2">
+                <div class="hero-content">
+                    <div class="badge-pill"><i class="fa-solid fa-gauge-high"></i> Next-Gen Scooter Diagnostics</div>
+                    <h1 class="hero-title">Electric Scooter Repairs <br><span class="gradient-text">Engineered For Performance</span></h1>
+                    <p class="hero-desc">Experiencing battery drain, squeaky brakes, or controller errors? Book expert technicians, order authentic parts, or diagnose issues instantly with our smart tools.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="openBookingModal()"><i class="fa-solid fa-calendar-check"></i> Book Repair Now</button>
+                        <button class="btn btn-secondary" onclick="scrollToElement('diagnostic-guide-section')"><i class="fa-solid fa-screwdriver-wrench"></i> Start Diagnostics</button>
+                    </div>
+                </div>
+                <div class="hero-image-container">
+                    <img src="./e1.jpg" alt="Electric Scooter Front Styling" class="hero-img">
+                    <div class="floating-badge badge-1">
+                        <span class="badge-icon"><i class="fa-solid fa-bolt"></i></span>
+                        <div>
+                            <h4>Fast Charge Fit</h4>
+                            <p>Battery diagnostics</p>
+                        </div>
+                    </div>
+                    <div class="floating-badge badge-2">
+                        <span class="badge-icon"><i class="fa-solid fa-shield-halved"></i></span>
+                        <div>
+                            <h4>12-Month Warranty</h4>
+                            <p>On all parts & services</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid Section -->
+        <section class="features-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Why E-Scooter Owners Trust VoltGlide</h2>
+                    <p class="section-subtitle">We combine tech-forward diagnostics with original components to ensure maximum scooter safety.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-laptop-medical"></i></div>
+                        <h3>Smart Diagnostics</h3>
+                        <p>Our digital tools pinpoint controller and battery hardware issues instantly, preventing unnecessary repairs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-user-gear"></i></div>
+                        <h3>Certified Techs</h3>
+                        <p>Our specialists have repaired over 15,000+ custom and premium e-scooter powertrains and controller boards.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-boxes-packing"></i></div>
+                        <h3>Original Components</h3>
+                        <p>We stock only genuine OEM batteries, motors, brake calipers, and tires for brands like Segway, Xiaomi, and Apollo.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <h3>Same-Day Turnaround</h3>
+                        <p>Standard fixes like flats, brakes tuning, and firmware flash updates are finished in under 3 hours.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Diagnostic Guide Finder Section -->
+        <section id="diagnostic-guide-section" class="diagnostic-guide-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Smart Troubleshooting Diagnostic Assistant</h2>
+                    <p class="section-subtitle">Is your scooter flashing an error code or behaving strangely? Select a category to see common fixes, estimated repair costs, and repair steps.</p>
+                </div>
+                <div class="diagnostic-assistant-wrapper">
+                    <!-- Symptoms Selector -->
+                    <div class="symptom-selector">
+                        <button class="symptom-tab active" onclick="filterDiagnostics('battery', this)">
+                            <i class="fa-solid fa-battery-three-quarters"></i> Battery & Range
+                        </button>
+                        <button class="symptom-tab" onclick="filterDiagnostics('motor', this)">
+                            <i class="fa-solid fa-motorcycle"></i> Motor & Speed
+                        </button>
+                        <button class="symptom-tab" onclick="filterDiagnostics('brakes', this)">
+                            <i class="fa-solid fa-circle-stop"></i> Brakes & Handling
+                        </button>
+                        <button class="symptom-tab" onclick="filterDiagnostics('electronics', this)">
+                            <i class="fa-solid fa-microchip"></i> Electronics & Errors
+                        </button>
+                        <button class="symptom-tab" onclick="filterDiagnostics('body', this)">
+                            <i class="fa-solid fa-screwdriver"></i> Tires & Body
+                        </button>
+                    </div>
+
+                    <!-- Diagnostics Dynamic Content Panel -->
+                    <div class="diagnostic-results" id="diagnostic-results-panel">
+                        <!-- Loaded via Javascript dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parts Catalog Preview Section -->
+        <section class="parts-catalog-preview">
+            <div class="section-container">
+                <div class="section-header split">
+                    <div>
+                        <h2 class="section-title">Premium Parts & Upgrade Catalog</h2>
+                        <p class="section-subtitle font-sm">Explore our highest-selling OEM parts, certified for maximum performance.</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="navigateToDashboardShop()"><i class="fa-solid fa-basket-shopping"></i> Visit Full Store</button>
+                </div>
+                <div class="parts-grid-preview" id="parts-preview-container">
+                    <!-- Loaded dynamically via Javascript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- DIY Video Guides Preview -->
+        <section class="diy-videos-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">E-Scooter DIY Maintenance Video Hub</h2>
+                    <p class="section-subtitle">Learn how to maintain tire pressure, check brake pads, and clean throttle controllers at home.</p>
+                </div>
+                <div class="video-grid" id="home1-video-grid">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials / Trust Section -->
+        <section class="testimonials-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Rider Reviews</h2>
+                    <p class="section-subtitle">Check out what fellow urban commuters say about our repair speed and parts quality.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="testimonial-text">"My Segway Max had error 14 (throttle). The diagnostic wizard on VoltGlide pinpointed it instantly. Brought it in, they fixed it in 2 hours for exactly the estimated price!"</p>
+                        <div class="testimonial-user">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="Customer Profile">
+                            <div>
+                                <h4>Marcus Vance</h4>
+                                <span>Segway Ninebot Max Owner</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="testimonial-text">"Fantastic shop. Finding high-quality tires for Xiaomi M365 is tough, but their parts catalog had original solid tires in stock. Their booking portal made scheduling a breeze."</p>
+                        <div class="testimonial-user">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" alt="Customer Profile">
+                            <div>
+                                <h4>Elena Rostova</h4>
+                                <span>Xiaomi Pro 2 Rider</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="testimonial-text">"Upgraded my battery capacity for Apollo Ghost here. Excellent communication. The technician updated my job details in my dashboard, and I watched the repair status step-by-step!"</p>
+                        <div class="testimonial-user">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100" alt="Customer Profile">
+                            <div>
+                                <h4>Jason Carver</h4>
+                                <span>Apollo Ghost Commuter</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ==============================================
+         HOME 2 VIEW: Promotional & Cost Estimator
+         ============================================== -->
+    <main id="home2-view" class="view-container hidden">
+        <!-- Interactive Hero & Quick Cost Estimator -->
+        <section class="hero-section alt-hero">
+            <div class="section-container grid-2">
+                <div class="hero-content">
+                    <div class="badge-pill secondary"><i class="fa-solid fa-calculator"></i> Price Estimator System Enabled</div>
+                    <h1 class="hero-title">Transparent Pricing.<br><span class="gradient-text-alt">Zero Guesswork.</span></h1>
+                    <p class="hero-desc">Tired of surprise mechanics' bills? Select your scooter model and the repairs you need below. Get an accurate quote instantly and lock in your appointment.</p>
+                    <div class="estimator-teaser">
+                        <div class="teaser-stat">
+                            <h3>100%</h3>
+                            <p>Quote Accuracy</p>
+                        </div>
+                        <div class="teaser-stat">
+                            <h3>30 Mins</h3>
+                            <p>Free Diagnosis</p>
+                        </div>
+                        <div class="teaser-stat">
+                            <h3>12K+</h3>
+                            <p>Estimates Calculated</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Interactive Price Estimator Card -->
+                <div class="estimator-card glass-card">
+                    <h3><i class="fa-solid fa-calculator card-icon-green"></i> Repair Price Estimator</h3>
+                    <p class="card-subtitle">Calculate the service fee for your specific scooter model.</p>
+                    <form id="estimator-form" onsubmit="event.preventDefault()">
+                        <!-- Select Brand -->
+                        <div class="form-group">
+                            <label for="est-brand">Scooter Brand / Manufacturer</label>
+                            <select id="est-brand" onchange="calculateEstimate()">
+                                <option value="xiaomi">Xiaomi (M365, Pro 2, Essential)</option>
+                                <option value="segway">Segway Ninebot (ES, Max, F Series)</option>
+                                <option value="apollo">Apollo (City, Explore, Ghost)</option>
+                                <option value="dualtron">Dualtron (Ultra, Spider, Thunder)</option>
+                                <option value="vsett">Vsett (8, 9+, 10+)</option>
+                            </select>
+                        </div>
+                        <!-- Select Services -->
+                        <div class="form-group">
+                            <label>Required Service(s)</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" value="50" class="est-service" onchange="calculateEstimate()"> Tire Tube Change / Solid Swap
+                                    <span class="checkbox-checkmark"></span>
+                                    <span class="service-price-badge">$50</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" value="45" class="est-service" onchange="calculateEstimate()"> Disc Brake Caliper & Pad Service
+                                    <span class="checkbox-checkmark"></span>
+                                    <span class="service-price-badge">$45</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" value="95" class="est-service" onchange="calculateEstimate()"> Smart controller replacement
+                                    <span class="checkbox-checkmark"></span>
+                                    <span class="service-price-badge">$95</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" value="120" class="est-service" onchange="calculateEstimate()"> Custom Battery Cell Rebuilding & Balance
+                                    <span class="checkbox-checkmark"></span>
+                                    <span class="service-price-badge">$120</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" value="30" class="est-service" onchange="calculateEstimate()"> Electronic Throttle / Dashboard Screen Flash
+                                    <span class="checkbox-checkmark"></span>
+                                    <span class="service-price-badge">$30</span>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Add-ons -->
+                        <div class="form-group">
+                            <label>Add-ons</label>
+                            <label class="checkbox-container">
+                                <input type="checkbox" value="40" id="est-waterproof" onchange="calculateEstimate()"> Silicone Waterproof Coating IPX6
+                                <span class="checkbox-checkmark"></span>
+                                <span class="service-price-badge">+$40</span>
+                            </label>
+                        </div>
+                        <div class="estimate-total-box">
+                            <span>Estimated Total Cost</span>
+                            <span class="total-price" id="estimator-total">$0.00</span>
+                        </div>
+                        <button class="btn btn-primary btn-full" onclick="bookEstimatedService()">Book Estimate Repair</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works section -->
+        <section class="how-it-works">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">The VoltGlide Repair Protocol</h2>
+                    <p class="section-subtitle">How we repair your e-scooter from intake to test ride.</p>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-num">01</div>
+                        <h3>Digital Intake & Diagnosis</h3>
+                        <p>Submit your repair request online or bring your scooter to our shop. We run computerized motherboard and diagnostic checks.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">02</div>
+                        <h3>Status Log Tracking</h3>
+                        <p>Our technicians issue a digital ticket. You will receive updates directly on your dashboard as the scooter begins disassembly.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">03</div>
+                        <h3>Certified Repair Execution</h3>
+                        <p>We replace worn-out components with original brand parts and solder delicate electronic points inside a static-free chamber.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">04</div>
+                        <h3>Safety Dyno Test</h3>
+                        <p>Every repaired scooter undergoes a 5-point test ride (braking distance, motor acceleration, temperature, and range check) before release.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- E-Scooter Health Score Calculator -->
+        <section class="health-calculator-section">
+            <div class="section-container grid-2">
+                <div class="health-image-container">
+                    <img src="./e2.webp" alt="Scooter Diagnostics Check" class="health-img">
+                </div>
+                <div class="health-calc-card glass-card">
+                    <h3><i class="fa-solid fa-heart-pulse card-icon-blue"></i> Scooter Health & Range Score</h3>
+                    <p class="card-subtitle">Answer these questions to estimate your battery capacity and general mechanical condition.</p>
+                    <form id="health-calculator-form" onsubmit="event.preventDefault()">
+                        <div class="form-group">
+                            <label for="health-mileage">Approximate Mileage (Total Odometer)</label>
+                            <select id="health-mileage">
+                                <option value="100">Less than 300 miles (New condition)</option>
+                                <option value="85">300 to 1,000 miles (Moderate wear)</option>
+                                <option value="60">1,000 to 2,500 miles (Needs inspection)</option>
+                                <option value="40">More than 2,500 miles (High wear)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="health-battery">Battery Charging Frequency</label>
+                            <select id="health-battery">
+                                <option value="100">Charged daily / kept between 20-80%</option>
+                                <option value="80">Charged to 100% and left plugged in</option>
+                                <option value="60">Drained to 0% frequently before charge</option>
+                                <option value="45">Left in storage uncharged for weeks</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="health-riding">Primary Riding Conditions</label>
+                            <select id="health-riding">
+                                <option value="100">Smooth flat pavements (Dry weather)</option>
+                                <option value="85">Cobblestones / bumpy streets</option>
+                                <option value="70">Wet terrain / light rain commuter</option>
+                                <option value="50">Off-road / heavy water puddles</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-secondary btn-full" onclick="calculateHealthScore()"><i class="fa-solid fa-microchip"></i> Analyze Health Score</button>
+                    </form>
+
+                    <!-- Health Score Results -->
+                    <div id="health-result-box" class="health-result-box hidden">
+                        <div class="health-progress-ring">
+                            <div class="health-score-val" id="health-score-num">85%</div>
+                        </div>
+                        <div class="health-text-desc">
+                            <h4 id="health-status-title">Excellent Health</h4>
+                            <p id="health-status-desc">Your scooter's battery cells and mechanical components are operating efficiently. Keep maintaining tire pressure!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fleet Repair Services promo -->
+        <section class="fleet-repair-promo">
+            <div class="section-container grid-2-align-center">
+                <div class="fleet-content">
+                    <span class="badge-pill"><i class="fa-solid fa-building-circle-check"></i> Commercial Fleet Repairs</span>
+                    <h2>Own a Scooter Rental Fleet or Delivery Business?</h2>
+                    <p>We provide enterprise service agreements for delivery agencies, rental networks, and local businesses. Keep your delivery scooters on the street with prioritised parts replacement and weekly inspections.</p>
+                    <ul class="fleet-list">
+                        <li><i class="fa-solid fa-check text-green"></i> Wholesale Pricing on Tires and Brake Pads</li>
+                        <li><i class="fa-solid fa-check text-green"></i> 24-Hour Express Turnaround for Fleet Accounts</li>
+                        <li><i class="fa-solid fa-check text-green"></i> Mobile Technician dispatching for simple tasks</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="navigateTo('contact')">Contact Fleet Team</button>
+                </div>
+                <div class="fleet-image">
+                    <img src="./e11.jpg" alt="Commercial Fleet Repair Center" class="rounded-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Frequently Asked Questions Accordion -->
+        <section class="faq-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Common Rider Inquiries</h2>
+                    <p class="section-subtitle">Find immediate answers to battery issues, warranties, and custom firmware flash options.</p>
+                </div>
+                <div class="faq-accordion-container">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>How long does a solid tire conversion take?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Solid tire replacements require high-pressure hydraulic presses. Standard installations take about 1.5 to 2 hours per wheel. We recommend solid conversions to riders tired of constant flat tires on glass-prone urban pavements.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>My scooter shows 'Error 15' on the screen. What does it mean?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Error 15 is typically a hall sensor issue inside your brake lever assembly. It means the controller cannot read the throttle or brake's magnetic signal. Our technicians can replace the brake sensor or the entire brake lever assembly within 45 minutes.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Do you repair custom batteries or BMS controllers?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. Our electronics chamber is fully equipped to solder BMS (Battery Management System) boards, re-weld disconnected battery cells, and replace blown fuses on custom lithium-ion battery packs safely.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ==============================================
+         ABOUT US VIEW
+         ============================================== -->
+    <main id="about-view" class="view-container hidden">
+        <!-- Hero Section -->
+        <section class="about-hero">
+            <div class="section-container grid-2-align-center">
+                <div class="about-hero-content">
+                    <span class="badge-pill"><i class="fa-solid fa-history"></i> Our Commute Journey</span>
+                    <h1 class="about-title">Pioneering Urban Micro-Mobility Care</h1>
+                    <p class="about-desc">Founded in 2019, VoltGlide started as a small local garage fixing flat tires for early e-scooter riders. As electric commuting exploded, we engineered professional-grade electronic diagnostics systems to handle controller chips, custom firmware calibrations, and advanced high-capacity lithium battery welding.</p>
+                    <p class="about-desc">Today, we are the leading urban micro-mobility repair laboratory, dedicated to keeping riders moving cleanly, safely, and cost-effectively.</p>
+                </div>
+                <div class="about-hero-img-box">
+                    <img src="./e3.webp" alt="VoltGlide Workshop" class="about-main-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="about-stats-section">
+            <div class="section-container">
+                <div class="stats-grid">
+                    <div class="stat-card-box">
+                        <h3>18,500+</h3>
+                        <p>Scooters Serviced</p>
+                    </div>
+                    <div class="stat-card-box">
+                        <h3>99.2%</h3>
+                        <p>Satisfaction Rating</p>
+                    </div>
+                    <div class="stat-card-box">
+                        <h3>12 Months</h3>
+                        <p>Warranty Protection</p>
+                    </div>
+                    <div class="stat-card-box">
+                        <h3>14 Core</h3>
+                        <p>Brands Supported</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Our Master Mechanics & Specialists</h2>
+                    <p class="section-subtitle">Meet the electronics engineers and mechanical wizards who inspect and tune your rides.</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200" alt="Team Lead" class="team-avatar">
+                        <h3>Sergei Volkov</h3>
+                        <p class="team-role">Founder & Chief Electronics Tech</p>
+                        <p class="team-bio">Specialist in BMS diagnostics, custom firmware configuration, and battery cell mapping.</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200" alt="Technician" class="team-avatar">
+                        <h3>Rachel Miller</h3>
+                        <p class="team-role">Lead Mechanical Specialist</p>
+                        <p class="team-bio">Tire conversion guru, brake bleeding expert, and structural frame safety analyst.</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200" alt="Technician" class="team-avatar">
+                        <h3>Akira Sato</h3>
+                        <p class="team-role">Controller Diagnostics Engineer</p>
+                        <p class="team-bio">Specialist in brushless hub motor rewiring and hall-sensor board debugging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Laboratory Safety Showoff -->
+        <section class="lab-safety-section">
+            <div class="section-container grid-2-align-center">
+                <div class="lab-image">
+                    <img src="./e7.webp" alt="VoltGlide Laboratory Testing Chamber" class="rounded-img">
+                </div>
+                <div class="lab-content">
+                    <h2>Our Static-Free Electronics Laboratory</h2>
+                    <p>Unlike standard bicycle repair shops, VoltGlide runs a clean room chamber dedicated exclusively to micro-electronics repair. We solder under stereo microscopes, use digital oscilloscopes to inspect controller signals, and execute battery cycle-capacity load testing inside safety-certified steel battery chambers.</p>
+                    <p>Your scooter's electronic heart is highly sensitive. We protect it from ESD damage, incorrect voltage spikes, and improper thermal sealings.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Values Section (About 1) -->
+        <section class="about-values-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Core Values We Solder By</h2>
+                    <p class="section-subtitle">The principles that guide our technical laboratory and customer service standards.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-shield-halved text-green"></i></div>
+                        <h3>Lithium Safety Absolute</h3>
+                        <p>All battery diagnostics and balance welding are completed inside fireproof steel enclosures under static-free conditions.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-leaf text-green"></i></div>
+                        <h3>E-Waste Reduction</h3>
+                        <p>We actively salvage circuit board components and correctly recycle lithium cells, minimizing local urban e-waste footprint.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-scale-balanced text-green"></i></div>
+                        <h3>Honest Appraisals</h3>
+                        <p>If your scooter controller doesn't need to be replaced, we don't bill you. We repair rather than discard whenever possible.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Green Impact Calculator Section (About 2) -->
+        <section class="green-impact-section">
+            <div class="section-container grid-2-align-center">
+                <div class="green-content">
+                    <span class="badge-pill secondary"><i class="fa-solid fa-leaf"></i> Interactive Eco-Tracker</span>
+                    <h2>Track Your Carbon Reduction Impact</h2>
+                    <p>Electric scooters are one of the most carbon-efficient transit options. Slide your daily commute mileage below to calculate your estimated annual CO2 emissions savings and green offset impact compared to a gasoline car.</p>
+                    
+                    <div class="calculator-slider-box margin-top-md">
+                        <label for="green-mileage-range">Your Daily Commute Distance: <strong id="green-miles-val">15 miles</strong></label>
+                        <input type="range" id="green-mileage-range" min="2" max="60" value="15" class="green-slider" oninput="updateGreenImpact()">
+                    </div>
+                    
+                    <div class="green-results-grid margin-top-md">
+                        <div class="green-result-card">
+                            <span class="result-number text-green" id="green-co2-val">1,240 lbs</span>
+                            <span class="result-label">CO2 Saved / Year</span>
+                        </div>
+                        <div class="green-result-card">
+                            <span class="result-number text-green" id="green-trees-val">14 Trees</span>
+                            <span class="result-label">Trees Equivalent Offset</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="green-visual">
+                    <img src="./e12.jpg" alt="Eco Ride Energy Saved" class="rounded-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- VoltGlide Innovation Timeline Section (About 3) -->
+        <section class="about-timeline-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Milestones & Technical Evolution</h2>
+                    <p class="section-subtitle">From a small flat-tire fixing garage to a certified micro-mobility laboratory.</p>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2019</div>
+                        <div class="timeline-content glass-card">
+                            <h3>Humble Intake Garage</h3>
+                            <p>VoltGlide launches in a small storefront in Silicon District, focusing on standard tube replacements and brake pads alignment.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2021</div>
+                        <div class="timeline-content glass-card">
+                            <h3>BMS Diagnostics Upgrade</h3>
+                            <p>We designed our proprietary computer-connected BMS diagnostics box to identify faulty lithium cells without complete pack dismantling.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2023</div>
+                        <div class="timeline-content glass-card">
+                            <h3>UN38.3 Safe Chambers</h3>
+                            <p>Installed professional static-free workbenches and steel-chamber load testing bays for maximum safety during electric repairs.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2025</div>
+                        <div class="timeline-content glass-card">
+                            <h3>15,000+ Commutes Serviced</h3>
+                            <p>Secured partnerships with fleet delivery operators and built our interactive digital booking platform for public retail riders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ==============================================
+         SERVICES & PRICING
+         ============================================== -->
+    <main id="services-view" class="view-container hidden">
+        <!-- Main Services Hero -->
+        <section class="services-main-hero">
+            <div class="section-container grid-2-align-center">
+                <div class="services-hero-text">
+                    <span class="badge-pill"><i class="fa-solid fa-screwdriver-wrench text-green"></i> Professional Care</span>
+                    <h1 class="services-hero-title">Electric Scooter Service Packages</h1>
+                    <p class="services-hero-desc">We offer specialized electronics diagnostics, mechanical upgrades, and certified lithium battery repairs. Check our transparent pricing and book a service below.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="scrollToElement('pricing-table-section')"><i class="fa-solid fa-magnifying-glass"></i> View Price Directory</button>
+                        <button class="btn btn-secondary" onclick="openBookingModal()"><i class="fa-solid fa-calendar-check"></i> Book Intake Slot</button>
+                    </div>
+                </div>
+                <div class="services-hero-visual">
+                    <img src="./e4.jpg" alt="Scooter parts overhaul" class="rounded-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Grid List -->
+        <section class="services-hero">
+            <div class="section-container">
+                <div class="section-header center">
+                    <span class="badge-pill"><i class="fa-solid fa-cogs"></i> Technical Packages</span>
+                    <h2 class="services-title">Repair Packages & Diagnostic Rates</h2>
+                    <p class="services-desc">From flat tire conversion to advanced electronic board re-soldering, select the service you need.</p>
+                </div>
+                <div class="services-grid-list">
+                    <div class="service-list-card">
+                        <div class="card-image-box">
+                            <img src="./e4.jpg" alt="Tire & Wheel Repair">
+                        </div>
+                        <div class="card-details">
+                            <h3>Tire & Tubeless Conversions</h3>
+                            <p>Flat tires are the most common issue. We mount replacement tubes, fit puncture-proof solid tires, and offer tubeless gel seals for tubeless rims.</p>
+                            <span class="price-indicator">From $50.00</span>
+                        </div>
+                    </div>
+                    <div class="service-list-card">
+                        <div class="card-image-box">
+                            <img src="./e5.jpg" alt="Battery Diagnostic">
+                        </div>
+                        <div class="card-details">
+                            <h3>Battery BMS Diagnostics</h3>
+                            <p>Fix range drops and battery power cuts. We replace faulty BMS chips, test individual cells, replace terminal connections, and build high-capacity battery packs.</p>
+                            <span class="price-indicator">From $85.00</span>
+                        </div>
+                    </div>
+                    <div class="service-list-card">
+                        <div class="card-image-box">
+                            <img src="./e6.png" alt="Brakes Tuning">
+                        </div>
+                        <div class="card-details">
+                            <h3>Brake Overhaul & Calibration</h3>
+                            <p>Commuting safely requires excellent stopping power. We calibrate disc calipers, swap worn brake pads, bleed hydraulic fluids, and replace bent brake rotors.</p>
+                            <span class="price-indicator">From $45.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Price List (Searchable Table) -->
+        <section class="price-table-section" id="pricing-table-section">
+            <div class="section-container">
+                <div class="section-header split">
+                    <div>
+                        <h2>Detailed Price List Directory</h2>
+                        <p class="section-subtitle font-sm">Search our standard labor fees. Custom repairs are billed at $65/hour.</p>
+                    </div>
+                    <div class="table-search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="price-search-input" placeholder="Search service, e.g. tire..." onkeyup="searchPriceTable()">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="pricing-table" id="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Service Description</th>
+                                <th>Est. Duration</th>
+                                <th>Original Parts Included</th>
+                                <th>Pricing</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tires</td>
+                                <td>Solid Puncture-Proof Tire Upgrade (Single)</td>
+                                <td>1.5 Hours</td>
+                                <td>Yes (Premium Solid)</td>
+                                <td class="table-price">$65.00</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="openBookingWithService('Solid Puncture-Proof Tire Upgrade')">Book</button></td>
+                            </tr>
+                            <tr>
+                                <td>Tires</td>
+                                <td>Standard Inner Tube Replacement (Front or Rear)</td>
+                                <td>1.0 Hours</td>
+                                <td>Yes (Thickened Tube)</td>
+                                <td class="table-price">$45.00</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="openBookingWithService('Standard Inner Tube Replacement')">Book</button></td>
+                            </tr>
+                            <tr>
+                                <td>Brakes</td>
+                                <td>Semi-Metallic Brake Pads Replacement (Set of 2)</td>
+                                <td>45 Mins</td>
+                                <td>Yes (Organic Pads)</td>
+                                <td class="table-price">$35.00</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="openBookingWithService('Brake Pads Replacement')">Book</button></td>
+                            </tr>
+                            <tr>
+                                <td>Brakes</td>
+                                <td>Hydraulic System Bleeding & Fluid Flush</td>
+                                <td>1.5 Hours</td>
+                                <td>No (Labor only)</td>
+                                <td class="table-price">$55.00</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="openBookingWithService('Hydraulic Brake Bleeding')">Book</button></td>
+                            </tr>
+                            <tr>
+                                <td>Electronics</td>
+                                <td>Dashboard Screen Replacement & Firmware Flash</td>
+                                <td>1.0 Hours</td>
+                                <td>Yes (OEM Screen)</td>
+                                <td class="table-price">$80.00</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="openBookingWithService('Dashboard Screen Replacement')">Book</button></td>
+                            </tr>
+                            <tr>
+                                <td>Electronics</td>
+                                <td>Smart Controller Chip Assembly (Segway/Xiaomi)</td>
+                                <td>2.0 Hours</td>
+                                <td>Yes (Controller Board)</td>
+                                <td class="table-price">$110.00</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="openBookingWithService('Controller Board Assembly')">Book</button></td>
+                            </tr>
+                            <tr>
+                                <td>Battery</td>
+                                <td>Lithium-ion Pack Diagnostics & Cell Balancing</td>
+                                <td>3.0 Hours</td>
+                                <td>No (Labor only)</td>
+                                <td class="table-price">$120.00</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="openBookingWithService('Battery Cell Diagnostics')">Book</button></td>
+                            </tr>
+                            <tr>
+                                <td>Motor</td>
+                                <td>Hall Sensor Replacement (Brushless Hub Motor)</td>
+                                <td>2.5 Hours</td>
+                                <td>Yes (Hall Sensors)</td>
+                                <td class="table-price">$95.00</td>
+                                <td><button class="btn btn-sm btn-primary" onclick="openBookingWithService('Hall Sensor Replacement')">Book</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Modifications & Performance Upgrades (Services 1) -->
+        <section class="custom-mods-section">
+            <div class="section-container grid-2-align-center">
+                <div class="mods-visual">
+                    <img src="./e8.webp" alt="Scooter speed tuning upgrades" class="rounded-img">
+                </div>
+                <div class="mods-content">
+                    <span class="badge-pill"><i class="fa-solid fa-rocket text-green"></i> Performance Modifications</span>
+                    <h2>Custom Upgrades & High-Speed Tuning</h2>
+                    <p>Want to unlock the full potential of your electric scooter? We offer performance modifications for private property and track use. Our specialists can bypass speed governors, upgrade motors, and install custom suspensions.</p>
+                    <div class="features-grid-mini">
+                        <div class="feature-item-mini">
+                            <i class="fa-solid fa-rocket text-green"></i>
+                            <div>
+                                <h4>Motor Upgrades</h4>
+                                <p>Higher torque and peak watt output brushless motors.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item-mini">
+                            <i class="fa-solid fa-lightbulb text-green"></i>
+                            <div>
+                                <h4>LED Underglow Lighting</h4>
+                                <p>High-visibility under-deck LED installs wired to main battery.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item-mini">
+                            <i class="fa-solid fa-arrows-up-down-left-right text-green"></i>
+                            <div>
+                                <h4>Deck Widening & Suspension</h4>
+                                <p>Premium spring or hydraulic shocks to absorb road vibrations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Warranty & SLA Details (Services 2) -->
+        <section class="service-warranty-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">VoltGlide Worry-Free Guarantee</h2>
+                    <p class="section-subtitle">Every single repair we execute is backed by our full warranty coverage.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-calendar-check text-green"></i></div>
+                        <h3>12-Month Parts Warranty</h3>
+                        <p>We stand behind the parts we install. If an OEM battery, controller, or motor fails within a year, we replace it free of charge.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-user-shield text-green"></i></div>
+                        <h3>3-Month Labor Coverage</h3>
+                        <p>If you experience any squeaking, loose bolts, or calibrations issues post-service, bring it in for a free mechanical adjustment.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-circle-exclamation text-green"></i></div>
+                        <h3>What is Covered</h3>
+                        <p>Full warranty covers factory parts failures, soldering joints, and caliper fittings. Does not cover normal tire wear or water damage.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-handshake text-green"></i></div>
+                        <h3>Price Match Guarantee</h3>
+                        <p>We will match any official local repair shop rates for comparable micro-mobility diagnostic services and parts replacements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Specialization Section (Services 3) -->
+        <section class="tech-spec-section">
+            <div class="section-container grid-2-align-center">
+                <div class="spec-content">
+                    <span class="badge-pill secondary"><i class="fa-solid fa-user-check"></i> Quality Standards</span>
+                    <h2>Certified Tech Specializations</h2>
+                    <p>To ensure high quality, we assign your scooter to a specialist dedicated to that exact type of repair. Check our specialization matrix:</p>
+                    <ul class="spec-list margin-top-md">
+                        <li>
+                            <i class="fa-solid fa-microchip text-green"></i>
+                            <div><strong>Sergei Volkov:</strong> Lithium balancing, capacity diagnostics, controller chip soldering.</div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-circle-notch text-green"></i>
+                            <div><strong>Rachel Miller:</strong> Solid tires, tubeless conversions, disc alignment.</div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-bolt text-green"></i>
+                            <div><strong>Akira Sato:</strong> Motor rewinding, hall sensors, dashboard software flashes.</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="spec-visual">
+                    <img src="./e10.jpg" alt="Certified technician repairing scooter controller" class="rounded-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Repair Turnaround Timeframe SLAs (Services 4) -->
+        <section class="turnaround-sla-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Standard Turnaround Service Times</h2>
+                    <p class="section-subtitle">Average durations to help you plan your week while your scooter is in the shop.</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card-box">
+                        <h3>1-2 Hours</h3>
+                        <p>Flat Tire Replacements</p>
+                    </div>
+                    <div class="stat-card-box">
+                        <h3>2-3 Hours</h3>
+                        <p>Controller Swaps & Flashing</p>
+                    </div>
+                    <div class="stat-card-box">
+                        <h3>24 Hours</h3>
+                        <p>Standard Battery Pack Diagnosis</p>
+                    </div>
+                    <div class="stat-card-box">
+                        <h3>2-3 Days</h3>
+                        <p>Custom Cell Spot-Welding & Balances</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ==============================================
+         CONTACT US VIEW
+         ============================================== -->
+    <!-- ==============================================
+         CONTACT US VIEW
+         ============================================== -->
+    <main id="contact-view" class="view-container hidden">
+        <!-- Main Contact Hero -->
+        <section class="contact-main-hero">
+            <div class="section-container grid-2-align-center">
+                <div class="contact-hero-text">
+                    <span class="badge-pill"><i class="fa-solid fa-headset text-green"></i> Support Center</span>
+                    <h1 class="contact-hero-title">Connect with VoltGlide Support</h1>
+                    <p class="contact-hero-desc">Have a question about booking, custom parts availability, or need emergency dispatch? We are here to keep your electric scooter running like new.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="scrollToElement('contact-form')"><i class="fa-solid fa-envelope"></i> Send Message</button>
+                        <button class="btn btn-secondary" onclick="scrollToElement('city-map-svg')"><i class="fa-solid fa-location-dot"></i> View Workshop Map</button>
+                    </div>
+                </div>
+                <div class="contact-hero-visual">
+                    <img src="./e6.png" alt="Scooter dashboard and callout care" class="rounded-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Standard Contact Details and Form -->
+        <section class="contact-section">
+            <div class="section-container grid-2">
+                <!-- Contact info -->
+                <div class="contact-info">
+                    <span class="badge-pill"><i class="fa-solid fa-map-location"></i> Visit Our Shop</span>
+                    <h2 class="contact-title">Let's Get Your Ride Rolling Again</h2>
+                    <p class="contact-desc">Drop by our workshop directly or send us a diagnostic inquiry message. Our typical email response time is under 1 hour during business hours.</p>
+
+                    <div class="contact-detail-list">
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-icon"><i class="fa-solid fa-shop"></i></span>
+                            <div>
+                                <h4>VoltGlide Workshop Center</h4>
+                                <p>102 Cyber Drive, Suite A, Silicon District</p>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-icon"><i class="fa-solid fa-clock"></i></span>
+                            <div>
+                                <h4>Working Hours</h4>
+                                <p>Mon - Fri: 8:00 AM - 7:00 PM <br> Saturday: 9:00 AM - 4:00 PM (Sunday Closed)</p>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-icon"><i class="fa-solid fa-phone"></i></span>
+                            <div>
+                                <h4>Call Technical Support</h4>
+                                <p>+1 (555) 234-BOLT (2658)</p>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-icon"><i class="fa-solid fa-envelope"></i></span>
+                            <div>
+                                <h4>Direct Email Address</h4>
+                                <p>support@voltglide-escooter.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Card -->
+                <div class="contact-form-card glass-card">
+                    <h3>Send Us A Message</h3>
+                    <p class="card-subtitle">Have a custom question or need a bulk fleet repair quote?</p>
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)">
+                        <div class="form-group">
+                            <label for="contact-name">Your Full Name</label>
+                            <input type="text" id="contact-name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-scooter">Scooter Model</label>
+                            <input type="text" id="contact-scooter" placeholder="Xiaomi Pro 2 (Optional)">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Describe Your Scooter's Issue</label>
+                            <textarea id="contact-message" rows="4" placeholder="Briefly describe what's wrong (e.g. error code, won't hold charge, flat tire...)" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Submit Diagnostic Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simulated Real Map / Location Details -->
+        <section class="map-simulation-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2>VoltGlide Cyber-District Location Map</h2>
+                    <p class="section-subtitle">Use the controls to search streets or zoom into our Silicon District intake facility.</p>
+                </div>
+                <div class="interactive-map-wrapper glass-card">
+                    <!-- Map Controls -->
+                    <div class="map-controls-bar">
+                        <div class="map-search-field">
+                            <input type="text" id="map-search-input" placeholder="Search street (e.g. Cyber Drive)...">
+                            <button class="btn btn-sm btn-primary" onclick="searchMapStreet()"><i class="fa-solid fa-location-crosshairs"></i> Search</button>
+                        </div>
+                        <div class="map-zoom-buttons">
+                            <button class="btn-qty" onclick="adjustMapZoom(0.1)" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+                            <button class="btn-qty" onclick="adjustMapZoom(-0.1)" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+                            <button class="btn-qty" onclick="resetMapZoom()" title="Center Map"><i class="fa-solid fa-expand"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Map Body (SVG City Grid) -->
+                    <div class="map-canvas-container" style="overflow: hidden; background: var(--card-bg); height: 450px; border-radius: 12px; border: 1px solid var(--border-color); position: relative;">
+                        <svg id="city-map-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; transform-origin: center; transition: transform 0.3s ease;">
+                            <!-- Background Grid Pattern -->
+                            <defs>
+                                <pattern id="map-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--border-color)" stroke-width="0.5" opacity="0.3"/>
+                                </pattern>
+                            </defs>
+                            <rect width="100%" height="100%" fill="var(--card-bg)" />
+                            <rect width="100%" height="100%" fill="url(#map-grid)" />
+
+                            <!-- Water Body / Creek -->
+                            <path d="M 0,350 Q 200,380 400,320 T 800,360 L 800,450 L 0,450 Z" fill="rgba(0, 150, 255, 0.08)" stroke="rgba(0, 150, 255, 0.2)" stroke-width="2"/>
+                            <text x="500" y="400" fill="var(--text-dim)" opacity="0.4" font-size="12" font-style="italic">Silicon Creek</text>
+
+                            <!-- Green Park Area -->
+                            <rect x="50" y="50" width="180" height="120" rx="10" fill="rgba(46, 213, 115, 0.04)" stroke="rgba(46, 213, 115, 0.15)" stroke-width="1.5" />
+                            <text x="75" y="115" fill="var(--text-dim)" opacity="0.4" font-size="12" font-weight="600">Cyber-Green Park</text>
+
+                            <!-- Streets Grid (Lines) -->
+                            <!-- Silicon Blvd (Horizontal) -->
+                            <line id="street-silicon-blvd" x1="0" y1="200" x2="800" y2="200" stroke="var(--border-color)" stroke-width="14" stroke-linecap="round" opacity="0.6"/>
+                            <text x="650" y="192" fill="var(--text-dim)" font-size="10" font-weight="bold" letter-spacing="1">SILICON BLVD</text>
+
+                            <!-- Lithium Ave (Horizontal) -->
+                            <line id="street-lithium-ave" x1="0" y1="80" x2="800" y2="80" stroke="var(--border-color)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+                            <text x="650" y="72" fill="var(--text-dim)" font-size="9" letter-spacing="1">LITHIUM AVE</text>
+
+                            <!-- Cyber Drive (Vertical) -->
+                            <line id="street-cyber-drive" x1="400" y1="0" x2="400" y2="330" stroke="var(--border-color)" stroke-width="16" stroke-linecap="round" opacity="0.6"/>
+                            <text x="412" y="50" fill="var(--text-dim)" font-size="10" font-weight="bold" transform="rotate(90, 412, 50)" letter-spacing="1">CYBER DRIVE</text>
+
+                            <!-- Ampere Street (Vertical) -->
+                            <line id="street-ampere-st" x1="180" y1="0" x2="180" y2="360" stroke="var(--border-color)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
+                            <text x="192" y="250" fill="var(--text-dim)" font-size="9" transform="rotate(90, 192, 250)" letter-spacing="1">AMPERE ST</text>
+
+                            <!-- VoltGlide Lab Building Anchor Point -->
+                            <g id="map-voltglide-marker" transform="translate(400, 200)" cursor="pointer" onclick="focusMapMarker()">
+                                <!-- Pulsing rings -->
+                                <circle r="25" fill="var(--primary-color)" opacity="0.15">
+                                    <animate attributeName="r" values="12;28;12" dur="3s" repeatCount="indefinite" />
+                                    <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite" />
+                                </circle>
+                                <circle r="12" fill="var(--primary-color)" opacity="0.4"/>
+                                <circle r="6" fill="#fff"/>
+                                <!-- Pin Icon -->
+                                <path d="M 0,-4 C -4,-8 -4,-16 0,-20 C 4,-16 4,-8 0,-4 Z" fill="var(--primary-color)"/>
+                                <circle cx="0" cy="-12" r="2" fill="#fff"/>
+                            </g>
+
+                            <!-- Street Highlights (Invisible by default, colored when searched) -->
+                            <line id="hl-cyber-drive" x1="400" y1="0" x2="400" y2="330" stroke="var(--primary-color)" stroke-width="6" opacity="0" stroke-linecap="round" style="transition: opacity 0.5s ease;"/>
+                            <line id="hl-silicon-blvd" x1="0" y1="200" x2="800" y2="200" stroke="var(--primary-color)" stroke-width="6" opacity="0" stroke-linecap="round" style="transition: opacity 0.5s ease;"/>
+
+                            <!-- Map Label Card -->
+                            <g transform="translate(425, 130)" id="map-tooltip-card">
+                                <rect width="180" height="60" rx="8" fill="var(--card-bg)" stroke="var(--primary-color)" stroke-width="1.5" />
+                                <text x="12" y="20" fill="var(--text-main)" font-size="11" font-weight="bold">VoltGlide Repair Lab</text>
+                                <text x="12" y="36" fill="var(--text-dim)" font-size="9">102 Cyber Drive (Silicon Corner)</text>
+                                <text x="12" y="48" fill="var(--primary-color)" font-size="9" font-weight="bold">Intake Bay: OPEN</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Routing Info Banner -->
+                    <div id="map-route-banner" class="map-route-banner hidden" style="background: rgba(46, 213, 115, 0.1); border: 1px solid rgba(46, 213, 115, 0.2); padding: 0.75rem; border-radius: 8px; margin-top: 1rem; text-align: center;">
+                        <i class="fa-solid fa-circle-info text-green" style="margin-right: 0.5rem;"></i> <span id="map-route-text" style="font-size: 0.9rem; font-weight: 500;">Route calculated successfully!</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Contact FAQ Accordion (Contact 1) -->
+        <section class="contact-faq-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Contact & Visit FAQ</h2>
+                    <p class="section-subtitle">Find immediate logistics info about parking, lounge amenities, and shipping services.</p>
+                </div>
+                <div class="faq-accordion-container">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Do you accept freight mail-in repairs for other states?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. If you live outside the Silicon District area, you can register a booking through your User Dashboard, package your scooter securely inside a heavy cardboard box, and ship it to our Intake facility. Return shipping rates are flat $45.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Can I wait in the shop while my flat tire is being repaired?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Absolutely. We have a dedicated Rider Lounge overlooking the clean room electronics lab. Enjoy complimentary espresso, high-speed Wi-Fi, and watch our mechanical specialists work on the hydraulic press lines.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Is drive-in parking available for bulk drop-offs?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, we have 4 designated drive-in parking spots directly in front of Bay Door A. You can unload your scooter and bring it straight to the digital intake counter.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadside Assistance / Dispatch Form (Contact 2) -->
+        <section class="roadside-dispatch-section">
+            <div class="section-container grid-2-align-center">
+                <div class="dispatch-content">
+                    <span class="badge-pill"><i class="fa-solid fa-truck-pickup"></i> Rapid Assistance</span>
+                    <h2>Emergency Roadside Breakdown Dispatch</h2>
+                    <p>Scooter broken down on your commute? If you are within 8 miles of our Silicon District workshop, submit an emergency callout. Our mobile technician van can meet you on-site for emergency tire solid swaps, battery jumps, or secure transit pickup.</p>
+                    <div class="dispatch-stats" style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1.5rem;">
+                        <div class="d-stat">
+                            <strong style="display: block; font-size: 2rem; color: var(--primary-color);">15 Mins</strong>
+                            <span style="font-size: 0.85rem; color: var(--text-dim);">Average Dispatch Time</span>
+                        </div>
+                        <div class="d-stat">
+                            <strong style="display: block; font-size: 2rem; color: var(--primary-color);">$35.00</strong>
+                            <span style="font-size: 0.85rem; color: var(--text-dim);">Flat Callout Fee</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dispatch-form-box glass-card">
+                    <h3>Request Mobile Dispatch</h3>
+                    <p class="card-subtitle">Fill in details for roadside technician arrival.</p>
+                    <form id="dispatch-form" onsubmit="handleDispatchSubmit(event)">
+                        <div class="form-group">
+                            <label for="disp-location">Current Street Intersection / Coordinates</label>
+                            <input type="text" id="disp-location" placeholder="e.g. 5th Ave & Cyber Drive" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="disp-scooter">Scooter Model</label>
+                            <input type="text" id="disp-scooter" placeholder="e.g. Segway F40" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="disp-issue">What happened?</label>
+                            <select id="disp-issue">
+                                <option value="flat">Sudden flat tire puncture</option>
+                                <option value="power">Complete power loss / BMS cutoff</option>
+                                <option value="lock">Electronic lock / dashboard error</option>
+                                <option value="brake">Brake line snapped</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Dispatch Technician Van</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- B2B Partner Stations Section (Contact 3) -->
+        <section class="partner-stations-section">
+            <div class="section-container grid-2-align-center">
+                <div class="partner-visual">
+                    <img src="./e11.jpg" alt="Partner workshop center" class="rounded-img">
+                </div>
+                <div class="partner-content">
+                    <span class="badge-pill secondary"><i class="fa-solid fa-handshake"></i> Technical Networks</span>
+                    <h2>Become an Authorized VoltGlide Station</h2>
+                    <p>Own a bicycle or mechanics shop? Partner with VoltGlide to access wholesale OEM parts supply, shared diagnostics software, and qualified customer repair referrals. Help expand clean electric micro-mobility care in your city.</p>
+                    <div class="partner-form-teaser margin-top-md">
+                        <form id="partner-form" onsubmit="event.preventDefault(); showToast('Partner application sent! Our network manager will review within 48h.')">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="p-shop-name">Shop Name</label>
+                                    <input type="text" id="p-shop-name" placeholder="Speedy Cycles" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="p-email">Business Email</label>
+                                    <input type="email" id="p-email" placeholder="manager@speedy.com" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-secondary btn-full">Submit Partner Application</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rider Feedback Survey Section (Contact 4) -->
+        <section class="rider-survey-section">
+            <div class="section-container">
+                <div class="feedback-card-wide glass-card">
+                    <div class="section-header center">
+                        <h2>Rate Your VoltGlide Experience</h2>
+                        <p class="section-subtitle">We continually improve our soldering chambers and calibration dynos based on user logs.</p>
+                    </div>
+                    <form id="survey-form" onsubmit="handleSurveySubmit(event)">
+                        <div class="rating-stars-row" style="display: flex; justify-content: center; gap: 1rem; margin: 1.5rem 0;">
+                            <span class="star-rating" data-val="1" onclick="rateSurveyStars(1)" style="font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                            <span class="star-rating" data-val="2" onclick="rateSurveyStars(2)" style="font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                            <span class="star-rating" data-val="3" onclick="rateSurveyStars(3)" style="font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                            <span class="star-rating" data-val="4" onclick="rateSurveyStars(4)" style="font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                            <span class="star-rating active" data-val="5" onclick="rateSurveyStars(5)" style="font-size: 2rem; cursor: pointer; color: var(--primary-color); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                        </div>
+                        <div class="form-group margin-top-md">
+                            <label for="survey-comment">What did you like or how can we improve?</label>
+                            <textarea id="survey-comment" rows="3" placeholder="Tell us about repair turnaround, parts availability, or booking convenience..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Feedback Report</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ==============================================
+         USER DASHBOARD
+         ============================================== -->
+    <main id="user-dashboard-view" class="view-container hidden">
+        <div class="dashboard-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-header">
+                    <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                </div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li><a href="#" class="sidebar-link active" onclick="switchDashboardTab('overview', this)"><i class="fa-solid fa-chart-line"></i> Overview</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="switchDashboardTab('book', this)"><i class="fa-solid fa-calendar-plus"></i> Book Appointment</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="switchDashboardTab('shop', this)"><i class="fa-solid fa-basket-shopping"></i> Parts Catalog Shop</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="switchDashboardTab('diy', this)"><i class="fa-solid fa-screwdriver-wrench"></i> DIY Videos & Diagnostics</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Dashboard Content Panels -->
+            <section class="dashboard-content">
+                <!-- Dashboard Content Header (Toggles Bar) -->
+                <div class="dashboard-content-header">
+                    <div class="dashboard-logo-mobile">
+                        <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                            <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                            <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                        </a>
+                    </div>
+                    <div class="dashboard-breadcrumbs">
+                        <span>VoltGlide Portal</span> &gt; <strong id="dash-current-tab-label">Overview</strong>
+                    </div>
+                    <div class="dashboard-header-toggles">
+                        <!-- Theme Toggle Button -->
+                        <button class="theme-btn dashboard-theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                            <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                            <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                        </button>
+                        <!-- LTR/RTL Toggle Switch -->
+                        <button class="rtl-btn dashboard-rtl-btn" onclick="toggleDirection()" aria-label="Toggle Layout Direction">
+                            <span class="rtl-circle">LTR</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 1: OVERVIEW -->
+                <div id="dash-tab-overview" class="dash-tab-content">
+                    <div class="dashboard-welcome">
+                        <h2>Welcome back, <span id="welcome-username" class="highlight">Rider</span>!</h2>
+                        <p>Track your active e-scooter repair status and keep an eye on your vehicle health.</p>
+                    </div>
+
+                    <!-- Stats Row -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper blue"><i class="fa-solid fa-wrench"></i></div>
+                            <div>
+                                <span class="stat-label">Active Bookings</span>
+                                <h3 class="stat-value" id="user-stats-active">1</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper green"><i class="fa-solid fa-cart-shopping"></i></div>
+                            <div>
+                                <span class="stat-label">Cart Items</span>
+                                <h3 class="stat-value" id="user-stats-cart">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper amber"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <div>
+                                <span class="stat-label">Scooter Health Rating</span>
+                                <h3 class="stat-value" id="user-stats-health">85%</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scooter Diagnostics Activity Chart -->
+                    <div class="glass-card chart-container margin-top-md">
+                        <h3><i class="fa-solid fa-heart-pulse text-blue icon-gap"></i> Vehicle Battery Health Over Time</h3>
+                        <p class="card-subtitle">Estimated capacity based on cell balance logs and weekly odometer updates.</p>
+                        <div class="bar-chart-wrapper" style="display: flex; align-items: flex-end; justify-content: space-around; height: 180px; padding: 2rem 1rem 1rem 1rem; border-bottom: 2px solid var(--border-color);">
+                            <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">98%</span>
+                                <div class="chart-bar" style="width: 25px; height: 98px; background: linear-gradient(180deg, var(--secondary) 0%, rgba(14, 165, 233, 0.2) 100%); border-radius: 4px 4px 0 0;"></div>
+                                <span style="font-size: 0.8rem;">Week 1</span>
+                            </div>
+                            <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">95%</span>
+                                <div class="chart-bar" style="width: 25px; height: 95px; background: linear-gradient(180deg, var(--secondary) 0%, rgba(14, 165, 233, 0.2) 100%); border-radius: 4px 4px 0 0;"></div>
+                                <span style="font-size: 0.8rem;">Week 2</span>
+                            </div>
+                            <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">91%</span>
+                                <div class="chart-bar" style="width: 25px; height: 91px; background: linear-gradient(180deg, var(--secondary) 0%, rgba(14, 165, 233, 0.2) 100%); border-radius: 4px 4px 0 0;"></div>
+                                <span style="font-size: 0.8rem;">Week 3</span>
+                            </div>
+                            <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">85%</span>
+                                <div class="chart-bar" style="width: 25px; height: 85px; background: var(--secondary); border-radius: 4px 4px 0 0; box-shadow: 0 0 12px rgba(14, 165, 233, 0.4);"></div>
+                                <span style="font-size: 0.8rem; font-weight: bold; color: var(--secondary);">Current</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Repair Progress Stepper (Updated by Admin!) -->
+                    <div class="repair-status-box glass-card margin-top-md">
+                        <div class="card-header-status">
+                            <h3><i class="fa-solid fa-spinner fa-spin text-green icon-gap"></i> Current Repair Progress</h3>
+                            <span class="ticket-badge" id="repair-ticket-id">Ticket #VG-5820</span>
+                        </div>
+                        <p class="scooter-info-text" id="repair-scooter-name">Vehicle: Xiaomi Pro 2 - Flat Tire Upgrade & Safety Check</p>
+
+                        <!-- The Stepper Grid -->
+                        <div class="progress-stepper" id="repair-stepper">
+                            <div class="step-point completed" id="step-1">
+                                <div class="step-dot"><i class="fa-solid fa-check"></i></div>
+                                <span>Received</span>
+                            </div>
+                            <div class="step-point completed" id="step-2">
+                                <div class="step-dot"><i class="fa-solid fa-check"></i></div>
+                                <span>Diagnosing</span>
+                            </div>
+                            <div class="step-point active" id="step-3">
+                                <div class="step-dot"><i class="fa-solid fa-wrench"></i></div>
+                                <span>In Repair</span>
+                            </div>
+                            <div class="step-point" id="step-4">
+                                <div class="step-dot"><i class="fa-solid fa-vial-circle-check"></i></div>
+                                <span>Quality Check</span>
+                            </div>
+                            <div class="step-point" id="step-5">
+                                <div class="step-dot"><i class="fa-solid fa-house-circle-check"></i></div>
+                                <span>Ready for Pick Up</span>
+                            </div>
+                        </div>
+
+                        <div class="status-detail-desc" id="repair-status-desc-text">
+                            <p><strong>Current Status:</strong> Our technician is currently mounting the puncture-proof solid tires using the hydraulic press. Expected completion: Today at 4:30 PM.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick diagnostics alert -->
+                    <div class="diagnostic-alert-box glass-card margin-top-md grid-2-align-center">
+                        <div>
+                            <h3>Submit a Diagnostics Message</h3>
+                            <p>Having a weird vibration or clicking sound? Submit a report. Our engineers will reply with advice, which will show up right here.</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-full" onclick="switchDashboardTab('diy')">Open Diagnostics Assistant</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: BOOK APPOINTMENT -->
+                <div id="dash-tab-book" class="dash-tab-content hidden">
+                    <div class="dashboard-header-tab">
+                        <h2>Schedule a Professional Service</h2>
+                        <p>Choose your scooter model, preferred date, and technician option to book. Instant validation.</p>
+                    </div>
+
+                    <div class="booking-form-wrapper glass-card">
+                        <form id="dash-booking-form" onsubmit="handleDashBooking(event)">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="book-scooter-model">E-Scooter Model / Manufacturer</label>
+                                    <input type="text" id="book-scooter-model" placeholder="e.g. Segway Ninebot Max" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-service-type">Required Service</label>
+                                    <select id="book-service-type">
+                                        <option value="Tire / Solid Conversion">Solid Tire Conversion ($65.00)</option>
+                                        <option value="Inner Tube Replacement">Standard Tube Replacement ($45.00)</option>
+                                        <option value="Brakes Replacement & Tuning">Brake Replacement & Tuning ($35.00)</option>
+                                        <option value="Hydraulic System Bleed">Hydraulic System Bleeding ($55.00)</option>
+                                        <option value="Battery Diagnostics / BMS Fix">Battery Cell & BMS Diagnostics ($120.00)</option>
+                                        <option value="Brushless Hub Motor Repair">Brushless Hub Motor Repair ($95.00)</option>
+                                        <option value="Custom General Inspection">General Scooter Tuning & Inspection ($40.00)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="book-date">Preferred Appointment Date</label>
+                                    <input type="date" id="book-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-time">Preferred Arrival Time</label>
+                                    <select id="book-time">
+                                        <option value="09:00 AM">09:00 AM - Morning</option>
+                                        <option value="11:30 AM">11:30 AM - Midday</option>
+                                        <option value="02:00 PM">02:00 PM - Afternoon</option>
+                                        <option value="04:30 PM">04:30 PM - Late Afternoon</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="book-technician">Preferred Service Specialist</label>
+                                <select id="book-technician">
+                                    <option value="First Available">First Available (Fastest appointment)</option>
+                                    <option value="Sergei Volkov">Sergei Volkov (Electronics & Battery specialist)</option>
+                                    <option value="Rachel Miller">Rachel Miller (Tires & Structural frame specialist)</option>
+                                    <option value="Akira Sato">Akira Sato (Motors & Dashboard flashing specialist)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="book-notes">Describe Symptoms (Optional)</label>
+                                <textarea id="book-notes" rows="4" placeholder="Any modifications, error codes, or noises we should know about?"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-calendar-check icon-gap"></i> Lock in Appointment</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TAB 3: PARTS SHOP & CART -->
+                <div id="dash-tab-shop" class="dash-tab-content hidden">
+                    <div class="dashboard-header-tab split-header">
+                        <div>
+                            <h2>Parts Shop & Upgrades Catalog</h2>
+                            <p>Order high-grade replacement components. Add items to your cart, then complete simulated checkout.</p>
+                        </div>
+                        <!-- Cart Indicator Button -->
+                        <button class="cart-trigger" onclick="toggleCartModal()">
+                            <i class="fa-solid fa-cart-shopping"></i> My Cart (<span id="cart-item-count">0</span>)
+                        </button>
+                    </div>
+
+                    <!-- Category Filters -->
+                    <div class="shop-filter-bar">
+                        <button class="filter-tab active" onclick="filterShop('all', this)">All Parts</button>
+                        <button class="filter-tab" onclick="filterShop('tires', this)">Tires & Tubes</button>
+                        <button class="filter-tab" onclick="filterShop('battery', this)">Batteries & BMS</button>
+                        <button class="filter-tab" onclick="filterShop('electronics', this)">Controllers & Screens</button>
+                        <button class="filter-tab" onclick="filterShop('brakes', this)">Brakes & Pads</button>
+                    </div>
+
+                    <!-- Shop Grid -->
+                    <div class="parts-grid-preview" id="shop-parts-grid">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 4: DIY VIDEOS & DIAGNOSTIC ASSISTANT -->
+                <div id="dash-tab-diy" class="dash-tab-content hidden">
+                    <div class="dashboard-header-tab">
+                        <h2>Diagnostics & DIY Support Hub</h2>
+                        <p>Run diagnostic flowcharts, submit query tickets to mechanics, or view detailed maintenance video guides.</p>
+                    </div>
+
+                    <!-- Grid Layout for DIY tab -->
+                    <div class="grid-2">
+                        <!-- Diagnostic message form -->
+                        <div class="glass-card">
+                            <h3><i class="fa-solid fa-headset card-icon-green"></i> Ask a Technician</h3>
+                            <p class="card-subtitle margin-bottom-sm">Send a direct message detailing your scooter issue. An admin response will appear below.</p>
+                            <form id="dash-diagnostics-form" onsubmit="handleDiagnosticsSubmit(event)">
+                                <div class="form-group">
+                                    <label for="diag-scooter">Scooter Brand & Model</label>
+                                    <input type="text" id="diag-scooter" placeholder="Xiaomi M365" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="diag-query">What is happening?</label>
+                                    <textarea id="diag-query" rows="4" placeholder="Detail symptoms, speed reductions, blinking warning codes..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-full">Submit Query</button>
+                            </form>
+
+                            <!-- Responses Area -->
+                            <div class="diagnostics-responses margin-top-md">
+                                <h4>Recent Query Responses</h4>
+                                <div class="response-list" id="diagnostics-response-list">
+                                    <div class="empty-placeholder">
+                                        <p>No questions submitted yet. Ask our technician above!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mini diagnostic guide calculator -->
+                        <div class="glass-card flex-column-layout">
+                            <h3><i class="fa-solid fa-list-check card-icon-blue"></i> Quick Diagnostic Matrix</h3>
+                            <p class="card-subtitle">Select issues to find solutions instantly.</p>
+                            <div class="diagnostic-matrix-box">
+                                <div class="form-group">
+                                    <label for="matrix-symptom">Choose Primary Symptom</label>
+                                    <select id="matrix-symptom" onchange="runMatrixDiagnostic()">
+                                        <option value="">-- Select --</option>
+                                        <option value="no-power">Scooter does not turn on at all</option>
+                                        <option value="low-range">Battery drains twice as fast as before</option>
+                                        <option value="brake-squeak">Brakes emit loud scraping noise</option>
+                                        <option value="shaking">Handlebars wobble at high speeds</option>
+                                        <option value="error-14">Display flashes 'Error 14' (Throttle)</option>
+                                    </select>
+                                </div>
+                                <div class="matrix-output hidden" id="matrix-output-box">
+                                    <div class="matrix-severity badge-pill active" id="matrix-severity">Moderate</div>
+                                    <h4 class="margin-top-sm">Possible Cause:</h4>
+                                    <p id="matrix-cause" class="text-dim font-sm">Blown throttle sensor magnet</p>
+                                    <h4 class="margin-top-sm">DIY Recommendation:</h4>
+                                    <p id="matrix-recommendation" class="text-dim font-sm">Check connection pin; replace throttle lever</p>
+                                    <div class="matrix-price-est margin-top-sm">
+                                        <span>Estimated Shop Cost:</span>
+                                        <strong id="matrix-cost">$45.00</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Grid inside Dashboard -->
+                    <div class="dashboard-videos-area margin-top-lg">
+                        <h3>Maintenance DIY Videos</h3>
+                        <div class="video-grid" id="dashboard-video-grid">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: SERVICE HISTORY -->
+                <div id="dash-tab-history" class="dash-tab-content hidden">
+                    <div class="dashboard-header-tab">
+                        <h2>Your Ride Service History</h2>
+                        <p>Review past completed repairs, parts replaced, and view simulated invoices.</p>
+                    </div>
+
+                    <!-- History Timeline -->
+                    <div class="history-list-wrapper" id="history-list-container">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <!-- ==============================================
+         ADMIN DASHBOARD
+         ============================================== -->
+    <main id="admin-dashboard-view" class="view-container hidden">
+        <div class="dashboard-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="dashboard-sidebar admin-sidebar">
+                <div class="sidebar-header">
+                    <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                </div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li><a href="#" class="sidebar-link active" onclick="switchAdminTab('appointments', this)"><i class="fa-solid fa-calendar-check"></i> Manage Bookings</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="switchAdminTab('inventory', this)"><i class="fa-solid fa-boxes-stacked"></i> Parts Inventory</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="switchAdminTab('queries', this)"><i class="fa-solid fa-comments"></i> Diagnostic Queries</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="switchAdminTab('analytics', this)"><i class="fa-solid fa-chart-simple"></i> Shop Analytics</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Admin Content Panels -->
+            <section class="dashboard-content">
+                <!-- Dashboard Content Header (Toggles Bar) -->
+                <div class="dashboard-content-header">
+                    <div class="dashboard-logo-mobile">
+                        <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                            <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                            <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                        </a>
+                    </div>
+                    <div class="dashboard-breadcrumbs">
+                        <span>Admin Portal</span> &gt; <strong id="admin-current-tab-label">Manage Bookings</strong>
+                    </div>
+                    <div class="dashboard-header-toggles">
+                        <!-- Theme Toggle Button -->
+                        <button class="theme-btn dashboard-theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                            <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                            <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                        </button>
+                        <!-- LTR/RTL Toggle Switch -->
+                        <button class="rtl-btn dashboard-rtl-btn" onclick="toggleDirection()" aria-label="Toggle Layout Direction">
+                            <span class="rtl-circle">LTR</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 1: MANAGE APPOINTMENTS -->
+                <div id="admin-tab-appointments" class="admin-tab-content">
+                    <div class="dashboard-header-tab">
+                        <h2>Repair Booking Management</h2>
+                        <p>Change statuses of user repair orders to trigger live stepper updates on customer dashboards.</p>
+                    </div>
+
+                    <div class="table-responsive glass-card">
+                        <table class="pricing-table admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Ticket ID</th>
+                                    <th>Customer Details</th>
+                                    <th>Scooter Model</th>
+                                    <th>Required Service</th>
+                                    <th>Specialist</th>
+                                    <th>Current Status</th>
+                                    <th>Update Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-appointments-tbody">
+                                <!-- Loaded dynamically via script.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 2: MANAGE PARTS INVENTORY -->
+                <div id="admin-tab-inventory" class="admin-tab-content hidden">
+                    <div class="dashboard-header-tab split-header">
+                        <div>
+                            <h2>Parts Stock Management</h2>
+                            <p>Increase or decrease item stock levels. Low stock levels are flagged with indicator alerts.</p>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" onclick="resetInventoryStock()"><i class="fa-solid fa-rotate-left"></i> Reset Stock levels</button>
+                    </div>
+
+                    <div class="table-responsive glass-card">
+                        <table class="pricing-table admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Part Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock Status</th>
+                                    <th>Remaining Stock</th>
+                                    <th>Adjust Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-inventory-tbody">
+                                <!-- Loaded dynamically via script.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 3: DIAGNOSTIC QUERIES -->
+                <div id="admin-tab-queries" class="admin-tab-content hidden">
+                    <div class="dashboard-header-tab">
+                        <h2>Customer Diagnostic Queries</h2>
+                        <p>Review troubleshooting questions submitted by users and reply with mechanic recommendations.</p>
+                    </div>
+
+                    <div class="queries-list-container" id="admin-queries-list">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 4: SHOP ANALYTICS -->
+                <div id="admin-tab-analytics" class="admin-tab-content hidden">
+                    <div class="dashboard-header-tab">
+                        <h2>VoltGlide Operations Analytics</h2>
+                        <p>Visual diagnostics logs, monthly metrics, and mechanical turnaround statistics.</p>
+                    </div>
+                    
+                    <!-- Analytics grid -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper blue"><i class="fa-solid fa-dollar-sign"></i></div>
+                            <div>
+                                <span class="stat-label">Monthly Gross Revenue</span>
+                                <h3 class="stat-value">$18,450</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper green"><i class="fa-solid fa-microchip"></i></div>
+                            <div>
+                                <span class="stat-label">System Diagnostics Checked</span>
+                                <h3 class="stat-value">342</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper amber"><i class="fa-solid fa-face-smile"></i></div>
+                            <div>
+                                <span class="stat-label">Customer Satisfaction Rating</span>
+                                <h3 class="stat-value">98.4%</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Charts Section -->
+                    <div class="grid-2 margin-top-md">
+                        <div class="glass-card chart-container">
+                            <h3><i class="fa-solid fa-chart-column text-green icon-gap"></i> Monthly Repair Volume</h3>
+                            <div class="bar-chart-wrapper" style="display: flex; align-items: flex-end; justify-content: space-around; height: 200px; padding: 2rem 1rem 1rem 1rem; border-bottom: 2px solid var(--border-color);">
+                                <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                    <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">84</span>
+                                    <div class="chart-bar" style="width: 30px; height: 84px; background: linear-gradient(180deg, var(--primary) 0%, rgba(0, 255, 136, 0.2) 100%); border-radius: 4px 4px 0 0;"></div>
+                                    <span style="font-size: 0.8rem;">Mar</span>
+                                </div>
+                                <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                    <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">112</span>
+                                    <div class="chart-bar" style="width: 30px; height: 112px; background: linear-gradient(180deg, var(--primary) 0%, rgba(0, 255, 136, 0.2) 100%); border-radius: 4px 4px 0 0;"></div>
+                                    <span style="font-size: 0.8rem;">Apr</span>
+                                </div>
+                                <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                    <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">145</span>
+                                    <div class="chart-bar" style="width: 30px; height: 145px; background: linear-gradient(180deg, var(--primary) 0%, rgba(0, 255, 136, 0.2) 100%); border-radius: 4px 4px 0 0;"></div>
+                                    <span style="font-size: 0.8rem;">May</span>
+                                </div>
+                                <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                    <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">198</span>
+                                    <div class="chart-bar" style="width: 30px; height: 198px; background: var(--primary); border-radius: 4px 4px 0 0; box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);"></div>
+                                    <span style="font-size: 0.8rem; font-weight: bold; color: var(--primary);">Jun</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card chart-container">
+                            <h3><i class="fa-solid fa-chart-line text-blue icon-gap"></i> Diagnostic Category Breakdown</h3>
+                            <div class="pie-chart-equivalent" style="display: flex; flex-direction: column; gap: 1rem; padding: 1rem;">
+                                <div class="breakdown-row">
+                                    <div class="breakdown-info" style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 4px;">
+                                        <span>Battery & Power BMS</span>
+                                        <strong>42%</strong>
+                                    </div>
+                                    <div class="progress-bar-bg" style="background: var(--bg-input); height: 8px; border-radius: 4px; overflow: hidden;">
+                                        <div style="background: var(--secondary); width: 42%; height: 100%;"></div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-row">
+                                    <div class="breakdown-info" style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 4px;">
+                                        <span>Motor & Hall Sensors</span>
+                                        <strong>28%</strong>
+                                    </div>
+                                    <div class="progress-bar-bg" style="background: var(--bg-input); height: 8px; border-radius: 4px; overflow: hidden;">
+                                        <div style="background: var(--primary); width: 28%; height: 100%;"></div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-row">
+                                    <div class="breakdown-info" style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 4px;">
+                                        <span>Brake Lines & Calipers</span>
+                                        <strong>18%</strong>
+                                    </div>
+                                    <div class="progress-bar-bg" style="background: var(--bg-input); height: 8px; border-radius: 4px; overflow: hidden;">
+                                        <div style="background: var(--accent-amber); width: 18%; height: 100%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+
+    <!-- ==============================================
+         GLOBAL FOOTER
+         ============================================== -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand Info -->
+                <div class="footer-brand">
+                    <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                    <p class="footer-tagline">Premium engineering diagnostics, professional micro-mobility repairs, and genuine e-scooter parts shop.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <!-- Fast Links -->
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="#" onclick="navigateTo('home1')">Home 1 (Default)</a></li>
+                        <li><a href="#" onclick="navigateTo('home2')">Home 2 (Promo)</a></li>
+                        <li><a href="#" onclick="navigateTo('about')">About Us</a></li>
+                        <li><a href="#" onclick="navigateTo('services')">Repair Services</a></li>
+                        <li><a href="#" onclick="navigateTo('contact')">Find Location</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services List -->
+                <div class="footer-links">
+                    <h3>Repair Fixes</h3>
+                    <ul>
+                        <li><a href="#" onclick="openBookingWithService('Solid Tire Conversion')">Solid Tire Swap</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Battery Cell Diagnostics')">Lithium BMS Repair</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Brake Pads Replacement')">Disc Brake Calibrations</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Controller Board Assembly')">Smart Controller Flash</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Hall Sensor Replacement')">Motor Hall Sensor Tuning</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal/Safety Badge -->
+                <div class="footer-newsletter">
+                    <h3>Safety Certification</h3>
+                    <p>All battery diagnostics are completed under certified ESD and spark-proof safety enclosures.</p>
+                    <div class="safety-badge-row">
+                        <span class="safety-badge"><i class="fa-solid fa-shield-virus"></i> ESD Safe</span>
+                        <span class="safety-badge"><i class="fa-solid fa-triangle-exclamation"></i> UN38.3 Tech</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 VoltGlide Micro-Mobility Inc. All rights reserved. Registered under silicon repairs directory. All code demo items simulation only.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==============================================
+         LOGIN PAGE
+         ============================================== -->
+    <main id="login-view" class="view-container hidden">
+        <div class="auth-page-wrapper">
+            <!-- Top Right Corner Toggles -->
+            <div class="auth-header-toggles">
+                <button class="theme-btn dashboard-theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button class="rtl-btn dashboard-rtl-btn" onclick="toggleDirection()" aria-label="Toggle Layout Direction">
+                    <span class="rtl-circle">LTR</span>
+                </button>
+            </div>
+
+            <div class="auth-container glass-card">
+                <!-- VoltGlide Logo at top of container -->
+                <div class="auth-logo">
+                    <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                </div>
+                <h2>Rider Access Portal</h2>
+                <p class="auth-subtitle">Enter credentials to log in to your dashboard.</p>
+
+                <form id="login-form-submit" onsubmit="handleLoginSubmit(event)">
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" value="rider@voltglide.com" required>
+                    </div>
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" value="rider123" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full margin-top-md">Sign In to Dashboard</button>
+                </form>
+
+                <!-- Social Logins -->
+                <div class="social-login-separator">
+                    <span>or continue with</span>
+                </div>
+                <div class="social-login-buttons">
+                    <button class="btn btn-social-google" onclick="showToast('Google login is not integrated yet.', 'error')">
+                        <i class="fa-brands fa-google"></i> Google
+                    </button>
+                    <button class="btn btn-social-facebook" onclick="showToast('Facebook login is not integrated yet.', 'error')">
+                        <i class="fa-brands fa-facebook-f"></i> Facebook
+                    </button>
+                </div>
+
+                <!-- Registration Link at Bottom -->
+                <div class="auth-footer-link">
+                    Don't have an account? <a href="#" onclick="navigateTo('register')">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==============================================
+         REGISTER PAGE
+         ============================================== -->
+    <main id="register-view" class="view-container hidden">
+        <div class="auth-page-wrapper">
+            <!-- Top Right Corner Toggles -->
+            <div class="auth-header-toggles">
+                <button class="theme-btn dashboard-theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button class="rtl-btn dashboard-rtl-btn" onclick="toggleDirection()" aria-label="Toggle Layout Direction">
+                    <span class="rtl-circle">LTR</span>
+                </button>
+            </div>
+
+            <div class="auth-container glass-card">
+                <!-- VoltGlide Logo at top of container -->
+                <div class="auth-logo">
+                    <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                </div>
+                <h2>Create Your Account</h2>
+                <p class="auth-subtitle">Join VoltGlide to access custom e-scooter diagnostics.</p>
+
+                <form id="register-form-submit" onsubmit="handleRegisterSubmit(event)">
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="reg-name">Full Name</label>
+                        <input type="text" id="reg-name" placeholder="Marcus Vance" required>
+                    </div>
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="reg-email">Email Address</label>
+                        <input type="email" id="reg-email" placeholder="name@domain.com" required>
+                    </div>
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="reg-confirm">Confirm Password</label>
+                        <input type="password" id="reg-confirm" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full margin-top-md">Register Account</button>
+                </form>
+
+                <!-- Already have an account link -->
+                <div class="auth-footer-link">
+                    Already have an account? <a href="#" onclick="navigateTo('login')">Log In</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- ==============================================
+         APPOINTMENT BOOKING MODAL
+         ============================================== -->
+    <div class="modal-backdrop" id="bookingModal">
+        <div class="modal-card booking-modal-card">
+            <button class="modal-close" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-booking">
+                <h2><i class="fa-solid fa-calendar-plus card-icon-green"></i> Book Repair Appointment</h2>
+                <p>Select date, preferred technician, and details. We will reserve your bay slot.</p>
+            </div>
+            <form id="modal-booking-form" onsubmit="handleModalBooking(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-scooter">Scooter Model / Brand</label>
+                        <input type="text" id="m-book-scooter" placeholder="Xiaomi Pro 2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-service">Service Required</label>
+                        <select id="m-book-service">
+                            <option value="Solid Tire Conversion">Solid Tire Conversion ($65.00)</option>
+                            <option value="Inner Tube Replacement">Standard Tube Replacement ($45.00)</option>
+                            <option value="Brakes Replacement & Tuning">Brake Replacement & Tuning ($35.00)</option>
+                            <option value="Hydraulic System Bleed">Hydraulic System Bleeding ($55.00)</option>
+                            <option value="Battery Diagnostics / BMS Fix">Battery Cell & BMS Diagnostics ($120.00)</option>
+                            <option value="Brushless Hub Motor Repair">Brushless Hub Motor Repair ($95.00)</option>
+                            <option value="Custom General Inspection">General Scooter Tuning & Inspection ($40.00)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-date">Appointment Date</label>
+                        <input type="date" id="m-book-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-time">Preferred Arrival Time</label>
+                        <select id="m-book-time">
+                            <option value="09:00 AM">09:00 AM - Morning</option>
+                            <option value="11:30 AM">11:30 AM - Midday</option>
+                            <option value="02:00 PM">02:00 PM - Afternoon</option>
+                            <option value="04:30 PM">04:30 PM - Late Afternoon</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="m-book-notes">Describe Symptoms (Optional)</label>
+                    <textarea id="m-book-notes" rows="3" placeholder="Tell our mechanics what's happening..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Submit Appointment Details</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ==============================================
+         SHOPPING CART MODAL
+         ============================================== -->
+    <div class="modal-backdrop" id="cartModal">
+        <div class="modal-card cart-modal-card">
+            <button class="modal-close" onclick="toggleCartModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-cart">
+                <h2><i class="fa-solid fa-cart-shopping card-icon-green"></i> Your Shopping Cart</h2>
+                <p>Review items and check out to simulate parts purchasing and service registration.</p>
+            </div>
+            <div class="cart-items-wrapper" id="cart-items-list">
+                <!-- Loaded dynamically -->
+            </div>
+            <div class="cart-summary-box">
+                <div class="cart-total-row">
+                    <span>Subtotal:</span>
+                    <strong id="cart-total-price">$0.00</strong>
+                </div>
+                <button class="btn btn-primary btn-full" onclick="checkoutCart()">Confirm Simulated Purchase</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main JS logic -->
+    <script src="script.js"></script>
+</body>
+</html>
