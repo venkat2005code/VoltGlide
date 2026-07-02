@@ -275,13 +275,19 @@ function navigateTo(viewId) {
     // Hide/Show main header and footer for dashboard and authentication pages
     const header = document.querySelector('.main-header');
     const footer = document.querySelector('.main-footer');
-    const hideViews = ['user-dashboard', 'admin-dashboard', 'login', 'register'];
+    const hideViews = ['user-dashboard', 'admin-dashboard', 'login', 'register', 'forgot-password', 'profile'];
     if (hideViews.includes(viewId)) {
         if (header) header.classList.add('hidden');
         if (footer) footer.classList.add('hidden');
     } else {
         if (header) header.classList.remove('hidden');
         if (footer) footer.classList.remove('hidden');
+    }
+    // Remove the header space when header is hidden (dashboard/auth views)
+    if (hideViews.includes(viewId)) {
+        document.body.style.paddingTop = '0px';
+    } else {
+        document.body.style.paddingTop = '70px';
     }
 
     // Update nav links highlights
@@ -300,6 +306,12 @@ function navigateTo(viewId) {
             updateUserInterfaceUI();
         }
         renderAdminDashboard();
+    } else if (viewId === 'profile') {
+        if (!state.currentUser) {
+            state.currentUser = { ...DEFAULT_USER };
+            updateUserInterfaceUI();
+        }
+        renderProfilePage();
     }
 
     // Scroll to top
@@ -411,6 +423,67 @@ function handleRegisterSubmit(event) {
 
     // Navigate to Login Page
     navigateTo('login');
+}
+
+function handleForgotPasswordSubmit(event) {
+    event.preventDefault();
+    const email = document.getElementById('forgot-email').value.trim();
+    if (!email) {
+        showToast("Please enter your email address.", "error");
+        return;
+    }
+    showToast(`Reset instructions sent to ${email}.`);
+    document.getElementById('forgot-password-form').reset();
+    navigateTo('login');
+}
+
+function handleProfileUpdate(event) {
+    event.preventDefault();
+    const nameInput = document.getElementById('profile-name-input').value.trim();
+    const emailInput = document.getElementById('profile-email-input').value.trim();
+    const passwordInput = document.getElementById('profile-password-input').value;
+
+    if (!nameInput || !emailInput) {
+        showToast("Name and email are required.", "error");
+        return;
+    }
+
+    state.currentUser.username = nameInput;
+    state.currentUser.email = emailInput;
+
+    if (passwordInput) {
+        showToast("Password updated successfully.");
+    }
+
+    showToast("Profile saved successfully.");
+    renderProfilePage();
+}
+
+function renderProfilePage() {
+    if (!state.currentUser) {
+        state.currentUser = { ...DEFAULT_USER };
+    }
+    const name = state.currentUser.username;
+    const email = state.currentUser.email;
+    const avatar = state.currentUser.avatar;
+    const id = state.currentUser.id || 'VG-90210';
+
+    const profileName = document.getElementById('profile-name');
+    const profileEmail = document.getElementById('profile-email');
+    const profileId = document.getElementById('profile-id');
+    const profileAvatar = document.getElementById('profile-avatar');
+    const profileNameInput = document.getElementById('profile-name-input');
+    const profileEmailInput = document.getElementById('profile-email-input');
+
+    if (profileName) profileName.textContent = name;
+    if (profileEmail) profileEmail.textContent = email;
+    if (profileId) profileId.textContent = `User ID: ${id}`;
+    if (profileAvatar) profileAvatar.src = avatar;
+    if (profileNameInput) profileNameInput.value = name;
+    if (profileEmailInput) profileEmailInput.value = email;
+    if (document.getElementById('profile-password-input')) {
+        document.getElementById('profile-password-input').value = '';
+    }
 }
 
 function logoutUser() {
@@ -1505,70 +1578,7 @@ function updateGreenImpact() {
     if (treesVal) treesVal.textContent = `${treesEquivalent} ${treesEquivalent === 1 ? 'Tree' : 'Trees'}`;
 }
 
-// --- Interactive SVG Map ---
-let currentMapZoom = 1;
-
-function adjustMapZoom(scaleChange) {
-    const mapSvg = document.getElementById('city-map-svg');
-    if (!mapSvg) return;
-    currentMapZoom = Math.max(0.6, Math.min(3.0, currentMapZoom + scaleChange));
-    mapSvg.style.transform = `scale(${currentMapZoom})`;
-}
-
-function resetMapZoom() {
-    const mapSvg = document.getElementById('city-map-svg');
-    if (!mapSvg) return;
-    currentMapZoom = 1;
-    mapSvg.style.transform = 'scale(1)';
-    
-    // Reset highlights
-    const hlCyber = document.getElementById('hl-cyber-drive');
-    const hlSilicon = document.getElementById('hl-silicon-blvd');
-    const banner = document.getElementById('map-route-banner');
-    
-    if (hlCyber) hlCyber.style.opacity = '0';
-    if (hlSilicon) hlSilicon.style.opacity = '0';
-    if (banner) banner.classList.add('hidden');
-}
-
-function searchMapStreet() {
-    const queryInput = document.getElementById('map-search-input');
-    if (!queryInput) return;
-    const query = queryInput.value.trim().toLowerCase();
-    
-    const hlCyber = document.getElementById('hl-cyber-drive');
-    const hlSilicon = document.getElementById('hl-silicon-blvd');
-    const banner = document.getElementById('map-route-banner');
-    const bannerText = document.getElementById('map-route-text');
-
-    // Reset first
-    if (hlCyber) hlCyber.style.opacity = '0';
-    if (hlSilicon) hlSilicon.style.opacity = '0';
-    if (banner) banner.classList.add('hidden');
-
-    if (query.indexOf('cyber') > -1 || query.indexOf('drive') > -1) {
-        if (hlCyber) hlCyber.style.opacity = '1';
-        if (banner) banner.classList.remove('hidden');
-        if (bannerText) bannerText.textContent = "Found: 'Cyber Drive' is highlighted in green. Follow it straight to VoltGlide Lab!";
-        showToast("Street found: Cyber Drive");
-    } else if (query.indexOf('silicon') > -1 || query.indexOf('blvd') > -1) {
-        if (hlSilicon) hlSilicon.style.opacity = '1';
-        if (banner) banner.classList.remove('hidden');
-        if (bannerText) bannerText.textContent = "Found: 'Silicon Blvd' is highlighted in green. Turn right to reach Cyber Drive.";
-        showToast("Street found: Silicon Blvd");
-    } else {
-        showToast("Street not recognized. Try 'Cyber Drive' or 'Silicon Blvd'.", "error");
-    }
-}
-
-function focusMapMarker() {
-    showToast("VoltGlide Lab intake bay doors are open: 8:00 AM - 7:00 PM!");
-    const mapSvg = document.getElementById('city-map-svg');
-    if (mapSvg) {
-        currentMapZoom = 1.6;
-        mapSvg.style.transform = 'scale(1.6)';
-    }
-}
+// Map-related interactive SVG removed to avoid runtime errors when map markup is absent.
 
 // --- Roadside Dispatch ---
 function handleDispatchSubmit(e) {

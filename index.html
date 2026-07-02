@@ -342,90 +342,16 @@
          HOME 2 VIEW: Promotional & Cost Estimator
          ============================================== -->
     <main id="home2-view" class="view-container hidden">
-        <!-- Interactive Hero & Quick Cost Estimator -->
+        <!-- Interactive Hero & Hero Image -->
         <section class="hero-section alt-hero">
             <div class="section-container grid-2">
                 <div class="hero-content">
-                    <div class="badge-pill secondary"><i class="fa-solid fa-calculator"></i> Price Estimator System Enabled</div>
+                    <div class="badge-pill secondary blinking-text"><i class="fa-solid fa-bolt"></i> Welcome to VoltGlide Heroes</div>
                     <h1 class="hero-title">Transparent Pricing.<br><span class="gradient-text-alt">Zero Guesswork.</span></h1>
-                    <p class="hero-desc">Tired of surprise mechanics' bills? Select your scooter model and the repairs you need below. Get an accurate quote instantly and lock in your appointment.</p>
-                    <div class="estimator-teaser">
-                        <div class="teaser-stat">
-                            <h3>100%</h3>
-                            <p>Quote Accuracy</p>
-                        </div>
-                        <div class="teaser-stat">
-                            <h3>30 Mins</h3>
-                            <p>Free Diagnosis</p>
-                        </div>
-                        <div class="teaser-stat">
-                            <h3>12K+</h3>
-                            <p>Estimates Calculated</p>
-                        </div>
-                    </div>
+                    <p class="hero-desc">Tired of surprise repair invoices? Choose your electric scooter model and service needs below for a clear quote and fast booking.</p>
                 </div>
-                <!-- Interactive Price Estimator Card -->
-                <div class="estimator-card glass-card">
-                    <h3><i class="fa-solid fa-calculator card-icon-green"></i> Repair Price Estimator</h3>
-                    <p class="card-subtitle">Calculate the service fee for your specific scooter model.</p>
-                    <form id="estimator-form" onsubmit="event.preventDefault()">
-                        <!-- Select Brand -->
-                        <div class="form-group">
-                            <label for="est-brand">Scooter Brand / Manufacturer</label>
-                            <select id="est-brand" onchange="calculateEstimate()">
-                                <option value="xiaomi">Xiaomi (M365, Pro 2, Essential)</option>
-                                <option value="segway">Segway Ninebot (ES, Max, F Series)</option>
-                                <option value="apollo">Apollo (City, Explore, Ghost)</option>
-                                <option value="dualtron">Dualtron (Ultra, Spider, Thunder)</option>
-                                <option value="vsett">Vsett (8, 9+, 10+)</option>
-                            </select>
-                        </div>
-                        <!-- Select Services -->
-                        <div class="form-group">
-                            <label>Required Service(s)</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-container">
-                                    <input type="checkbox" value="50" class="est-service" onchange="calculateEstimate()"> Tire Tube Change / Solid Swap
-                                    <span class="checkbox-checkmark"></span>
-                                    <span class="service-price-badge">$50</span>
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" value="45" class="est-service" onchange="calculateEstimate()"> Disc Brake Caliper & Pad Service
-                                    <span class="checkbox-checkmark"></span>
-                                    <span class="service-price-badge">$45</span>
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" value="95" class="est-service" onchange="calculateEstimate()"> Smart controller replacement
-                                    <span class="checkbox-checkmark"></span>
-                                    <span class="service-price-badge">$95</span>
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" value="120" class="est-service" onchange="calculateEstimate()"> Custom Battery Cell Rebuilding & Balance
-                                    <span class="checkbox-checkmark"></span>
-                                    <span class="service-price-badge">$120</span>
-                                </label>
-                                <label class="checkbox-container">
-                                    <input type="checkbox" value="30" class="est-service" onchange="calculateEstimate()"> Electronic Throttle / Dashboard Screen Flash
-                                    <span class="checkbox-checkmark"></span>
-                                    <span class="service-price-badge">$30</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!-- Add-ons -->
-                        <div class="form-group">
-                            <label>Add-ons</label>
-                            <label class="checkbox-container">
-                                <input type="checkbox" value="40" id="est-waterproof" onchange="calculateEstimate()"> Silicone Waterproof Coating IPX6
-                                <span class="checkbox-checkmark"></span>
-                                <span class="service-price-badge">+$40</span>
-                            </label>
-                        </div>
-                        <div class="estimate-total-box">
-                            <span>Estimated Total Cost</span>
-                            <span class="total-price" id="estimator-total">$0.00</span>
-                        </div>
-                        <button class="btn btn-primary btn-full" onclick="bookEstimatedService()">Book Estimate Repair</button>
-                    </form>
+                <div class="hero-image-container">
+                    <img src="./hero22.jpg" alt="Electric scooter repair hero image" class="hero-img">
                 </div>
             </div>
         </section>
@@ -438,25 +364,25 @@
                     <p class="section-subtitle">How we repair your e-scooter from intake to test ride.</p>
                 </div>
                 <div class="steps-grid">
-                    <div class="step-card">
+                        <div class="step-card">
                         <div class="step-num">01</div>
                         <h3>Digital Intake & Diagnosis</h3>
-                        <p>Submit your repair request online or bring your scooter to our shop. We run computerized motherboard and diagnostic checks.</p>
+                        <p>Submit your repair request online or bring your scooter to our lab. We inspect battery health, controller firmware, and mechanical wear with digital precision.</p>
                     </div>
                     <div class="step-card">
                         <div class="step-num">02</div>
                         <h3>Status Log Tracking</h3>
-                        <p>Our technicians issue a digital ticket. You will receive updates directly on your dashboard as the scooter begins disassembly.</p>
+                        <p>Every repair is tracked by ticket. Get live updates from drop-off through diagnostics, repair, and final quality review.</p>
                     </div>
                     <div class="step-card">
                         <div class="step-num">03</div>
                         <h3>Certified Repair Execution</h3>
-                        <p>We replace worn-out components with original brand parts and solder delicate electronic points inside a static-free chamber.</p>
+                        <p>Our technicians replace worn batteries, calibrate controllers, and fix hubs using OEM parts and safety-tested procedures.</p>
                     </div>
                     <div class="step-card">
                         <div class="step-num">04</div>
-                        <h3>Safety Dyno Test</h3>
-                        <p>Every repaired scooter undergoes a 5-point test ride (braking distance, motor acceleration, temperature, and range check) before release.</p>
+                        <h3>Final Safety & Test Ride</h3>
+                        <p>After repair, we perform a full safety inspection and a short ride test to ensure your scooter is road-ready and reliable.</p>
                     </div>
                 </div>
             </div>
@@ -591,7 +517,7 @@
                     <p class="about-desc">Today, we are the leading urban micro-mobility repair laboratory, dedicated to keeping riders moving cleanly, safely, and cost-effectively.</p>
                 </div>
                 <div class="about-hero-img-box">
-                    <img src="./e3.webp" alt="VoltGlide Workshop" class="about-main-img">
+                    <img src="./Ab.jpg" alt="VoltGlide Workshop" class="about-main-img">
                 </div>
             </div>
         </section>
@@ -629,7 +555,7 @@
                 </div>
                 <div class="team-grid">
                     <div class="team-card">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200" alt="Team Lead" class="team-avatar">
+                        <img src="./malw2.jpg" alt="Team Lead" class="team-avatar">
                         <h3>Sergei Volkov</h3>
                         <p class="team-role">Founder & Chief Electronics Tech</p>
                         <p class="team-bio">Specialist in BMS diagnostics, custom firmware configuration, and battery cell mapping.</p>
@@ -641,7 +567,7 @@
                         <p class="team-bio">Tire conversion guru, brake bleeding expert, and structural frame safety analyst.</p>
                     </div>
                     <div class="team-card">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200" alt="Technician" class="team-avatar">
+                        <img src="./male2.jpg" alt="Technician" class="team-avatar">
                         <h3>Akira Sato</h3>
                         <p class="team-role">Controller Diagnostics Engineer</p>
                         <p class="team-bio">Specialist in brushless hub motor rewiring and hall-sensor board debugging.</p>
@@ -686,6 +612,11 @@
                         <div class="feature-icon"><i class="fa-solid fa-scale-balanced text-green"></i></div>
                         <h3>Honest Appraisals</h3>
                         <p>If your scooter controller doesn't need to be replaced, we don't bill you. We repair rather than discard whenever possible.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-handshake text-green"></i></div>
+                        <h3>Transparent Service Guarantees</h3>
+                        <p>Every repair includes clear pricing and service promises so you know exactly what is covered and what to expect.</p>
                     </div>
                 </div>
             </div>
@@ -780,7 +711,7 @@
                     </div>
                 </div>
                 <div class="services-hero-visual">
-                    <img src="./e4.jpg" alt="Scooter parts overhaul" class="rounded-img">
+                    <img src="./ser.jpg" alt="Scooter parts overhaul" class="rounded-img">
                 </div>
             </div>
         </section>
@@ -1067,7 +998,7 @@
                     <p class="contact-hero-desc">Have a question about booking, custom parts availability, or need emergency dispatch? We are here to keep your electric scooter running like new.</p>
                     <div class="hero-actions">
                         <button class="btn btn-primary" onclick="scrollToElement('contact-form')"><i class="fa-solid fa-envelope"></i> Send Message</button>
-                        <button class="btn btn-secondary" onclick="scrollToElement('city-map-svg')"><i class="fa-solid fa-location-dot"></i> View Workshop Map</button>
+                        <button class="btn btn-secondary" onclick="scrollToElement('contact-form')"><i class="fa-solid fa-location-dot"></i> View Workshop Map</button>
                     </div>
                 </div>
                 <div class="contact-hero-visual">
@@ -1144,99 +1075,7 @@
             </div>
         </section>
 
-        <!-- Simulated Real Map / Location Details -->
-        <section class="map-simulation-section">
-            <div class="section-container">
-                <div class="section-header center">
-                    <h2>VoltGlide Cyber-District Location Map</h2>
-                    <p class="section-subtitle">Use the controls to search streets or zoom into our Silicon District intake facility.</p>
-                </div>
-                <div class="interactive-map-wrapper glass-card">
-                    <!-- Map Controls -->
-                    <div class="map-controls-bar">
-                        <div class="map-search-field">
-                            <input type="text" id="map-search-input" placeholder="Search street (e.g. Cyber Drive)...">
-                            <button class="btn btn-sm btn-primary" onclick="searchMapStreet()"><i class="fa-solid fa-location-crosshairs"></i> Search</button>
-                        </div>
-                        <div class="map-zoom-buttons">
-                            <button class="btn-qty" onclick="adjustMapZoom(0.1)" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
-                            <button class="btn-qty" onclick="adjustMapZoom(-0.1)" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-                            <button class="btn-qty" onclick="resetMapZoom()" title="Center Map"><i class="fa-solid fa-expand"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Map Body (SVG City Grid) -->
-                    <div class="map-canvas-container" style="overflow: hidden; background: var(--card-bg); height: 450px; border-radius: 12px; border: 1px solid var(--border-color); position: relative;">
-                        <svg id="city-map-svg" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%; transform-origin: center; transition: transform 0.3s ease;">
-                            <!-- Background Grid Pattern -->
-                            <defs>
-                                <pattern id="map-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--border-color)" stroke-width="0.5" opacity="0.3"/>
-                                </pattern>
-                            </defs>
-                            <rect width="100%" height="100%" fill="var(--card-bg)" />
-                            <rect width="100%" height="100%" fill="url(#map-grid)" />
-
-                            <!-- Water Body / Creek -->
-                            <path d="M 0,350 Q 200,380 400,320 T 800,360 L 800,450 L 0,450 Z" fill="rgba(0, 150, 255, 0.08)" stroke="rgba(0, 150, 255, 0.2)" stroke-width="2"/>
-                            <text x="500" y="400" fill="var(--text-dim)" opacity="0.4" font-size="12" font-style="italic">Silicon Creek</text>
-
-                            <!-- Green Park Area -->
-                            <rect x="50" y="50" width="180" height="120" rx="10" fill="rgba(46, 213, 115, 0.04)" stroke="rgba(46, 213, 115, 0.15)" stroke-width="1.5" />
-                            <text x="75" y="115" fill="var(--text-dim)" opacity="0.4" font-size="12" font-weight="600">Cyber-Green Park</text>
-
-                            <!-- Streets Grid (Lines) -->
-                            <!-- Silicon Blvd (Horizontal) -->
-                            <line id="street-silicon-blvd" x1="0" y1="200" x2="800" y2="200" stroke="var(--border-color)" stroke-width="14" stroke-linecap="round" opacity="0.6"/>
-                            <text x="650" y="192" fill="var(--text-dim)" font-size="10" font-weight="bold" letter-spacing="1">SILICON BLVD</text>
-
-                            <!-- Lithium Ave (Horizontal) -->
-                            <line id="street-lithium-ave" x1="0" y1="80" x2="800" y2="80" stroke="var(--border-color)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
-                            <text x="650" y="72" fill="var(--text-dim)" font-size="9" letter-spacing="1">LITHIUM AVE</text>
-
-                            <!-- Cyber Drive (Vertical) -->
-                            <line id="street-cyber-drive" x1="400" y1="0" x2="400" y2="330" stroke="var(--border-color)" stroke-width="16" stroke-linecap="round" opacity="0.6"/>
-                            <text x="412" y="50" fill="var(--text-dim)" font-size="10" font-weight="bold" transform="rotate(90, 412, 50)" letter-spacing="1">CYBER DRIVE</text>
-
-                            <!-- Ampere Street (Vertical) -->
-                            <line id="street-ampere-st" x1="180" y1="0" x2="180" y2="360" stroke="var(--border-color)" stroke-width="10" stroke-linecap="round" opacity="0.4"/>
-                            <text x="192" y="250" fill="var(--text-dim)" font-size="9" transform="rotate(90, 192, 250)" letter-spacing="1">AMPERE ST</text>
-
-                            <!-- VoltGlide Lab Building Anchor Point -->
-                            <g id="map-voltglide-marker" transform="translate(400, 200)" cursor="pointer" onclick="focusMapMarker()">
-                                <!-- Pulsing rings -->
-                                <circle r="25" fill="var(--primary-color)" opacity="0.15">
-                                    <animate attributeName="r" values="12;28;12" dur="3s" repeatCount="indefinite" />
-                                    <animate attributeName="opacity" values="0.3;0;0.3" dur="3s" repeatCount="indefinite" />
-                                </circle>
-                                <circle r="12" fill="var(--primary-color)" opacity="0.4"/>
-                                <circle r="6" fill="#fff"/>
-                                <!-- Pin Icon -->
-                                <path d="M 0,-4 C -4,-8 -4,-16 0,-20 C 4,-16 4,-8 0,-4 Z" fill="var(--primary-color)"/>
-                                <circle cx="0" cy="-12" r="2" fill="#fff"/>
-                            </g>
-
-                            <!-- Street Highlights (Invisible by default, colored when searched) -->
-                            <line id="hl-cyber-drive" x1="400" y1="0" x2="400" y2="330" stroke="var(--primary-color)" stroke-width="6" opacity="0" stroke-linecap="round" style="transition: opacity 0.5s ease;"/>
-                            <line id="hl-silicon-blvd" x1="0" y1="200" x2="800" y2="200" stroke="var(--primary-color)" stroke-width="6" opacity="0" stroke-linecap="round" style="transition: opacity 0.5s ease;"/>
-
-                            <!-- Map Label Card -->
-                            <g transform="translate(425, 130)" id="map-tooltip-card">
-                                <rect width="180" height="60" rx="8" fill="var(--card-bg)" stroke="var(--primary-color)" stroke-width="1.5" />
-                                <text x="12" y="20" fill="var(--text-main)" font-size="11" font-weight="bold">VoltGlide Repair Lab</text>
-                                <text x="12" y="36" fill="var(--text-dim)" font-size="9">102 Cyber Drive (Silicon Corner)</text>
-                                <text x="12" y="48" fill="var(--primary-color)" font-size="9" font-weight="bold">Intake Bay: OPEN</text>
-                            </g>
-                        </svg>
-                    </div>
-
-                    <!-- Routing Info Banner -->
-                    <div id="map-route-banner" class="map-route-banner hidden" style="background: rgba(46, 213, 115, 0.1); border: 1px solid rgba(46, 213, 115, 0.2); padding: 0.75rem; border-radius: 8px; margin-top: 1rem; text-align: center;">
-                        <i class="fa-solid fa-circle-info text-green" style="margin-right: 0.5rem;"></i> <span id="map-route-text" style="font-size: 0.9rem; font-weight: 500;">Route calculated successfully!</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Cyber District map removed -->
 
         <!-- Quick Contact FAQ Accordion (Contact 1) -->
         <section class="contact-faq-section">
@@ -1398,6 +1237,7 @@
                         <li><a href="#" class="sidebar-link" onclick="switchDashboardTab('book', this)"><i class="fa-solid fa-calendar-plus"></i> Book Appointment</a></li>
                         <li><a href="#" class="sidebar-link" onclick="switchDashboardTab('shop', this)"><i class="fa-solid fa-basket-shopping"></i> Parts Catalog Shop</a></li>
                         <li><a href="#" class="sidebar-link" onclick="switchDashboardTab('diy', this)"><i class="fa-solid fa-screwdriver-wrench"></i> DIY Videos & Diagnostics</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="navigateTo('profile')"><i class="fa-solid fa-user"></i> Profile</a></li>
                         <li><a href="#" class="sidebar-link" onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                     </ul>
                 </nav>
@@ -2057,11 +1897,57 @@
                     <button class="btn btn-social-facebook" onclick="showToast('Facebook login is not integrated yet.', 'error')">
                         <i class="fa-brands fa-facebook-f"></i> Facebook
                     </button>
+                    <button class="btn btn-social-apple" onclick="showToast('Apple login is not integrated yet.', 'error')">
+                        <i class="fa-brands fa-apple"></i> Apple
+                    </button>
                 </div>
 
                 <!-- Registration Link at Bottom -->
                 <div class="auth-footer-link">
                     Don't have an account? <a href="#" onclick="navigateTo('register')">Sign Up</a>
+                </div>
+                <div class="auth-footer-link">
+                    Forgot your password? <a href="#" onclick="navigateTo('forgot-password')">Reset Password</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==============================================
+         FORGOT PASSWORD PAGE
+         ============================================== -->
+    <main id="forgot-password-view" class="view-container hidden">
+        <div class="auth-page-wrapper">
+            <div class="auth-header-toggles">
+                <button class="theme-btn dashboard-theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button class="rtl-btn dashboard-rtl-btn" onclick="toggleDirection()" aria-label="Toggle Layout Direction">
+                    <span class="rtl-circle">LTR</span>
+                </button>
+            </div>
+
+            <div class="auth-container glass-card">
+                <div class="auth-logo">
+                    <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                </div>
+                <h2>Reset Your Password</h2>
+                <p class="auth-subtitle">Enter the email associated with your account and we'll send you reset instructions.</p>
+
+                <form id="forgot-password-form" onsubmit="handleForgotPasswordSubmit(event)">
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="forgot-email">Email Address</label>
+                        <input type="email" id="forgot-email" placeholder="name@domain.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full margin-top-md">Send Reset Link</button>
+                </form>
+
+                <div class="auth-footer-link">
+                    Remembered your password? <a href="#" onclick="navigateTo('login')">Log In</a>
                 </div>
             </div>
         </div>
@@ -2114,9 +2000,84 @@
                     <button type="submit" class="btn btn-primary btn-full margin-top-md">Register Account</button>
                 </form>
 
+                <!-- Social Logins -->
+                <div class="social-login-separator">
+                    <span>or continue with</span>
+                </div>
+                <div class="social-login-buttons">
+                    <button class="btn btn-social-google" onclick="showToast('Google signup is not integrated yet.', 'error')">
+                        <i class="fa-brands fa-google"></i> Google
+                    </button>
+                    <button class="btn btn-social-facebook" onclick="showToast('Facebook signup is not integrated yet.', 'error')">
+                        <i class="fa-brands fa-facebook-f"></i> Facebook
+                    </button>
+                    <button class="btn btn-social-apple" onclick="showToast('Apple signup is not integrated yet.', 'error')">
+                        <i class="fa-brands fa-apple"></i> Apple
+                    </button>
+                </div>
+
                 <!-- Already have an account link -->
                 <div class="auth-footer-link">
                     Already have an account? <a href="#" onclick="navigateTo('login')">Log In</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==============================================
+         PROFILE PAGE
+         ============================================== -->
+    <main id="profile-view" class="view-container hidden">
+        <div class="auth-page-wrapper">
+            <div class="auth-header-toggles">
+                <button class="theme-btn dashboard-theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button class="rtl-btn dashboard-rtl-btn" onclick="toggleDirection()" aria-label="Toggle Layout Direction">
+                    <span class="rtl-circle">LTR</span>
+                </button>
+            </div>
+
+            <div class="auth-container glass-card profile-card">
+                <div class="auth-logo">
+                    <a href="#" class="logo-link" onclick="navigateTo('home1')">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                </div>
+                <h2>Profile Settings</h2>
+                <p class="auth-subtitle">Update your account details and manage your dashboard preferences.</p>
+
+                <div class="profile-summary">
+                    <div class="profile-avatar-box">
+                        <img id="profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="Profile Avatar">
+                    </div>
+                    <div class="profile-meta">
+                        <p><strong id="profile-name">Marcus Vance</strong></p>
+                        <p id="profile-email" class="text-dim">rider@voltglide.com</p>
+                        <p id="profile-id" class="text-dim">User ID: VG-90210</p>
+                    </div>
+                </div>
+
+                <form id="profile-form" onsubmit="handleProfileUpdate(event)">
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="profile-name-input">Full Name</label>
+                        <input type="text" id="profile-name-input" required>
+                    </div>
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="profile-email-input">Email Address</label>
+                        <input type="email" id="profile-email-input" required>
+                    </div>
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="profile-password-input">New Password</label>
+                        <input type="password" id="profile-password-input" placeholder="Leave blank to keep current password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full margin-top-md">Save Changes</button>
+                </form>
+
+                <div class="auth-footer-link">
+                    <a href="#" onclick="navigateTo('user-dashboard')">Back to Dashboard</a>
                 </div>
             </div>
         </div>
