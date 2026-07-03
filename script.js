@@ -184,14 +184,34 @@ const DIY_VIDEOS = [
 document.addEventListener('DOMContentLoaded', () => {
     loadSettings();
     initializeData();
-    renderAllDynamicContent();
     setupEventListeners();
     
-    // Default logged in user for showcase
-    loginAsDefaultUser();
+    // Detect current page and run page-specific logic
+    const path = window.location.pathname;
+    const page = path.substring(path.lastIndexOf('/') + 1);
 
-    // Default route
-    navigateTo('home1');
+    if (page === 'user-dashboard.html') {
+        if (!state.currentUser) {
+            state.currentUser = { ...DEFAULT_USER };
+        }
+        updateUserInterfaceUI();
+        renderUserDashboard();
+    } else if (page === 'admin-dashboard.html') {
+        if (!state.currentUser) {
+            state.currentUser = { ...DEFAULT_ADMIN };
+        }
+        updateUserInterfaceUI();
+        renderAdminDashboard();
+    } else if (page === 'profile.html') {
+        if (!state.currentUser) {
+            state.currentUser = { ...DEFAULT_USER };
+        }
+        renderProfilePage();
+    } else {
+        // Public pages (index, home2, about, services, contact, login, register, etc.)
+        loginAsDefaultUser();
+        renderAllDynamicContent();
+    }
 });
 
 // --- Local Storage Management ---
@@ -261,64 +281,28 @@ function toggleDirection() {
 }
 
 // --- Navigation Router ---
+// Page URL map for multi-page navigation
+const PAGE_MAP = {
+    'home1': 'index.html',
+    'home2': 'home2.html',
+    'about': 'about.html',
+    'services': 'services.html',
+    'contact': 'contact.html',
+    'user-dashboard': 'user-dashboard.html',
+    'admin-dashboard': 'admin-dashboard.html',
+    'login': 'login.html',
+    'forgot-password': 'forgot-password.html',
+    'register': 'register.html',
+    'profile': 'profile.html'
+};
+
 function navigateTo(viewId) {
-    // Hide all views
-    const views = document.querySelectorAll('.view-container');
-    views.forEach(v => v.classList.add('hidden'));
-
-    // Show selected view
-    const activeView = document.getElementById(`${viewId}-view`);
-    if (activeView) {
-        activeView.classList.remove('hidden');
-    }
-
-    // Hide/Show main header and footer for dashboard and authentication pages
-    const header = document.querySelector('.main-header');
-    const footer = document.querySelector('.main-footer');
-    const hideViews = ['user-dashboard', 'admin-dashboard', 'login', 'register', 'forgot-password', 'profile'];
-    if (hideViews.includes(viewId)) {
-        if (header) header.classList.add('hidden');
-        if (footer) footer.classList.add('hidden');
+    const targetPage = PAGE_MAP[viewId];
+    if (targetPage) {
+        window.location.href = targetPage;
     } else {
-        if (header) header.classList.remove('hidden');
-        if (footer) footer.classList.remove('hidden');
+        console.warn('Unknown viewId:', viewId);
     }
-    // Remove the header space when header is hidden (dashboard/auth views)
-    if (hideViews.includes(viewId)) {
-        document.body.style.paddingTop = '0px';
-    } else {
-        document.body.style.paddingTop = '70px';
-    }
-
-    // Update nav links highlights
-    updateNavHighlight(viewId);
-
-    // Specific rendering hooks
-    if (viewId === 'user-dashboard') {
-        if (!state.currentUser) {
-            state.currentUser = { ...DEFAULT_USER };
-            updateUserInterfaceUI();
-        }
-        renderUserDashboard();
-    } else if (viewId === 'admin-dashboard') {
-        if (!state.currentUser) {
-            state.currentUser = { ...DEFAULT_ADMIN };
-            updateUserInterfaceUI();
-        }
-        renderAdminDashboard();
-    } else if (viewId === 'profile') {
-        if (!state.currentUser) {
-            state.currentUser = { ...DEFAULT_USER };
-            updateUserInterfaceUI();
-        }
-        renderProfilePage();
-    }
-
-    // Scroll to top
-    window.scrollTo(0, 0);
-
-    // Close Mobile Drawer
-    closeMobileMenuOnly();
 }
 
 function updateNavHighlight(viewId) {
@@ -387,12 +371,14 @@ function handleLoginSubmit(event) {
 
     if (email === 'admin@voltglide.com' || email === 'sergei@voltglide.com') {
         state.currentUser = { ...DEFAULT_ADMIN, email: email };
+        localStorage.setItem('vg_current_user', JSON.stringify(state.currentUser));
         showToast("Logged in as Sergei (Administrator)");
-        navigateTo('admin-dashboard');
+        setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 800);
     } else {
         state.currentUser = { ...DEFAULT_USER, email: email };
+        localStorage.setItem('vg_current_user', JSON.stringify(state.currentUser));
         showToast("Logged in as Marcus (Customer)");
-        navigateTo('user-dashboard');
+        setTimeout(() => { window.location.href = 'user-dashboard.html'; }, 800);
     }
 
     updateUserInterfaceUI();
@@ -412,17 +398,12 @@ function handleRegisterSubmit(event) {
 
     // Success registration simulation
     showToast("Registration successful! Account created.");
-    
-    // Switch select role to User and populate email in login page
-    switchLoginRole('user');
-    document.getElementById('login-email').value = email;
-    document.getElementById('login-password').value = password;
 
     // Reset register form
     document.getElementById('register-form-submit').reset();
 
     // Navigate to Login Page
-    navigateTo('login');
+    setTimeout(() => { window.location.href = 'login.html'; }, 800);
 }
 
 function handleForgotPasswordSubmit(event) {
@@ -434,7 +415,7 @@ function handleForgotPasswordSubmit(event) {
     }
     showToast(`Reset instructions sent to ${email}.`);
     document.getElementById('forgot-password-form').reset();
-    navigateTo('login');
+    setTimeout(() => { window.location.href = 'login.html'; }, 800);
 }
 
 function handleProfileUpdate(event) {
@@ -488,9 +469,10 @@ function renderProfilePage() {
 
 function logoutUser() {
     state.currentUser = null;
+    localStorage.removeItem('vg_current_user');
     updateUserInterfaceUI();
     showToast("Logged out successfully");
-    navigateTo('home1');
+    setTimeout(() => { window.location.href = 'index.html'; }, 800);
 }
 
 function updateUserInterfaceUI() {
@@ -1454,21 +1436,20 @@ function scrollToElement(elementId) {
 }
 
 function navigateToDashboard() {
-    if (state.currentUser.role === 'admin') {
-        navigateTo('admin-dashboard');
+    if (state.currentUser && state.currentUser.role === 'admin') {
+        window.location.href = 'admin-dashboard.html';
     } else {
-        navigateTo('user-dashboard');
+        window.location.href = 'user-dashboard.html';
     }
 }
 
 function navigateToDashboardShop() {
     if (!state.currentUser) {
         showToast("Please login to access store", "error");
-        navigateTo('login');
+        window.location.href = 'login.html';
         return;
     }
-    navigateTo('user-dashboard');
-    switchDashboardTab('shop', document.querySelectorAll('.sidebar-link')[2]);
+    window.location.href = 'user-dashboard.html';
 }
 
 function openBookingModal() {

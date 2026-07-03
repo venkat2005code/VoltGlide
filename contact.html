@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltGlide | Contact &amp; Support Center</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description" content="Contact VoltGlide's e-scooter repair support center. Find our location, send a message, or request emergency roadside dispatch.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                    <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">Home <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html" class="dropdown-link">Home 1</a></li>
+                            <li><a href="home2.html" class="dropdown-link">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a href="parts-shop.html" class="nav-link">Shop</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">Dashboard <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="user-dashboard.html" class="dropdown-link">User Dashboard</a></li>
+                            <li><a href="admin-dashboard.html" class="dropdown-link">Admin Dashboard</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button id="rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction"><span class="rtl-circle">LTR</span></button>
+                <button id="login-nav-btn" class="login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i><span class="btn-text">Login</span>
+                </button>
+                <button class="mobile-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars hamburger"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-nav-header" style="justify-content: flex-end;">
+            <button class="close-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mobile-nav-body">
+            <ul class="mobile-list">
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)"><span>Home</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i></button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="index.html" class="mobile-dropdown-link">Home 1</a></li>
+                        <li><a href="home2.html" class="mobile-dropdown-link">Home 2</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item"><a href="about.html" class="mobile-link">About</a></li>
+                <li class="mobile-nav-item"><a href="services.html" class="mobile-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="pricing.html" class="mobile-link">Pricing</a></li>
+                <li class="mobile-nav-item"><a href="parts-shop.html" class="mobile-link">Shop</a></li>
+                <li class="mobile-nav-item"><a href="blog.html" class="mobile-link">Blog</a></li>
+                <li class="mobile-nav-item"><a href="contact.html" class="mobile-link">Contact</a></li>
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)"><span>Dashboard</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i></button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="user-dashboard.html" class="mobile-dropdown-link">User Dashboard</a></li>
+                        <li><a href="admin-dashboard.html" class="mobile-dropdown-link">Admin Dashboard</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="mobile-nav-actions">
+                <div class="mobile-toggles-row">
+                    <button id="mobile-theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                        <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                        <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                    </button>
+                    <button id="mobile-rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction"><span class="rtl-circle">LTR</span></button>
+                </div>
+                <button id="mobile-login-btn" class="login-btn mobile-login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i><span class="btn-text">Login</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CONTACT US VIEW -->
+    <main id="contact-view" class="view-container">
+        <!-- Main Contact Hero -->
+        <section class="contact-main-hero">
+            <div class="section-container grid-2-align-center">
+                <div class="contact-hero-text">
+                    <span class="badge-pill"><i class="fa-solid fa-headset text-green"></i> Support Center</span>
+                    <h1 class="contact-hero-title">Connect with VoltGlide Support</h1>
+                    <p class="contact-hero-desc">Have a question about booking, custom parts availability, or need emergency dispatch? We are here to keep your electric scooter running like new.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="scrollToElement('contact-form')"><i class="fa-solid fa-envelope"></i> Send Message</button>
+                        <button class="btn btn-secondary" onclick="scrollToElement('contact-form')"><i class="fa-solid fa-location-dot"></i> View Workshop Map</button>
+                    </div>
+                </div>
+                <div class="contact-hero-visual">
+                    <img src="./e6.png" alt="Scooter dashboard and callout care" class="rounded-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Standard Contact Details and Form -->
+        <section class="contact-section">
+            <div class="section-container grid-2">
+                <!-- Contact info -->
+                <div class="contact-info">
+                    <span class="badge-pill"><i class="fa-solid fa-map-location"></i> Visit Our Shop</span>
+                    <h2 class="contact-title">Let's Get Your Ride Rolling Again</h2>
+                    <p class="contact-desc">Drop by our workshop directly or send us a diagnostic inquiry message. Our typical email response time is under 1 hour during business hours.</p>
+
+                    <div class="contact-detail-list">
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-icon"><i class="fa-solid fa-shop"></i></span>
+                            <div><h4>VoltGlide Workshop Center</h4><p>102 Cyber Drive, Suite A, Silicon District</p></div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-icon"><i class="fa-solid fa-clock"></i></span>
+                            <div><h4>Working Hours</h4><p>Mon - Fri: 8:00 AM - 7:00 PM <br>Saturday: 9:00 AM - 4:00 PM (Sunday Closed)</p></div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-icon"><i class="fa-solid fa-phone"></i></span>
+                            <div><h4>Call Technical Support</h4><p>+1 (555) 234-BOLT (2658)</p></div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <span class="contact-detail-icon"><i class="fa-solid fa-envelope"></i></span>
+                            <div><h4>Direct Email Address</h4><p>support@voltglide-escooter.com</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Card -->
+                <div class="contact-form-card glass-card">
+                    <h3>Send Us A Message</h3>
+                    <p class="card-subtitle">Have a custom question or need a bulk fleet repair quote?</p>
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)">
+                        <div class="form-group">
+                            <label for="contact-name">Your Full Name</label>
+                            <input type="text" id="contact-name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-scooter">Scooter Model</label>
+                            <input type="text" id="contact-scooter" placeholder="Xiaomi Pro 2 (Optional)">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Describe Your Scooter's Issue</label>
+                            <textarea id="contact-message" rows="4" placeholder="Briefly describe what's wrong (e.g. error code, won't hold charge, flat tire...)" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Submit Diagnostic Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Contact FAQ Accordion -->
+        <section class="contact-faq-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Contact &amp; Visit FAQ</h2>
+                    <p class="section-subtitle">Find immediate logistics info about parking, lounge amenities, and shipping services.</p>
+                </div>
+                <div class="faq-accordion-container">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Do you accept freight mail-in repairs for other states?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. If you live outside the Silicon District area, you can register a booking through your User Dashboard, package your scooter securely inside a heavy cardboard box, and ship it to our Intake facility. Return shipping rates are flat $45.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Can I wait in the shop while my flat tire is being repaired?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Absolutely. We have a dedicated Rider Lounge overlooking the clean room electronics lab. Enjoy complimentary espresso, high-speed Wi-Fi, and watch our mechanical specialists work on the hydraulic press lines.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Is drive-in parking available for bulk drop-offs?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, we have 4 designated drive-in parking spots directly in front of Bay Door A. You can unload your scooter and bring it straight to the digital intake counter.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadside Assistance / Dispatch Form -->
+        <section class="roadside-dispatch-section">
+            <div class="section-container grid-2-align-center">
+                <div class="dispatch-content">
+                    <span class="badge-pill"><i class="fa-solid fa-truck-pickup"></i> Rapid Assistance</span>
+                    <h2>Emergency Roadside Breakdown Dispatch</h2>
+                    <p>Scooter broken down on your commute? If you are within 8 miles of our Silicon District workshop, submit an emergency callout. Our mobile technician van can meet you on-site for emergency tire solid swaps, battery jumps, or secure transit pickup.</p>
+                    <div class="dispatch-stats" style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1.5rem;">
+                        <div class="d-stat">
+                            <strong style="display: block; font-size: 2rem; color: var(--primary-color);">15 Mins</strong>
+                            <span style="font-size: 0.85rem; color: var(--text-dim);">Average Dispatch Time</span>
+                        </div>
+                        <div class="d-stat">
+                            <strong style="display: block; font-size: 2rem; color: var(--primary-color);">$35.00</strong>
+                            <span style="font-size: 0.85rem; color: var(--text-dim);">Flat Callout Fee</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dispatch-form-box glass-card">
+                    <h3>Request Mobile Dispatch</h3>
+                    <p class="card-subtitle">Fill in details for roadside technician arrival.</p>
+                    <form id="dispatch-form" onsubmit="handleDispatchSubmit(event)">
+                        <div class="form-group">
+                            <label for="disp-location">Current Street Intersection / Coordinates</label>
+                            <input type="text" id="disp-location" placeholder="e.g. 5th Ave &amp; Cyber Drive" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="disp-scooter">Scooter Model</label>
+                            <input type="text" id="disp-scooter" placeholder="e.g. Segway F40" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="disp-issue">What happened?</label>
+                            <select id="disp-issue">
+                                <option value="flat">Sudden flat tire puncture</option>
+                                <option value="power">Complete power loss / BMS cutoff</option>
+                                <option value="lock">Electronic lock / dashboard error</option>
+                                <option value="brake">Brake line snapped</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Dispatch Technician Van</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- B2B Partner Stations Section -->
+        <section class="partner-stations-section">
+            <div class="section-container grid-2-align-center">
+                <div class="partner-visual">
+                    <img src="./e11.jpg" alt="Partner workshop center" class="rounded-img">
+                </div>
+                <div class="partner-content">
+                    <span class="badge-pill secondary"><i class="fa-solid fa-handshake"></i> Technical Networks</span>
+                    <h2>Become an Authorized VoltGlide Station</h2>
+                    <p>Own a bicycle or mechanics shop? Partner with VoltGlide to access wholesale OEM parts supply, shared diagnostics software, and qualified customer repair referrals. Help expand clean electric micro-mobility care in your city.</p>
+                    <div class="partner-form-teaser margin-top-md">
+                        <form id="partner-form" onsubmit="event.preventDefault(); showToast('Partner application sent! Our network manager will review within 48h.')">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="p-shop-name">Shop Name</label>
+                                    <input type="text" id="p-shop-name" placeholder="Speedy Cycles" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="p-email">Business Email</label>
+                                    <input type="email" id="p-email" placeholder="manager@speedy.com" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-secondary btn-full">Submit Partner Application</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rider Feedback Survey Section -->
+        <section class="rider-survey-section">
+            <div class="section-container">
+                <div class="feedback-card-wide glass-card">
+                    <div class="section-header center">
+                        <h2>Rate Your VoltGlide Experience</h2>
+                        <p class="section-subtitle">We continually improve our soldering chambers and calibration dynos based on user logs.</p>
+                    </div>
+                    <form id="survey-form" onsubmit="handleSurveySubmit(event)">
+                        <div class="rating-stars-row" style="display: flex; justify-content: center; gap: 1rem; margin: 1.5rem 0;">
+                            <span class="star-rating" data-val="1" onclick="rateSurveyStars(1)" style="font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                            <span class="star-rating" data-val="2" onclick="rateSurveyStars(2)" style="font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                            <span class="star-rating" data-val="3" onclick="rateSurveyStars(3)" style="font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                            <span class="star-rating" data-val="4" onclick="rateSurveyStars(4)" style="font-size: 2rem; cursor: pointer; color: var(--text-dim); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                            <span class="star-rating active" data-val="5" onclick="rateSurveyStars(5)" style="font-size: 2rem; cursor: pointer; color: var(--primary-color); transition: color 0.2s;"><i class="fa-solid fa-star"></i></span>
+                        </div>
+                        <div class="form-group margin-top-md">
+                            <label for="survey-comment">What did you like or how can we improve?</label>
+                            <textarea id="survey-comment" rows="3" placeholder="Tell us about repair turnaround, parts availability, or booking convenience..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Feedback Report</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                    <p class="footer-tagline">Premium engineering diagnostics, professional micro-mobility repairs, and genuine e-scooter parts shop.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="index.html">Home 1 (Default)</a></li>
+                        <li><a href="home2.html">Home 2 (Promo)</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Repair Services</a></li>
+                        <li><a href="contact.html">Find Location</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Repair Fixes</h3>
+                    <ul>
+                        <li><a href="services.html">Solid Tire Swap</a></li>
+                        <li><a href="services.html">Lithium BMS Repair</a></li>
+                        <li><a href="services.html">Disc Brake Calibrations</a></li>
+                        <li><a href="services.html">Smart Controller Flash</a></li>
+                        <li><a href="services.html">Motor Hall Sensor Tuning</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Safety Certification</h3>
+                    <p>All battery diagnostics are completed under certified ESD and spark-proof safety enclosures.</p>
+                    <div class="safety-badge-row">
+                        <span class="safety-badge"><i class="fa-solid fa-shield-virus"></i> ESD Safe</span>
+                        <span class="safety-badge"><i class="fa-solid fa-triangle-exclamation"></i> UN38.3 Tech</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VoltGlide Micro-Mobility Inc. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

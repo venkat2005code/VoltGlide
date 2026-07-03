@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltGlide | User Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description" content="VoltGlide user dashboard — track your repair progress, shop for parts, and manage your e-scooter service.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme" style="padding-top: 0;">
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- USER DASHBOARD VIEW -->
+    <main id="user-dashboard-view" class="view-container">
+        <div class="dashboard-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="dashboard-sidebar">
+                <div class="sidebar-header">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                </div>
+                <nav class="sidebar-nav">
+                    <ul>
+                        <li><a href="#" class="sidebar-link active" onclick="switchDashboardTab('overview', this)"><i class="fa-solid fa-chart-line"></i> Overview</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="switchDashboardTab('book', this)"><i class="fa-solid fa-calendar-plus"></i> Book Appointment</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="switchDashboardTab('shop', this)"><i class="fa-solid fa-basket-shopping"></i> Parts Catalog Shop</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="switchDashboardTab('diy', this)"><i class="fa-solid fa-screwdriver-wrench"></i> DIY Videos &amp; Diagnostics</a></li>
+                        <li><a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user"></i> Profile</a></li>
+                        <li><a href="#" class="sidebar-link" onclick="logoutUser()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Dashboard Content Panels -->
+            <section class="dashboard-content">
+                <!-- Dashboard Content Header (Toggles Bar) -->
+                <div class="dashboard-content-header">
+                    <div class="dashboard-logo-mobile">
+                        <a href="index.html" class="logo-link">
+                            <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                            <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                        </a>
+                    </div>
+                    <div class="dashboard-breadcrumbs">
+                        <span>VoltGlide Portal</span> &gt; <strong id="dash-current-tab-label">Overview</strong>
+                    </div>
+                    <div class="dashboard-header-toggles">
+                        <button class="theme-btn dashboard-theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                            <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                            <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                        </button>
+                        <button class="rtl-btn dashboard-rtl-btn" onclick="toggleDirection()" aria-label="Toggle Layout Direction">
+                            <span class="rtl-circle">LTR</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TAB 1: OVERVIEW -->
+                <div id="dash-tab-overview" class="dash-tab-content">
+                    <div class="dashboard-welcome">
+                        <h2>Welcome back, <span id="welcome-username" class="highlight">Rider</span>!</h2>
+                        <p>Track your active e-scooter repair status and keep an eye on your vehicle health.</p>
+                    </div>
+
+                    <!-- Stats Row -->
+                    <div class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper blue"><i class="fa-solid fa-wrench"></i></div>
+                            <div>
+                                <span class="stat-label">Active Bookings</span>
+                                <h3 class="stat-value" id="user-stats-active">1</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper green"><i class="fa-solid fa-cart-shopping"></i></div>
+                            <div>
+                                <span class="stat-label">Cart Items</span>
+                                <h3 class="stat-value" id="user-stats-cart">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon-wrapper amber"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <div>
+                                <span class="stat-label">Scooter Health Rating</span>
+                                <h3 class="stat-value" id="user-stats-health">85%</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scooter Diagnostics Activity Chart -->
+                    <div class="glass-card chart-container margin-top-md">
+                        <h3><i class="fa-solid fa-heart-pulse text-blue icon-gap"></i> Vehicle Battery Health Over Time</h3>
+                        <p class="card-subtitle">Estimated capacity based on cell balance logs and weekly odometer updates.</p>
+                        <div class="bar-chart-wrapper" style="display: flex; align-items: flex-end; justify-content: space-around; height: 180px; padding: 2rem 1rem 1rem 1rem; border-bottom: 2px solid var(--border-color);">
+                            <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">98%</span>
+                                <div class="chart-bar" style="width: 25px; height: 98px; background: linear-gradient(180deg, var(--secondary) 0%, rgba(14, 165, 233, 0.2) 100%); border-radius: 4px 4px 0 0;"></div>
+                                <span style="font-size: 0.8rem;">Week 1</span>
+                            </div>
+                            <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">95%</span>
+                                <div class="chart-bar" style="width: 25px; height: 95px; background: linear-gradient(180deg, var(--secondary) 0%, rgba(14, 165, 233, 0.2) 100%); border-radius: 4px 4px 0 0;"></div>
+                                <span style="font-size: 0.8rem;">Week 2</span>
+                            </div>
+                            <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">91%</span>
+                                <div class="chart-bar" style="width: 25px; height: 91px; background: linear-gradient(180deg, var(--secondary) 0%, rgba(14, 165, 233, 0.2) 100%); border-radius: 4px 4px 0 0;"></div>
+                                <span style="font-size: 0.8rem;">Week 3</span>
+                            </div>
+                            <div class="chart-bar-col" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <span class="bar-val" style="font-size: 0.8rem; color: var(--text-dim);">85%</span>
+                                <div class="chart-bar" style="width: 25px; height: 85px; background: var(--secondary); border-radius: 4px 4px 0 0; box-shadow: 0 0 12px rgba(14, 165, 233, 0.4);"></div>
+                                <span style="font-size: 0.8rem; font-weight: bold; color: var(--secondary);">Current</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Repair Progress Stepper -->
+                    <div class="repair-status-box glass-card margin-top-md">
+                        <div class="card-header-status">
+                            <h3><i class="fa-solid fa-spinner fa-spin text-green icon-gap"></i> Current Repair Progress</h3>
+                            <span class="ticket-badge" id="repair-ticket-id">Ticket #VG-5820</span>
+                        </div>
+                        <p class="scooter-info-text" id="repair-scooter-name">Vehicle: Xiaomi Pro 2 - Flat Tire Upgrade &amp; Safety Check</p>
+
+                        <!-- The Stepper Grid -->
+                        <div class="progress-stepper" id="repair-stepper">
+                            <div class="step-point completed" id="step-1">
+                                <div class="step-dot"><i class="fa-solid fa-check"></i></div>
+                                <span>Received</span>
+                            </div>
+                            <div class="step-point completed" id="step-2">
+                                <div class="step-dot"><i class="fa-solid fa-check"></i></div>
+                                <span>Diagnosing</span>
+                            </div>
+                            <div class="step-point active" id="step-3">
+                                <div class="step-dot"><i class="fa-solid fa-wrench"></i></div>
+                                <span>In Repair</span>
+                            </div>
+                            <div class="step-point" id="step-4">
+                                <div class="step-dot"><i class="fa-solid fa-vial-circle-check"></i></div>
+                                <span>Quality Check</span>
+                            </div>
+                            <div class="step-point" id="step-5">
+                                <div class="step-dot"><i class="fa-solid fa-house-circle-check"></i></div>
+                                <span>Ready for Pick Up</span>
+                            </div>
+                        </div>
+
+                        <div class="status-detail-desc" id="repair-status-desc-text">
+                            <p><strong>Current Status:</strong> Our technician is currently mounting the puncture-proof solid tires using the hydraulic press. Expected completion: Today at 4:30 PM.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick diagnostics alert -->
+                    <div class="diagnostic-alert-box glass-card margin-top-md grid-2-align-center">
+                        <div>
+                            <h3>Submit a Diagnostics Message</h3>
+                            <p>Having a weird vibration or clicking sound? Submit a report. Our engineers will reply with advice, which will show up right here.</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-full" onclick="switchDashboardTab('diy')">Open Diagnostics Assistant</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: BOOK APPOINTMENT -->
+                <div id="dash-tab-book" class="dash-tab-content hidden">
+                    <div class="dashboard-header-tab">
+                        <h2>Schedule a Professional Service</h2>
+                        <p>Choose your scooter model, preferred date, and technician option to book. Instant validation.</p>
+                    </div>
+
+                    <div class="booking-form-wrapper glass-card">
+                        <form id="dash-booking-form" onsubmit="handleDashBooking(event)">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="book-scooter-model">E-Scooter Model / Manufacturer</label>
+                                    <input type="text" id="book-scooter-model" placeholder="e.g. Segway Ninebot Max" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-service-type">Required Service</label>
+                                    <select id="book-service-type">
+                                        <option value="Tire / Solid Conversion">Solid Tire Conversion ($65.00)</option>
+                                        <option value="Inner Tube Replacement">Standard Tube Replacement ($45.00)</option>
+                                        <option value="Brakes Replacement &amp; Tuning">Brake Replacement &amp; Tuning ($35.00)</option>
+                                        <option value="Hydraulic System Bleed">Hydraulic System Bleeding ($55.00)</option>
+                                        <option value="Battery Diagnostics / BMS Fix">Battery Cell &amp; BMS Diagnostics ($120.00)</option>
+                                        <option value="Brushless Hub Motor Repair">Brushless Hub Motor Repair ($95.00)</option>
+                                        <option value="Custom General Inspection">General Scooter Tuning &amp; Inspection ($40.00)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label for="book-date">Preferred Appointment Date</label>
+                                    <input type="date" id="book-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-time">Preferred Arrival Time</label>
+                                    <select id="book-time">
+                                        <option value="09:00 AM">09:00 AM - Morning</option>
+                                        <option value="11:30 AM">11:30 AM - Midday</option>
+                                        <option value="02:00 PM">02:00 PM - Afternoon</option>
+                                        <option value="04:30 PM">04:30 PM - Late Afternoon</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="book-technician">Preferred Service Specialist</label>
+                                <select id="book-technician">
+                                    <option value="First Available">First Available (Fastest appointment)</option>
+                                    <option value="Sergei Volkov">Sergei Volkov (Electronics &amp; Battery specialist)</option>
+                                    <option value="Rachel Miller">Rachel Miller (Tires &amp; Structural frame specialist)</option>
+                                    <option value="Akira Sato">Akira Sato (Motors &amp; Dashboard flashing specialist)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="book-notes">Describe Symptoms (Optional)</label>
+                                <textarea id="book-notes" rows="4" placeholder="Any modifications, error codes, or noises we should know about?"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-calendar-check icon-gap"></i> Lock in Appointment</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TAB 3: PARTS SHOP & CART -->
+                <div id="dash-tab-shop" class="dash-tab-content hidden">
+                    <div class="dashboard-header-tab split-header">
+                        <div>
+                            <h2>Parts Shop &amp; Upgrades Catalog</h2>
+                            <p>Order high-grade replacement components. Add items to your cart, then complete simulated checkout.</p>
+                        </div>
+                        <!-- Cart Indicator Button -->
+                        <button class="cart-trigger" onclick="toggleCartModal()">
+                            <i class="fa-solid fa-cart-shopping"></i> My Cart (<span id="cart-item-count">0</span>)
+                        </button>
+                    </div>
+
+                    <!-- Category Filters -->
+                    <div class="shop-filter-bar">
+                        <button class="filter-tab active" onclick="filterShop('all', this)">All Parts</button>
+                        <button class="filter-tab" onclick="filterShop('tires', this)">Tires &amp; Tubes</button>
+                        <button class="filter-tab" onclick="filterShop('battery', this)">Batteries &amp; BMS</button>
+                        <button class="filter-tab" onclick="filterShop('electronics', this)">Controllers &amp; Screens</button>
+                        <button class="filter-tab" onclick="filterShop('brakes', this)">Brakes &amp; Pads</button>
+                    </div>
+
+                    <!-- Shop Grid -->
+                    <div class="parts-grid-preview" id="shop-parts-grid">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 4: DIY VIDEOS & DIAGNOSTIC ASSISTANT -->
+                <div id="dash-tab-diy" class="dash-tab-content hidden">
+                    <div class="dashboard-header-tab">
+                        <h2>Diagnostics &amp; DIY Support Hub</h2>
+                        <p>Run diagnostic flowcharts, submit query tickets to mechanics, or view detailed maintenance video guides.</p>
+                    </div>
+
+                    <!-- Grid Layout for DIY tab -->
+                    <div class="grid-2">
+                        <!-- Diagnostic message form -->
+                        <div class="glass-card">
+                            <h3><i class="fa-solid fa-headset card-icon-green"></i> Ask a Technician</h3>
+                            <p class="card-subtitle margin-bottom-sm">Send a direct message detailing your scooter issue. An admin response will appear below.</p>
+                            <form id="dash-diagnostics-form" onsubmit="handleDiagnosticsSubmit(event)">
+                                <div class="form-group">
+                                    <label for="diag-scooter">Scooter Brand &amp; Model</label>
+                                    <input type="text" id="diag-scooter" placeholder="Xiaomi M365" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="diag-query">What is happening?</label>
+                                    <textarea id="diag-query" rows="4" placeholder="Detail symptoms, speed reductions, blinking warning codes..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-full">Submit Query</button>
+                            </form>
+
+                            <!-- Responses Area -->
+                            <div class="diagnostics-responses margin-top-md">
+                                <h4>Recent Query Responses</h4>
+                                <div class="response-list" id="diagnostics-response-list">
+                                    <div class="empty-placeholder">
+                                        <p>No questions submitted yet. Ask our technician above!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mini diagnostic guide calculator -->
+                        <div class="glass-card flex-column-layout">
+                            <h3><i class="fa-solid fa-list-check card-icon-blue"></i> Quick Diagnostic Matrix</h3>
+                            <p class="card-subtitle">Select issues to find solutions instantly.</p>
+                            <div class="diagnostic-matrix-box">
+                                <div class="form-group">
+                                    <label for="matrix-symptom">Choose Primary Symptom</label>
+                                    <select id="matrix-symptom" onchange="runMatrixDiagnostic()">
+                                        <option value="">-- Select --</option>
+                                        <option value="no-power">Scooter does not turn on at all</option>
+                                        <option value="low-range">Battery drains twice as fast as before</option>
+                                        <option value="brake-squeak">Brakes emit loud scraping noise</option>
+                                        <option value="shaking">Handlebars wobble at high speeds</option>
+                                        <option value="error-14">Display flashes 'Error 14' (Throttle)</option>
+                                    </select>
+                                </div>
+                                <div class="matrix-output hidden" id="matrix-output-box">
+                                    <div class="matrix-severity badge-pill active" id="matrix-severity">Moderate</div>
+                                    <h4 class="margin-top-sm">Possible Cause:</h4>
+                                    <p id="matrix-cause" class="text-dim font-sm">Blown throttle sensor magnet</p>
+                                    <h4 class="margin-top-sm">DIY Recommendation:</h4>
+                                    <p id="matrix-recommendation" class="text-dim font-sm">Check connection pin; replace throttle lever</p>
+                                    <div class="matrix-price-est margin-top-sm">
+                                        <span>Estimated Shop Cost:</span>
+                                        <strong id="matrix-cost">$45.00</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Grid inside Dashboard -->
+                    <div class="dashboard-videos-area margin-top-lg">
+                        <h3>Maintenance DIY Videos</h3>
+                        <div class="video-grid" id="dashboard-video-grid">
+                            <!-- Loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 5: SERVICE HISTORY -->
+                <div id="dash-tab-history" class="dash-tab-content hidden">
+                    <div class="dashboard-header-tab">
+                        <h2>Your Ride Service History</h2>
+                        <p>Review past completed repairs, parts replaced, and view simulated invoices.</p>
+                    </div>
+                    <div class="history-list-wrapper" id="history-list-container">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- SHOPPING CART MODAL -->
+    <div class="modal-backdrop" id="cartModal">
+        <div class="modal-card cart-modal-card">
+            <button class="modal-close" onclick="toggleCartModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-cart">
+                <h2><i class="fa-solid fa-cart-shopping card-icon-green"></i> Your Shopping Cart</h2>
+                <p>Review items and check out to simulate parts purchasing and service registration.</p>
+            </div>
+            <div class="cart-items-wrapper" id="cart-items-list">
+                <!-- Loaded dynamically -->
+            </div>
+            <div class="cart-summary-box">
+                <div class="cart-total-row">
+                    <span>Subtotal:</span>
+                    <strong id="cart-total-price">$0.00</strong>
+                </div>
+                <button class="btn btn-primary btn-full" onclick="checkoutCart()">Confirm Simulated Purchase</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

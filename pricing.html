@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltGlide | Transparent Pricing — E-Scooter Repair Costs</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description" content="Clear, upfront pricing for every e-scooter repair at VoltGlide. Compare service tiers, get instant estimates, and book with zero hidden fees.">
+    <meta name="keywords" content="e-scooter repair cost, scooter pricing, battery repair price, tire swap cost, brake repair price">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Pricing Page Specific Styles ── */
+        .pricing-hero { padding: 6rem 0 4rem; background: radial-gradient(ellipse at 60% 0%, rgba(0,255,136,0.08) 0%, transparent 60%); }
+        .pricing-hero-inner { text-align: center; max-width: 760px; margin: 0 auto; }
+        .pricing-hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.2; margin: 1rem 0; }
+        .pricing-hero p { color: var(--text-dim); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem; }
+
+        /* Trust strip */
+        .trust-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; padding: 1.5rem 0 3rem; border-bottom: 1px solid var(--border-color); }
+        .trust-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--text-dim); }
+        .trust-item i { color: var(--primary-color); font-size: 1.1rem; }
+
+        /* Estimate calculator */
+        .estimate-section { padding: 5rem 0; background: var(--bg-secondary); }
+        .estimate-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; max-width: 800px; margin: 0 auto; }
+        .estimate-card h2 { font-size: 1.6rem; margin-bottom: 0.4rem; }
+        .estimate-selects { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+        @media (max-width: 600px) { .estimate-selects { grid-template-columns: 1fr; } }
+        .estimate-result { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,255,136,0.02)); border: 1px solid rgba(0,255,136,0.25); border-radius: 14px; padding: 1.5rem 2rem; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+        .estimate-price-display { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); }
+        .estimate-price-label { font-size: 0.8rem; color: var(--text-dim); margin-top: 0.2rem; }
+
+        /* Plan cards */
+        .plans-section { padding: 5rem 0; }
+        .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .plan-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem 2rem; position: relative; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+        .plan-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .plan-card.featured { border-color: var(--primary-color); box-shadow: 0 0 40px rgba(0,255,136,0.12); }
+        .plan-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--primary-color); color: #000; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 18px; border-radius: 30px; white-space: nowrap; }
+        .plan-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem; }
+        .plan-icon.green { background: rgba(0,255,136,0.12); color: var(--primary-color); }
+        .plan-icon.blue { background: rgba(14,165,233,0.12); color: var(--secondary); }
+        .plan-icon.amber { background: rgba(245,158,11,0.12); color: var(--accent-amber); }
+        .plan-name { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); font-weight: 600; margin-bottom: 0.4rem; }
+        .plan-price { font-size: 2.6rem; font-weight: 800; color: var(--text-primary); line-height: 1; }
+        .plan-price span { font-size: 1rem; font-weight: 400; color: var(--text-dim); }
+        .plan-desc { color: var(--text-dim); font-size: 0.9rem; margin: 0.8rem 0 1.5rem; line-height: 1.6; }
+        .plan-includes { list-style: none; padding: 0; margin: 0 0 2rem; flex-grow: 1; }
+        .plan-includes li { display: flex; align-items: flex-start; gap: 0.7rem; padding: 0.5rem 0; font-size: 0.9rem; border-bottom: 1px solid var(--border-color); }
+        .plan-includes li:last-child { border: none; }
+        .plan-includes li i { color: var(--primary-color); margin-top: 0.15rem; flex-shrink: 0; }
+        .plan-includes li i.muted { color: var(--text-dim); }
+
+        /* Full price comparison table */
+        .price-table-section { padding: 5rem 0; background: var(--bg-secondary); }
+        .price-table-wrapper { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border-color); }
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+        .compare-table th { background: var(--bg-input); padding: 1rem 1.2rem; text-align: left; font-weight: 600; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--border-color); white-space: nowrap; }
+        .compare-table td { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+        .compare-table tr:last-child td { border: none; }
+        .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .cat-badge { display: inline-block; padding: 3px 10px; border-radius: 30px; font-size: 0.75rem; font-weight: 600; }
+        .cat-badge.tires { background: rgba(0,255,136,0.12); color: var(--primary-color); }
+        .cat-badge.battery { background: rgba(245,158,11,0.12); color: var(--accent-amber); }
+        .cat-badge.brakes { background: rgba(239,68,68,0.12); color: #f87171; }
+        .cat-badge.electronics { background: rgba(14,165,233,0.12); color: var(--secondary); }
+        .cat-badge.motor { background: rgba(168,85,247,0.12); color: #c084fc; }
+        .price-cell { font-weight: 700; color: var(--primary-color); white-space: nowrap; }
+        .duration-cell { color: var(--text-dim); font-size: 0.85rem; white-space: nowrap; }
+        .parts-yes { color: var(--primary-color); font-size: 0.85rem; font-weight: 600; }
+        .parts-no { color: var(--text-dim); font-size: 0.85rem; }
+        .book-btn-sm { background: transparent; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 5px 14px; border-radius: 30px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: background 0.2s, color 0.2s; white-space: nowrap; }
+        .book-btn-sm:hover { background: var(--primary-color); color: #000; }
+
+        /* FAQ special */
+        .pricing-faq { padding: 5rem 0; }
+        .faq-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .faq-two-col { grid-template-columns: 1fr; } }
+
+        /* CTA Banner */
+        .pricing-cta { padding: 5rem 0; background: radial-gradient(ellipse at 40% 50%, rgba(0,255,136,0.1) 0%, transparent 70%); }
+        .pricing-cta-inner { text-align: center; max-width: 640px; margin: 0 auto; }
+        .pricing-cta h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; }
+        .pricing-cta p { color: var(--text-dim); margin-bottom: 2rem; }
+        .cta-btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    </style>
+</head>
+<body class="dark-theme">
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                    <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">Home <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html" class="dropdown-link">Home 1</a></li>
+                            <li><a href="home2.html" class="dropdown-link">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="pricing.html" class="nav-link active">Pricing</a></li>
+                    <li class="nav-item"><a href="parts-shop.html" class="nav-link">Shop</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">Dashboard <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="user-dashboard.html" class="dropdown-link">User Dashboard</a></li>
+                            <li><a href="admin-dashboard.html" class="dropdown-link">Admin Dashboard</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button id="rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction"><span class="rtl-circle">LTR</span></button>
+                <button id="login-nav-btn" class="login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i><span class="btn-text">Login</span>
+                </button>
+                <button class="mobile-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars hamburger"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-nav-header" style="justify-content: flex-end;">
+            <button class="close-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mobile-nav-body">
+            <ul class="mobile-list">
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)"><span>Home</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i></button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="index.html" class="mobile-dropdown-link">Home 1</a></li>
+                        <li><a href="home2.html" class="mobile-dropdown-link">Home 2</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item"><a href="about.html" class="mobile-link">About</a></li>
+                <li class="mobile-nav-item"><a href="services.html" class="mobile-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="pricing.html" class="mobile-link">Pricing</a></li>
+                <li class="mobile-nav-item"><a href="parts-shop.html" class="mobile-link">Shop</a></li>
+                <li class="mobile-nav-item"><a href="blog.html" class="mobile-link">Blog</a></li>
+                <li class="mobile-nav-item"><a href="contact.html" class="mobile-link">Contact</a></li>
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)"><span>Dashboard</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i></button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="user-dashboard.html" class="mobile-dropdown-link">User Dashboard</a></li>
+                        <li><a href="admin-dashboard.html" class="mobile-dropdown-link">Admin Dashboard</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="mobile-nav-actions">
+                <div class="mobile-toggles-row">
+                    <button id="mobile-theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                        <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                        <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                    </button>
+                    <button id="mobile-rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction"><span class="rtl-circle">LTR</span></button>
+                </div>
+                <button id="mobile-login-btn" class="login-btn mobile-login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i><span class="btn-text">Login</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ══ PRICING HERO ══ -->
+    <main>
+        <section class="pricing-hero">
+            <div class="section-container">
+                <div class="pricing-hero-inner">
+                    <span class="badge-pill"><i class="fa-solid fa-tags"></i> Transparent Pricing</span>
+                    <h1>No Hidden Fees.<br><span class="gradient-text">Just Fair Repair Rates.</span></h1>
+                    <p>Every price you see includes parts and labor. No surprise invoices — we quote before we wrench.</p>
+                    <div class="cta-btn-row" style="margin-top: 1.5rem;">
+                        <button class="btn btn-primary" onclick="openBookingModal()"><i class="fa-solid fa-calendar-check"></i> Book at Listed Price</button>
+                        <a href="#estimate" class="btn btn-secondary"><i class="fa-solid fa-calculator"></i> Get Instant Estimate</a>
+                    </div>
+                </div>
+
+                <!-- Trust strip -->
+                <div class="trust-strip">
+                    <div class="trust-item"><i class="fa-solid fa-shield-check"></i> 12-Month Parts Warranty</div>
+                    <div class="trust-item"><i class="fa-solid fa-lock"></i> Price-Lock Guarantee</div>
+                    <div class="trust-item"><i class="fa-solid fa-rotate-left"></i> Free Re-Check Within 30 Days</div>
+                    <div class="trust-item"><i class="fa-solid fa-handshake"></i> Price Match Promise</div>
+                    <div class="trust-item"><i class="fa-solid fa-clock"></i> Same-Day Estimates</div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══ INSTANT ESTIMATE CALCULATOR ══ -->
+        <section class="estimate-section" id="estimate">
+            <div class="section-container">
+                <div class="estimate-card">
+                    <span class="badge-pill secondary" style="margin-bottom: 0.8rem;"><i class="fa-solid fa-sliders"></i> Instant Quote Tool</span>
+                    <h2>What Will My Repair Cost?</h2>
+                    <p style="color: var(--text-dim); font-size: 0.95rem; margin-top: 0.4rem;">Select your scooter brand and the issue — get a real-time cost estimate in seconds.</p>
+
+                    <div class="estimate-selects">
+                        <div class="form-group">
+                            <label for="est-brand">Your Scooter Brand</label>
+                            <select id="est-brand" onchange="calculateEstimate()">
+                                <option value="1">Xiaomi (M365 / Pro / 4 Pro)</option>
+                                <option value="1.1">Segway Ninebot (Max / F40 / E2)</option>
+                                <option value="1.2">Apollo (City / Ghost / Pro)</option>
+                                <option value="1.3">Kaabo (Mantis / Wolf)</option>
+                                <option value="1.5">Dualtron / Evo / Custom Build</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="est-service">Service Needed</label>
+                            <select id="est-service" onchange="calculateEstimate()">
+                                <option value="65">Solid Tire Conversion (per wheel)</option>
+                                <option value="45">Inner Tube Replacement</option>
+                                <option value="35">Brake Pads Replacement</option>
+                                <option value="55">Hydraulic Brake Bleed</option>
+                                <option value="80">Dashboard Screen Swap</option>
+                                <option value="110">Controller Board Repair</option>
+                                <option value="120">Battery BMS Diagnostics</option>
+                                <option value="95">Hub Motor Hall Sensor Fix</option>
+                                <option value="40">General Inspection &amp; Tuning</option>
+                                <option value="200">Full Overhaul Package</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="estimate-result" id="estimate-result">
+                        <div>
+                            <div class="estimate-price-display" id="est-price-val">$65.00</div>
+                            <div class="estimate-price-label">Estimated total incl. parts &amp; labor</div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.5rem; text-align: right;">
+                            <span id="est-duration" style="font-size: 0.85rem; color: var(--text-dim);">⏱ ~1.5 Hours</span>
+                            <span id="est-warranty" style="font-size: 0.85rem; color: var(--primary-color);">✓ 12-month parts warranty</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm" onclick="openBookingModal()">Book This Service</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══ SERVICE PLAN CARDS ══ -->
+        <section class="plans-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <span class="badge-pill"><i class="fa-solid fa-layer-group"></i> Service Tiers</span>
+                    <h2 class="section-title">Choose Your Service Package</h2>
+                    <p class="section-subtitle">Whether it's a quick flat fix or a full system overhaul, we have a plan that fits your scooter's needs.</p>
+                </div>
+
+                <div class="plans-grid">
+                    <!-- Essential -->
+                    <div class="plan-card">
+                        <div class="plan-icon green"><i class="fa-solid fa-wrench"></i></div>
+                        <div class="plan-name">Essential</div>
+                        <div class="plan-price">$35 <span>– $65</span></div>
+                        <p class="plan-desc">Quick mechanical fixes for flat tires, brake pads, and folding stem alignment.</p>
+                        <ul class="plan-includes">
+                            <li><i class="fa-solid fa-check"></i> Solid or tube tire conversion</li>
+                            <li><i class="fa-solid fa-check"></i> Brake pad replacement (both wheels)</li>
+                            <li><i class="fa-solid fa-check"></i> Tire pressure &amp; stem alignment</li>
+                            <li><i class="fa-solid fa-check"></i> 45-min turnaround</li>
+                            <li><i class="fa-solid fa-check"></i> 3-month labor guarantee</li>
+                            <li><i class="fa-solid fa-xmark muted"></i> Electronics included</li>
+                            <li><i class="fa-solid fa-xmark muted"></i> Battery testing</li>
+                        </ul>
+                        <button class="btn btn-secondary btn-full" onclick="openBookingModal()">Book Essential</button>
+                    </div>
+
+                    <!-- Performance (Featured) -->
+                    <div class="plan-card featured">
+                        <div class="plan-badge">Most Popular</div>
+                        <div class="plan-icon blue"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="plan-name">Performance</div>
+                        <div class="plan-price">$95 <span>– $180</span></div>
+                        <p class="plan-desc">Full drivetrain and brake system service including motor tune, brake bleed, and firmware update.</p>
+                        <ul class="plan-includes">
+                            <li><i class="fa-solid fa-check"></i> Hub motor bearing inspection</li>
+                            <li><i class="fa-solid fa-check"></i> Hall sensor test &amp; replace</li>
+                            <li><i class="fa-solid fa-check"></i> Hydraulic brake fluid bleed</li>
+                            <li><i class="fa-solid fa-check"></i> Firmware &amp; speed calibration</li>
+                            <li><i class="fa-solid fa-check"></i> 12-month parts warranty</li>
+                            <li><i class="fa-solid fa-check"></i> Test ride sign-off</li>
+                            <li><i class="fa-solid fa-xmark muted"></i> Battery cell replacement</li>
+                        </ul>
+                        <button class="btn btn-primary btn-full" onclick="openBookingModal()">Book Performance</button>
+                    </div>
+
+                    <!-- Elite Overhaul -->
+                    <div class="plan-card">
+                        <div class="plan-icon amber"><i class="fa-solid fa-microchip"></i></div>
+                        <div class="plan-name">Elite Overhaul</div>
+                        <div class="plan-price">$200 <span>– $450</span></div>
+                        <p class="plan-desc">Complete scooter restoration including battery pack rebuild, controller swap, and full mechanical service.</p>
+                        <ul class="plan-includes">
+                            <li><i class="fa-solid fa-check"></i> Full battery pack diagnostics</li>
+                            <li><i class="fa-solid fa-check"></i> BMS board repair or replace</li>
+                            <li><i class="fa-solid fa-check"></i> Controller board assessment</li>
+                            <li><i class="fa-solid fa-check"></i> All mechanical parts serviced</li>
+                            <li><i class="fa-solid fa-check"></i> Solid tire set included</li>
+                            <li><i class="fa-solid fa-check"></i> 12-month full warranty</li>
+                            <li><i class="fa-solid fa-check"></i> Priority scheduling</li>
+                        </ul>
+                        <button class="btn btn-secondary btn-full" onclick="openBookingModal()">Book Elite</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══ FULL COMPARISON TABLE ══ -->
+        <section class="price-table-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <span class="badge-pill"><i class="fa-solid fa-table-list"></i> Full Price Directory</span>
+                    <h2 class="section-title">Every Service, Every Price</h2>
+                    <p class="section-subtitle">All prices include parts and labor unless noted. Book directly from this table.</p>
+                </div>
+                <div class="price-table-wrapper" style="margin-top: 2.5rem;">
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Service</th>
+                                <th>Parts</th>
+                                <th>Duration</th>
+                                <th>Price</th>
+                                <th>Book</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="cat-badge tires">Tires</span></td><td>Solid Honeycomb Tire Conversion (per wheel)</td><td class="parts-yes">✓ Included</td><td class="duration-cell">1.5 hrs</td><td class="price-cell">$65</td><td><button class="book-btn-sm" onclick="openBookingWithService('Solid Tire Conversion')">Book</button></td></tr>
+                            <tr><td><span class="cat-badge tires">Tires</span></td><td>Standard Inner Tube Replacement</td><td class="parts-yes">✓ Included</td><td class="duration-cell">45 min</td><td class="price-cell">$45</td><td><button class="book-btn-sm" onclick="openBookingWithService('Inner Tube Replacement')">Book</button></td></tr>
+                            <tr><td><span class="cat-badge tires">Tires</span></td><td>Tubeless Puncture Sealant Install</td><td class="parts-yes">✓ Included</td><td class="duration-cell">30 min</td><td class="price-cell">$30</td><td><button class="book-btn-sm" onclick="openBookingModal()">Book</button></td></tr>
+                            <tr><td><span class="cat-badge brakes">Brakes</span></td><td>Brake Pads Replacement (set of 2)</td><td class="parts-yes">✓ Included</td><td class="duration-cell">45 min</td><td class="price-cell">$35</td><td><button class="book-btn-sm" onclick="openBookingWithService('Brake Pads Replacement')">Book</button></td></tr>
+                            <tr><td><span class="cat-badge brakes">Brakes</span></td><td>Hydraulic System Bleed &amp; Fluid Flush</td><td class="parts-no">Labor only</td><td class="duration-cell">1.5 hrs</td><td class="price-cell">$55</td><td><button class="book-btn-sm" onclick="openBookingWithService('Hydraulic Brake Bleeding')">Book</button></td></tr>
+                            <tr><td><span class="cat-badge brakes">Brakes</span></td><td>Brake Lever Sensor Replacement</td><td class="parts-yes">✓ Included</td><td class="duration-cell">1 hr</td><td class="price-cell">$50</td><td><button class="book-btn-sm" onclick="openBookingModal()">Book</button></td></tr>
+                            <tr><td><span class="cat-badge electronics">Electronics</span></td><td>Dashboard Screen Replacement &amp; Flash</td><td class="parts-yes">✓ Included</td><td class="duration-cell">1 hr</td><td class="price-cell">$80</td><td><button class="book-btn-sm" onclick="openBookingWithService('Dashboard Screen Replacement')">Book</button></td></tr>
+                            <tr><td><span class="cat-badge electronics">Electronics</span></td><td>Controller Board Assembly (Xiaomi / Segway)</td><td class="parts-yes">✓ Included</td><td class="duration-cell">2 hrs</td><td class="price-cell">$110</td><td><button class="book-btn-sm" onclick="openBookingWithService('Controller Board Assembly')">Book</button></td></tr>
+                            <tr><td><span class="cat-badge electronics">Electronics</span></td><td>Throttle / Brake Hall Sensor Replacement</td><td class="parts-yes">✓ Included</td><td class="duration-cell">1 hr</td><td class="price-cell">$55</td><td><button class="book-btn-sm" onclick="openBookingModal()">Book</button></td></tr>
+                            <tr><td><span class="cat-badge battery">Battery</span></td><td>Lithium Pack Cell Diagnostics &amp; Balancing</td><td class="parts-no">Labor only</td><td class="duration-cell">3 hrs</td><td class="price-cell">$120</td><td><button class="book-btn-sm" onclick="openBookingWithService('Battery Cell Diagnostics')">Book</button></td></tr>
+                            <tr><td><span class="cat-badge battery">Battery</span></td><td>BMS Chip Replacement (board-level)</td><td class="parts-yes">✓ Included</td><td class="duration-cell">4 hrs</td><td class="price-cell">$160</td><td><button class="book-btn-sm" onclick="openBookingModal()">Book</button></td></tr>
+                            <tr><td><span class="cat-badge battery">Battery</span></td><td>Cell Spot-Welding &amp; Full Pack Rebuild</td><td class="parts-yes">✓ Included</td><td class="duration-cell">2-3 days</td><td class="price-cell">From $280</td><td><button class="book-btn-sm" onclick="openBookingModal()">Book</button></td></tr>
+                            <tr><td><span class="cat-badge motor">Motor</span></td><td>Hub Motor Hall Sensor Replacement</td><td class="parts-yes">✓ Included</td><td class="duration-cell">2.5 hrs</td><td class="price-cell">$95</td><td><button class="book-btn-sm" onclick="openBookingWithService('Hall Sensor Replacement')">Book</button></td></tr>
+                            <tr><td><span class="cat-badge motor">Motor</span></td><td>Motor Bearing Press &amp; Seal Replacement</td><td class="parts-yes">✓ Included</td><td class="duration-cell">3 hrs</td><td class="price-cell">$115</td><td><button class="book-btn-sm" onclick="openBookingModal()">Book</button></td></tr>
+                            <tr><td><span class="cat-badge tires">General</span></td><td>Full Scooter Inspection &amp; Safety Audit</td><td class="parts-no">Labor only</td><td class="duration-cell">1 hr</td><td class="price-cell">$40</td><td><button class="book-btn-sm" onclick="openBookingWithService('Custom General Inspection')">Book</button></td></tr>
+                            <tr><td><span class="cat-badge motor">Package</span></td><td>Elite Full Overhaul (All Systems)</td><td class="parts-yes">✓ Included</td><td class="duration-cell">2-3 days</td><td class="price-cell">From $200</td><td><button class="book-btn-sm" onclick="openBookingModal()">Book</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══ WARRANTY / GUARANTEE STRIP ══ -->
+        <section class="features-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Every Quote Includes These Guarantees</h2>
+                    <p class="section-subtitle">We back every service with real promises — not just marketing words.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-lock-open"></i></div>
+                        <h3>Price Lock Guarantee</h3>
+                        <p>Once you book at a quoted price, that price is locked in. No "scope creep" additions without your explicit written approval.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-rotate-left"></i></div>
+                        <h3>30-Day Free Re-Check</h3>
+                        <p>If any part we installed fails or a calibration drifts within 30 days of service, bring it back at zero cost.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h3>12-Month Parts Warranty</h3>
+                        <p>Every OEM part we source — batteries, motors, controllers, screens — carries a full one-year replacement warranty.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <h3>Price Match Promise</h3>
+                        <p>Found the same repair cheaper at another certified local shop? Show us the quote and we'll match it, no questions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══ PRICING FAQ ══ -->
+        <section class="pricing-faq">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Pricing Questions Answered</h2>
+                    <p class="section-subtitle">The most common billing questions from first-time customers.</p>
+                </div>
+                <div class="faq-two-col" style="margin-top: 2.5rem;">
+                    <div class="faq-accordion-container">
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFaq(this)">
+                                <span>Are there any diagnostic fees before you quote?</span><i class="fa-solid fa-plus faq-icon"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Our standard visual inspection (15 min) is always free. If you need a full digital electronics diagnostic (oscilloscope, BMS scan), that's $25 — fully credited toward any repair you book on the same visit.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFaq(this)">
+                                <span>What if the repair costs more than quoted?</span><i class="fa-solid fa-plus faq-icon"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>We stop work and call you immediately. You can authorize the additional cost, decline it, or pick up your scooter as-is. We never proceed beyond the approved budget without your go-ahead.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFaq(this)">
+                                <span>Do prices include VAT / tax?</span><i class="fa-solid fa-plus faq-icon"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>All listed prices are pre-tax. Local sales tax is added at checkout based on your service address. Fleet accounts may qualify for business tax exemptions — contact us for details.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-accordion-container">
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFaq(this)">
+                                <span>Can I supply my own parts to save money?</span><i class="fa-solid fa-plus faq-icon"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Yes, with conditions. Customer-supplied parts are accepted for installation at a labor-only rate. However, our 12-month warranty only covers parts sourced directly from VoltGlide's OEM supply chain.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFaq(this)">
+                                <span>How do I pay — upfront or after repair?</span><i class="fa-solid fa-plus faq-icon"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>We take a 50% deposit on booking for any job over $100. The balance is due on collection after your test-ride sign-off. We accept all major cards, digital wallets, and cash.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" onclick="toggleFaq(this)">
+                                <span>Do fleet accounts get different pricing?</span><i class="fa-solid fa-plus faq-icon"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Yes — fleet operators with 5+ scooters receive wholesale labor rates (20-35% off listed prices) and priority queue placement. Contact our fleet team to establish a business account.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══ PRICING CTA ══ -->
+        <section class="pricing-cta">
+            <div class="section-container">
+                <div class="pricing-cta-inner">
+                    <span class="badge-pill"><i class="fa-solid fa-rocket"></i> Ready to Get Fixed?</span>
+                    <h2>Book at the Price You See</h2>
+                    <p>No negotiations, no surprises. Click below to lock in your service at the rate listed above.</p>
+                    <div class="cta-btn-row">
+                        <button class="btn btn-primary btn-lg" onclick="openBookingModal()"><i class="fa-solid fa-calendar-plus"></i> Book Repair Now</button>
+                        <a href="parts-shop.html" class="btn btn-secondary btn-lg"><i class="fa-solid fa-cart-shopping"></i> Browse Parts Shop</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                    <p class="footer-tagline">Premium engineering diagnostics, professional micro-mobility repairs, and genuine e-scooter parts shop.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="parts-shop.html">Shop</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Repair Fixes</h3>
+                    <ul>
+                        <li><a href="#" onclick="openBookingWithService('Solid Tire Conversion')">Solid Tire Swap</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Battery Cell Diagnostics')">Lithium BMS Repair</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Brake Pads Replacement')">Disc Brake Calibrations</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Controller Board Assembly')">Smart Controller Flash</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Safety Certification</h3>
+                    <p>All battery diagnostics are completed under certified ESD and spark-proof safety enclosures.</p>
+                    <div class="safety-badge-row">
+                        <span class="safety-badge"><i class="fa-solid fa-shield-virus"></i> ESD Safe</span>
+                        <span class="safety-badge"><i class="fa-solid fa-triangle-exclamation"></i> UN38.3 Tech</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VoltGlide Micro-Mobility Inc. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOOKING MODAL -->
+    <div class="modal-backdrop" id="bookingModal">
+        <div class="modal-card booking-modal-card">
+            <button class="modal-close" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-booking">
+                <h2><i class="fa-solid fa-calendar-plus card-icon-green"></i> Book Repair Appointment</h2>
+                <p>Select date, preferred technician, and details. We will reserve your bay slot.</p>
+            </div>
+            <form id="modal-booking-form" onsubmit="handleModalBooking(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-scooter">Scooter Model / Brand</label>
+                        <input type="text" id="m-book-scooter" placeholder="Xiaomi Pro 2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-service">Service Required</label>
+                        <select id="m-book-service">
+                            <option value="Solid Tire Conversion">Solid Tire Conversion ($65.00)</option>
+                            <option value="Inner Tube Replacement">Standard Tube Replacement ($45.00)</option>
+                            <option value="Brakes Replacement &amp; Tuning">Brake Replacement &amp; Tuning ($35.00)</option>
+                            <option value="Hydraulic System Bleed">Hydraulic System Bleeding ($55.00)</option>
+                            <option value="Battery Diagnostics / BMS Fix">Battery Cell &amp; BMS Diagnostics ($120.00)</option>
+                            <option value="Brushless Hub Motor Repair">Brushless Hub Motor Repair ($95.00)</option>
+                            <option value="Custom General Inspection">General Scooter Tuning &amp; Inspection ($40.00)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-date">Appointment Date</label>
+                        <input type="date" id="m-book-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-time">Preferred Arrival Time</label>
+                        <select id="m-book-time">
+                            <option value="09:00 AM">09:00 AM - Morning</option>
+                            <option value="11:30 AM">11:30 AM - Midday</option>
+                            <option value="02:00 PM">02:00 PM - Afternoon</option>
+                            <option value="04:30 PM">04:30 PM - Late Afternoon</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="m-book-notes">Describe Symptoms (Optional)</label>
+                    <textarea id="m-book-notes" rows="3" placeholder="Tell our mechanics what's happening..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Submit Appointment Details</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Estimate calculator logic
+        const durations = { '65':'~1.5 hrs','45':'~45 min','35':'~45 min','55':'~1.5 hrs','80':'~1 hr','110':'~2 hrs','120':'~3 hrs','95':'~2.5 hrs','40':'~1 hr','200':'2-3 days' };
+        function calculateEstimate() {
+            const base = parseFloat(document.getElementById('est-service').value);
+            const multiplier = parseFloat(document.getElementById('est-brand').value);
+            const total = (base * multiplier).toFixed(2);
+            document.getElementById('est-price-val').textContent = '$' + total;
+            document.getElementById('est-duration').textContent = '⏱ ' + (durations[String(parseInt(base))] || '~1-3 hrs');
+        }
+        calculateEstimate();
+    </script>
+</body>
+</html>

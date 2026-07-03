@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltGlide | Transparent Pricing & Cost Estimator</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description" content="Transparent e-scooter repair pricing with zero guesswork. Use VoltGlide's scooter health calculator and get a clear quote.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                    <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link active" onclick="event.preventDefault()">
+                            Home <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html" class="dropdown-link">Home 1</a></li>
+                            <li><a href="home2.html" class="dropdown-link">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a href="parts-shop.html" class="nav-link">Shop</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">
+                            Dashboard <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="user-dashboard.html" class="dropdown-link">User Dashboard</a></li>
+                            <li><a href="admin-dashboard.html" class="dropdown-link">Admin Dashboard</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button id="rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction">
+                    <span class="rtl-circle">LTR</span>
+                </button>
+                <button id="login-nav-btn" class="login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i>
+                    <span class="btn-text">Login</span>
+                </button>
+                <button class="mobile-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars hamburger"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-nav-header" style="justify-content: flex-end;">
+            <button class="close-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mobile-nav-body">
+            <ul class="mobile-list">
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)">
+                        <span>Home</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i>
+                    </button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="index.html" class="mobile-dropdown-link">Home 1</a></li>
+                        <li><a href="home2.html" class="mobile-dropdown-link">Home 2</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item"><a href="about.html" class="mobile-link">About</a></li>
+                <li class="mobile-nav-item"><a href="services.html" class="mobile-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="pricing.html" class="mobile-link">Pricing</a></li>
+                <li class="mobile-nav-item"><a href="parts-shop.html" class="mobile-link">Shop</a></li>
+                <li class="mobile-nav-item"><a href="blog.html" class="mobile-link">Blog</a></li>
+                <li class="mobile-nav-item"><a href="contact.html" class="mobile-link">Contact</a></li>
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)">
+                        <span>Dashboard</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i>
+                    </button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="user-dashboard.html" class="mobile-dropdown-link">User Dashboard</a></li>
+                        <li><a href="admin-dashboard.html" class="mobile-dropdown-link">Admin Dashboard</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="mobile-nav-actions">
+                <div class="mobile-toggles-row">
+                    <button id="mobile-theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                        <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                        <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                    </button>
+                    <button id="mobile-rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction">
+                        <span class="rtl-circle">LTR</span>
+                    </button>
+                </div>
+                <button id="mobile-login-btn" class="login-btn mobile-login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i>
+                    <span class="btn-text">Login</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- HOME 2 VIEW: Promotional & Cost Estimator -->
+    <main id="home2-view" class="view-container">
+        <!-- Interactive Hero & Hero Image -->
+        <section class="hero-section alt-hero">
+            <div class="section-container grid-2">
+                <div class="hero-content">
+                    <div class="badge-pill secondary blinking-text"><i class="fa-solid fa-bolt"></i> Welcome to VoltGlide Heroes</div>
+                    <h1 class="hero-title">Transparent Pricing.<br><span class="gradient-text-alt">Zero Guesswork.</span></h1>
+                    <p class="hero-desc">Tired of surprise repair invoices? Choose your electric scooter model and service needs below for a clear quote and fast booking.</p>
+                </div>
+                <div class="hero-image-container">
+                    <img src="./hero22.jpg" alt="Electric scooter repair hero image" class="hero-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works section -->
+        <section class="how-it-works">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">The VoltGlide Repair Protocol</h2>
+                    <p class="section-subtitle">How we repair your e-scooter from intake to test ride.</p>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-num">01</div>
+                        <h3>Digital Intake &amp; Diagnosis</h3>
+                        <p>Submit your repair request online or bring your scooter to our lab. We inspect battery health, controller firmware, and mechanical wear with digital precision.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">02</div>
+                        <h3>Status Log Tracking</h3>
+                        <p>Every repair is tracked by ticket. Get live updates from drop-off through diagnostics, repair, and final quality review.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">03</div>
+                        <h3>Certified Repair Execution</h3>
+                        <p>Our technicians replace worn batteries, calibrate controllers, and fix hubs using OEM parts and safety-tested procedures.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">04</div>
+                        <h3>Final Safety &amp; Test Ride</h3>
+                        <p>After repair, we perform a full safety inspection and a short ride test to ensure your scooter is road-ready and reliable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- E-Scooter Health Score Calculator -->
+        <section class="health-calculator-section">
+            <div class="section-container grid-2">
+                <div class="health-image-container">
+                    <img src="./e2.webp" alt="Scooter Diagnostics Check" class="health-img">
+                </div>
+                <div class="health-calc-card glass-card">
+                    <h3><i class="fa-solid fa-heart-pulse card-icon-blue"></i> Scooter Health &amp; Range Score</h3>
+                    <p class="card-subtitle">Answer these questions to estimate your battery capacity and general mechanical condition.</p>
+                    <form id="health-calculator-form" onsubmit="event.preventDefault()">
+                        <div class="form-group">
+                            <label for="health-mileage">Approximate Mileage (Total Odometer)</label>
+                            <select id="health-mileage">
+                                <option value="100">Less than 300 miles (New condition)</option>
+                                <option value="85">300 to 1,000 miles (Moderate wear)</option>
+                                <option value="60">1,000 to 2,500 miles (Needs inspection)</option>
+                                <option value="40">More than 2,500 miles (High wear)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="health-battery">Battery Charging Frequency</label>
+                            <select id="health-battery">
+                                <option value="100">Charged daily / kept between 20-80%</option>
+                                <option value="80">Charged to 100% and left plugged in</option>
+                                <option value="60">Drained to 0% frequently before charge</option>
+                                <option value="45">Left in storage uncharged for weeks</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="health-riding">Primary Riding Conditions</label>
+                            <select id="health-riding">
+                                <option value="100">Smooth flat pavements (Dry weather)</option>
+                                <option value="85">Cobblestones / bumpy streets</option>
+                                <option value="70">Wet terrain / light rain commuter</option>
+                                <option value="50">Off-road / heavy water puddles</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-secondary btn-full" onclick="calculateHealthScore()"><i class="fa-solid fa-microchip"></i> Analyze Health Score</button>
+                    </form>
+
+                    <!-- Health Score Results -->
+                    <div id="health-result-box" class="health-result-box hidden">
+                        <div class="health-progress-ring">
+                            <div class="health-score-val" id="health-score-num">85%</div>
+                        </div>
+                        <div class="health-text-desc">
+                            <h4 id="health-status-title">Excellent Health</h4>
+                            <p id="health-status-desc">Your scooter's battery cells and mechanical components are operating efficiently. Keep maintaining tire pressure!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fleet Repair Services promo -->
+        <section class="fleet-repair-promo">
+            <div class="section-container grid-2-align-center">
+                <div class="fleet-content">
+                    <span class="badge-pill"><i class="fa-solid fa-building-circle-check"></i> Commercial Fleet Repairs</span>
+                    <h2>Own a Scooter Rental Fleet or Delivery Business?</h2>
+                    <p>We provide enterprise service agreements for delivery agencies, rental networks, and local businesses. Keep your delivery scooters on the street with prioritised parts replacement and weekly inspections.</p>
+                    <ul class="fleet-list">
+                        <li><i class="fa-solid fa-check text-green"></i> Wholesale Pricing on Tires and Brake Pads</li>
+                        <li><i class="fa-solid fa-check text-green"></i> 24-Hour Express Turnaround for Fleet Accounts</li>
+                        <li><i class="fa-solid fa-check text-green"></i> Mobile Technician dispatching for simple tasks</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="window.location.href='contact.html'">Contact Fleet Team</button>
+                </div>
+                <div class="fleet-image">
+                    <img src="./e11.jpg" alt="Commercial Fleet Repair Center" class="rounded-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Frequently Asked Questions Accordion -->
+        <section class="faq-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Common Rider Inquiries</h2>
+                    <p class="section-subtitle">Find immediate answers to battery issues, warranties, and custom firmware flash options.</p>
+                </div>
+                <div class="faq-accordion-container">
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>How long does a solid tire conversion take?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Solid tire replacements require high-pressure hydraulic presses. Standard installations take about 1.5 to 2 hours per wheel. We recommend solid conversions to riders tired of constant flat tires on glass-prone urban pavements.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>My scooter shows 'Error 15' on the screen. What does it mean?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Error 15 is typically a hall sensor issue inside your brake lever assembly. It means the controller cannot read the throttle or brake's magnetic signal. Our technicians can replace the brake sensor or the entire brake lever assembly within 45 minutes.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>Do you repair custom batteries or BMS controllers?</span>
+                            <i class="fa-solid fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. Our electronics chamber is fully equipped to solder BMS (Battery Management System) boards, re-weld disconnected battery cells, and replace blown fuses on custom lithium-ion battery packs safely.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                    <p class="footer-tagline">Premium engineering diagnostics, professional micro-mobility repairs, and genuine e-scooter parts shop.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="index.html">Home 1 (Default)</a></li>
+                        <li><a href="home2.html">Home 2 (Promo)</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Repair Services</a></li>
+                        <li><a href="contact.html">Find Location</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Repair Fixes</h3>
+                    <ul>
+                        <li><a href="services.html">Solid Tire Swap</a></li>
+                        <li><a href="services.html">Lithium BMS Repair</a></li>
+                        <li><a href="services.html">Disc Brake Calibrations</a></li>
+                        <li><a href="services.html">Smart Controller Flash</a></li>
+                        <li><a href="services.html">Motor Hall Sensor Tuning</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Safety Certification</h3>
+                    <p>All battery diagnostics are completed under certified ESD and spark-proof safety enclosures.</p>
+                    <div class="safety-badge-row">
+                        <span class="safety-badge"><i class="fa-solid fa-shield-virus"></i> ESD Safe</span>
+                        <span class="safety-badge"><i class="fa-solid fa-triangle-exclamation"></i> UN38.3 Tech</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VoltGlide Micro-Mobility Inc. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOOKING MODAL -->
+    <div class="modal-backdrop" id="bookingModal">
+        <div class="modal-card booking-modal-card">
+            <button class="modal-close" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-booking">
+                <h2><i class="fa-solid fa-calendar-plus card-icon-green"></i> Book Repair Appointment</h2>
+                <p>Select date, preferred technician, and details. We will reserve your bay slot.</p>
+            </div>
+            <form id="modal-booking-form" onsubmit="handleModalBooking(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-scooter">Scooter Model / Brand</label>
+                        <input type="text" id="m-book-scooter" placeholder="Xiaomi Pro 2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-service">Service Required</label>
+                        <select id="m-book-service">
+                            <option value="Solid Tire Conversion">Solid Tire Conversion ($65.00)</option>
+                            <option value="Inner Tube Replacement">Standard Tube Replacement ($45.00)</option>
+                            <option value="Battery Diagnostics / BMS Fix">Battery Cell &amp; BMS Diagnostics ($120.00)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-date">Appointment Date</label>
+                        <input type="date" id="m-book-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-time">Preferred Arrival Time</label>
+                        <select id="m-book-time">
+                            <option value="09:00 AM">09:00 AM - Morning</option>
+                            <option value="02:00 PM">02:00 PM - Afternoon</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="m-book-notes">Describe Symptoms (Optional)</label>
+                    <textarea id="m-book-notes" rows="3" placeholder="Tell our mechanics what's happening..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Submit Appointment Details</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

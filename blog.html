@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltGlide Blog | E-Scooter Maintenance Tips, Buying Guides &amp; News</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description" content="Expert e-scooter maintenance tips, in-depth buying guides, DIY repair tutorials, and urban commuting news from VoltGlide's certified mechanics.">
+    <meta name="keywords" content="e-scooter maintenance tips, electric scooter buying guide, xiaomi scooter repair DIY, battery care tips, e-scooter blog">
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="VoltGlide Blog — E-Scooter Expert Knowledge Hub">
+    <meta property="og:description" content="Pro maintenance tips, buying guides, and repair tutorials from VoltGlide's certified mechanics.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Blog Specific Styles ── */
+        .blog-hero { padding: 5.5rem 0 4rem; }
+        .blog-hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        @media (max-width: 900px) { .blog-hero-inner { grid-template-columns: 1fr; } }
+        .blog-hero-text h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.2; margin: 1rem 0; }
+        .blog-hero-text p { color: var(--text-dim); font-size: 1.05rem; line-height: 1.7; max-width: 500px; }
+
+        /* Featured post */
+        .featured-post { border-radius: 22px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border-color); transition: transform 0.3s, box-shadow 0.3s; }
+        .featured-post:hover { transform: translateY(-5px); box-shadow: 0 25px 60px rgba(0,0,0,0.35); }
+        .featured-img { width: 100%; height: 260px; object-fit: cover; display: block; }
+        .featured-body { padding: 1.8rem; }
+        .featured-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .post-cat { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 12px; border-radius: 30px; }
+        .post-cat.maintenance { background: rgba(0,255,136,0.12); color: var(--primary-color); }
+        .post-cat.buying-guide { background: rgba(14,165,233,0.12); color: var(--secondary); }
+        .post-cat.diy { background: rgba(245,158,11,0.12); color: var(--accent-amber); }
+        .post-cat.news { background: rgba(239,68,68,0.12); color: #f87171; }
+        .post-cat.comparison { background: rgba(168,85,247,0.12); color: #c084fc; }
+        .post-date { font-size: 0.8rem; color: var(--text-dim); display: flex; align-items: center; gap: 0.4rem; }
+        .post-read-time { font-size: 0.8rem; color: var(--text-dim); display: flex; align-items: center; gap: 0.4rem; }
+        .featured-body h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.6rem; line-height: 1.3; }
+        .featured-body p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.65; }
+        .post-author { display: flex; align-items: center; gap: 0.7rem; margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--border-color); }
+        .author-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+        .author-name { font-size: 0.85rem; font-weight: 600; }
+        .author-role { font-size: 0.75rem; color: var(--text-dim); }
+        .read-more { margin-left: auto; display: flex; align-items: center; gap: 0.4rem; color: var(--primary-color); font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; background: none; }
+        .read-more:hover i { transform: translateX(4px); }
+        .read-more i { transition: transform 0.2s; }
+
+        /* Blog layout */
+        .blog-layout { padding: 4rem 0 6rem; }
+        .blog-body { display: grid; grid-template-columns: 1fr 320px; gap: 3rem; }
+        @media (max-width: 1100px) { .blog-body { grid-template-columns: 1fr; } }
+
+        /* Category filter tabs */
+        .blog-filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .blog-filter-tab { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 30px; padding: 6px 18px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; color: var(--text-dim); font-weight: 500; }
+        .blog-filter-tab:hover, .blog-filter-tab.active { background: rgba(0,255,136,0.1); border-color: var(--primary-color); color: var(--primary-color); font-weight: 600; }
+
+        /* Post grid */
+        .posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.8rem; }
+        .post-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; }
+        .post-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-color: rgba(0,255,136,0.25); }
+        .post-card-img { width: 100%; height: 180px; object-fit: cover; display: block; }
+        .post-card-body { padding: 1.3rem; flex-grow: 1; display: flex; flex-direction: column; gap: 0.6rem; }
+        .post-card-meta { display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+        .post-card-title { font-size: 1rem; font-weight: 700; line-height: 1.4; color: var(--text-primary); }
+        .post-card-excerpt { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
+        .post-card-footer { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.3rem; border-top: 1px solid var(--border-color); }
+        .post-card-author { display: flex; align-items: center; gap: 0.5rem; }
+        .post-card-author img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+        .post-card-author span { font-size: 0.78rem; color: var(--text-dim); }
+        .read-btn { font-size: 0.78rem; color: var(--primary-color); font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.3rem; border: none; background: none; }
+
+        /* Sidebar */
+        .blog-sidebar { display: flex; flex-direction: column; gap: 2rem; }
+        .sidebar-widget { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; padding: 1.5rem; }
+        .sidebar-widget h3 { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-dim); margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border-color); }
+        .sidebar-post { display: flex; gap: 0.8rem; align-items: flex-start; padding: 0.6rem 0; border-bottom: 1px solid var(--border-color); }
+        .sidebar-post:last-child { border: none; }
+        .sidebar-post img { width: 54px; height: 54px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+        .sidebar-post-title { font-size: 0.82rem; font-weight: 600; line-height: 1.4; color: var(--text-primary); margin-bottom: 0.2rem; cursor: pointer; }
+        .sidebar-post-title:hover { color: var(--primary-color); }
+        .sidebar-post-date { font-size: 0.72rem; color: var(--text-dim); }
+
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag-pill { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 6px; padding: 4px 12px; font-size: 0.78rem; color: var(--text-dim); cursor: pointer; transition: all 0.2s; }
+        .tag-pill:hover { background: rgba(0,255,136,0.1); border-color: var(--primary-color); color: var(--primary-color); }
+
+        /* Newsletter subscribe */
+        .newsletter-widget { background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(14,165,233,0.05)); border-color: rgba(0,255,136,0.2) !important; }
+        .newsletter-widget h3 { color: var(--primary-color) !important; }
+        .newsletter-form { display: flex; flex-direction: column; gap: 0.7rem; }
+        .newsletter-input { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.6rem 1rem; color: var(--text-primary); font-size: 0.85rem; outline: none; }
+        .newsletter-input:focus { border-color: var(--primary-color); }
+
+        /* Full-width article overlay */
+        .article-overlay { display: none; position: fixed; inset: 0; background: var(--bg-primary); z-index: 1000; overflow-y: auto; padding: 2rem; }
+        .article-overlay.open { display: block; }
+        .article-close { position: fixed; top: 1.5rem; right: 2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.1rem; z-index: 10; transition: background 0.2s; }
+        .article-close:hover { background: var(--bg-input); }
+        .article-content { max-width: 760px; margin: 0 auto; padding-top: 3rem; }
+        .article-content h1 { font-size: 2.2rem; font-weight: 800; margin: 1.2rem 0; line-height: 1.3; }
+        .article-hero-img { width: 100%; border-radius: 16px; margin: 1.5rem 0; max-height: 420px; object-fit: cover; }
+        .article-body { font-size: 1rem; line-height: 1.85; color: var(--text-dim); }
+        .article-body h2 { font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin: 2rem 0 0.8rem; }
+        .article-body h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin: 1.5rem 0 0.6rem; }
+        .article-body p { margin-bottom: 1.2rem; }
+        .article-body ul { padding-left: 1.5rem; margin-bottom: 1.2rem; }
+        .article-body ul li { margin-bottom: 0.4rem; }
+        .tip-box { background: rgba(0,255,136,0.06); border-left: 3px solid var(--primary-color); border-radius: 0 10px 10px 0; padding: 1rem 1.3rem; margin: 1.5rem 0; }
+        .tip-box strong { color: var(--primary-color); }
+        .warning-box { background: rgba(245,158,11,0.06); border-left: 3px solid var(--accent-amber); border-radius: 0 10px 10px 0; padding: 1rem 1.3rem; margin: 1.5rem 0; }
+        .warning-box strong { color: var(--accent-amber); }
+    </style>
+</head>
+<body class="dark-theme">
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                    <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">Home <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html" class="dropdown-link">Home 1</a></li>
+                            <li><a href="home2.html" class="dropdown-link">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a href="parts-shop.html" class="nav-link">Shop</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">Dashboard <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="user-dashboard.html" class="dropdown-link">User Dashboard</a></li>
+                            <li><a href="admin-dashboard.html" class="dropdown-link">Admin Dashboard</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button id="rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction"><span class="rtl-circle">LTR</span></button>
+                <button id="login-nav-btn" class="login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i><span class="btn-text">Login</span>
+                </button>
+                <button class="mobile-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars hamburger"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-nav-header" style="justify-content: flex-end;">
+            <button class="close-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mobile-nav-body">
+            <ul class="mobile-list">
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)"><span>Home</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i></button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="index.html" class="mobile-dropdown-link">Home 1</a></li>
+                        <li><a href="home2.html" class="mobile-dropdown-link">Home 2</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item"><a href="about.html" class="mobile-link">About</a></li>
+                <li class="mobile-nav-item"><a href="services.html" class="mobile-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="pricing.html" class="mobile-link">Pricing</a></li>
+                <li class="mobile-nav-item"><a href="parts-shop.html" class="mobile-link">Shop</a></li>
+                <li class="mobile-nav-item"><a href="blog.html" class="mobile-link">Blog</a></li>
+                <li class="mobile-nav-item"><a href="contact.html" class="mobile-link">Contact</a></li>
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)"><span>Dashboard</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i></button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="user-dashboard.html" class="mobile-dropdown-link">User Dashboard</a></li>
+                        <li><a href="admin-dashboard.html" class="mobile-dropdown-link">Admin Dashboard</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="mobile-nav-actions">
+                <div class="mobile-toggles-row">
+                    <button id="mobile-theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                        <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                        <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                    </button>
+                    <button id="mobile-rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction"><span class="rtl-circle">LTR</span></button>
+                </div>
+                <button id="mobile-login-btn" class="login-btn mobile-login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i><span class="btn-text">Login</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ══ BLOG HERO ══ -->
+    <main>
+        <section class="blog-hero">
+            <div class="section-container">
+                <div class="blog-hero-inner">
+                    <div class="blog-hero-text">
+                        <span class="badge-pill"><i class="fa-solid fa-pen-nib"></i> Expert Knowledge Hub</span>
+                        <h1>The VoltGlide<br><span class="gradient-text">Rider's Blog</span></h1>
+                        <p>Maintenance tips from certified mechanics, in-depth buying guides, DIY repair walkthroughs, and the latest urban e-scooter news — all in one place.</p>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+                            <button class="btn btn-primary" onclick="filterBlog('all', this)"><i class="fa-solid fa-th"></i> All Articles</button>
+                            <button class="btn btn-secondary" onclick="filterBlog('maintenance', this)"><i class="fa-solid fa-screwdriver-wrench"></i> Maintenance Tips</button>
+                        </div>
+                    </div>
+                    <!-- Featured post in hero -->
+                    <div class="featured-post" onclick="openArticle('art1')" style="cursor: pointer;">
+                        <img src="./e5.jpg" alt="Battery care guide" class="featured-img">
+                        <div class="featured-body">
+                            <div class="featured-meta">
+                                <span class="post-cat maintenance">Maintenance</span>
+                                <span class="post-date"><i class="fa-regular fa-calendar"></i> Jun 28, 2026</span>
+                                <span class="post-read-time"><i class="fa-solid fa-clock"></i> 8 min read</span>
+                            </div>
+                            <h2>The Complete Guide to E-Scooter Battery Care in 2026</h2>
+                            <p>Learn exactly how to charge, store, and cycle your lithium-ion battery to maximize range and extend pack life by up to 3 years.</p>
+                            <div class="post-author">
+                                <img src="./malw2.jpg" alt="Sergei Volkov" class="author-avatar">
+                                <div><div class="author-name">Sergei Volkov</div><div class="author-role">Chief Electronics Tech</div></div>
+                                <button class="read-more">Read Guide <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══ BLOG MAIN LAYOUT ══ -->
+        <section class="blog-layout">
+            <div class="section-container">
+
+                <!-- Filter tabs -->
+                <div class="blog-filter-tabs" id="blog-filter-tabs">
+                    <button class="blog-filter-tab active" onclick="filterBlog('all', this)">All</button>
+                    <button class="blog-filter-tab" onclick="filterBlog('maintenance', this)">🔧 Maintenance Tips</button>
+                    <button class="blog-filter-tab" onclick="filterBlog('buying-guide', this)">🛒 Buying Guides</button>
+                    <button class="blog-filter-tab" onclick="filterBlog('diy', this)">🛠 DIY Repairs</button>
+                    <button class="blog-filter-tab" onclick="filterBlog('comparison', this)">⚖️ Comparisons</button>
+                    <button class="blog-filter-tab" onclick="filterBlog('news', this)">📰 News</button>
+                </div>
+
+                <div class="blog-body">
+                    <!-- Posts Grid -->
+                    <div>
+                        <div class="posts-grid" id="posts-grid"></div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <aside class="blog-sidebar">
+                        <!-- Search -->
+                        <div class="sidebar-widget">
+                            <h3><i class="fa-solid fa-magnifying-glass" style="margin-right:6px;"></i> Search Articles</h3>
+                            <div class="shop-search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" placeholder="Battery, tires, brakes..." oninput="searchBlog(this.value)" style="background:none;border:none;outline:none;color:var(--text-primary);font-size:0.9rem;width:100%;">
+                            </div>
+                        </div>
+
+                        <!-- Popular Posts -->
+                        <div class="sidebar-widget">
+                            <h3><i class="fa-solid fa-fire" style="margin-right:6px;color:#f87171;"></i> Popular This Month</h3>
+                            <div id="sidebar-popular"></div>
+                        </div>
+
+                        <!-- Newsletter -->
+                        <div class="sidebar-widget newsletter-widget">
+                            <h3><i class="fa-solid fa-bolt" style="margin-right:6px;"></i> Weekly Rider Tips</h3>
+                            <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem;">Get weekly maintenance tips and exclusive discount codes delivered to your inbox.</p>
+                            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                                <input type="email" class="newsletter-input" placeholder="your@email.com" required>
+                                <button type="submit" class="btn btn-primary btn-full btn-sm">Subscribe Free</button>
+                            </form>
+                        </div>
+
+                        <!-- Tag Cloud -->
+                        <div class="sidebar-widget">
+                            <h3><i class="fa-solid fa-tags" style="margin-right:6px;"></i> Topics</h3>
+                            <div class="tag-cloud">
+                                <span class="tag-pill" onclick="searchBlog('battery')">Battery</span>
+                                <span class="tag-pill" onclick="searchBlog('tires')">Tires</span>
+                                <span class="tag-pill" onclick="searchBlog('brakes')">Brakes</span>
+                                <span class="tag-pill" onclick="searchBlog('Xiaomi')">Xiaomi</span>
+                                <span class="tag-pill" onclick="searchBlog('Segway')">Segway</span>
+                                <span class="tag-pill" onclick="searchBlog('motor')">Motor</span>
+                                <span class="tag-pill" onclick="searchBlog('controller')">Controller</span>
+                                <span class="tag-pill" onclick="searchBlog('winter')">Winter Care</span>
+                                <span class="tag-pill" onclick="searchBlog('range')">Range Tips</span>
+                                <span class="tag-pill" onclick="searchBlog('commuting')">Commuting</span>
+                            </div>
+                        </div>
+
+                        <!-- CTA widget -->
+                        <div class="sidebar-widget" style="background:linear-gradient(135deg,rgba(0,255,136,0.08),rgba(14,165,233,0.05));border-color:rgba(0,255,136,0.2);">
+                            <h3 style="color:var(--text-primary)!important;border-color:rgba(0,255,136,0.15)!important;">Need a Repair?</h3>
+                            <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem;">Our certified techs are standing by. Same-day bookings available.</p>
+                            <button class="btn btn-primary btn-full btn-sm" onclick="openBookingModal()"><i class="fa-solid fa-calendar-plus"></i> Book Repair</button>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ══ FULL ARTICLE OVERLAY ══ -->
+    <div class="article-overlay" id="article-overlay">
+        <button class="article-close" onclick="closeArticle()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="article-content" id="article-content"></div>
+    </div>
+
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                    <p class="footer-tagline">Premium engineering diagnostics, professional micro-mobility repairs, and genuine e-scooter parts shop.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="parts-shop.html">Shop</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Blog Categories</h3>
+                    <ul>
+                        <li><a href="#" onclick="filterBlog('maintenance',null)">Maintenance Tips</a></li>
+                        <li><a href="#" onclick="filterBlog('buying-guide',null)">Buying Guides</a></li>
+                        <li><a href="#" onclick="filterBlog('diy',null)">DIY Repairs</a></li>
+                        <li><a href="#" onclick="filterBlog('comparison',null)">Comparisons</a></li>
+                        <li><a href="#" onclick="filterBlog('news',null)">E-Scooter News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Safety Certification</h3>
+                    <p>All battery diagnostics are completed under certified ESD and spark-proof safety enclosures.</p>
+                    <div class="safety-badge-row">
+                        <span class="safety-badge"><i class="fa-solid fa-shield-virus"></i> ESD Safe</span>
+                        <span class="safety-badge"><i class="fa-solid fa-triangle-exclamation"></i> UN38.3 Tech</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VoltGlide Micro-Mobility Inc. All rights reserved.</p>
+                <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOOKING MODAL -->
+    <div class="modal-backdrop" id="bookingModal">
+        <div class="modal-card booking-modal-card">
+            <button class="modal-close" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-booking">
+                <h2><i class="fa-solid fa-calendar-plus card-icon-green"></i> Book Repair Appointment</h2>
+                <p>Select date and service to reserve your slot.</p>
+            </div>
+            <form id="modal-booking-form" onsubmit="handleModalBooking(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-scooter">Scooter Model</label>
+                        <input type="text" id="m-book-scooter" placeholder="Xiaomi Pro 2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-service">Service Required</label>
+                        <select id="m-book-service">
+                            <option value="Custom General Inspection">General Inspection ($40.00)</option>
+                            <option value="Solid Tire Conversion">Solid Tire Conversion ($65.00)</option>
+                            <option value="Battery Diagnostics / BMS Fix">Battery BMS Diagnostics ($120.00)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-date">Date</label>
+                        <input type="date" id="m-book-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-time">Time</label>
+                        <select id="m-book-time">
+                            <option value="09:00 AM">09:00 AM</option>
+                            <option value="02:00 PM">02:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Submit Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    // ── Blog Post Data ──
+    const BLOG_POSTS = [
+        {
+            id: 'art1', cat: 'maintenance', title: 'The Complete Guide to E-Scooter Battery Care in 2026',
+            excerpt: 'Learn exactly how to charge, store, and cycle your lithium-ion pack to maximize range and extend battery life by up to 3 years.',
+            img: './e5.jpg', author: 'Sergei Volkov', authorImg: './malw2.jpg', authorRole: 'Chief Electronics Tech',
+            date: 'Jun 28, 2026', readTime: '8 min', views: 4820,
+            tags: ['battery', 'maintenance', 'range'],
+            content: `
+                <div class="featured-meta"><span class="post-cat maintenance">Maintenance</span><span class="post-date"><i class="fa-regular fa-calendar"></i> Jun 28, 2026</span><span class="post-read-time"><i class="fa-solid fa-clock"></i> 8 min read</span></div>
+                <h1>The Complete Guide to E-Scooter Battery Care in 2026</h1>
+                <img src="./e5.jpg" alt="Battery care" class="article-hero-img">
+                <div class="article-body">
+                    <p>Your lithium-ion battery is the single most expensive and most sensitive component in your electric scooter. How you charge it, store it, and ride it will determine whether it lasts 2 years or 5+ years. This guide covers every best practice our electronics lab has refined over 18,000+ battery service appointments.</p>
+                    <h2>1. The Golden Charging Rules</h2>
+                    <p>The biggest mistake riders make is leaving their scooter plugged in overnight at 100%. Lithium cells under sustained full-charge voltage degrade at 4–6× the normal rate. Here's the protocol our technicians follow:</p>
+                    <ul>
+                        <li><strong>Charge to 80–85%</strong> for daily use. Only charge to 100% when you need maximum range for a long trip.</li>
+                        <li><strong>Never drain below 15–20%</strong>. Deep discharge events damage the BMS balance protection and cause permanent capacity loss.</li>
+                        <li><strong>Use the original charger</strong> or a certified replacement with identical voltage and amperage specs. Third-party fast-chargers can overheat cells.</li>
+                        <li><strong>Charge at room temperature</strong> (15–25°C). Charging a cold battery (below 5°C) permanently damages cells.</li>
+                    </ul>
+                    <div class="tip-box"><strong>✓ Pro Tip:</strong> If your scooter has a companion app (Xiaomi, Segway), set the charge limit to 85%. Many models support this natively through the app without any hardware modification.</div>
+                    <h2>2. Long-Term Storage Protocol</h2>
+                    <p>If you're storing your scooter for winter or for more than 3 weeks, follow this checklist:</p>
+                    <ul>
+                        <li>Charge to <strong>50–60%</strong> before storage — not full, not empty.</li>
+                        <li>Store in a <strong>cool, dry location</strong> between 10–20°C. Never in a hot car boot or damp garage.</li>
+                        <li>Perform a <strong>partial top-up every 6–8 weeks</strong> if storing for months. Self-discharge at 50% is minimal but exists.</li>
+                        <li>Remove the battery if your scooter's manual allows it — this prevents parasitic BMS drain.</li>
+                    </ul>
+                    <div class="warning-box"><strong>⚠ Warning:</strong> A battery stored at 100% for 3 months can lose 10–15% of its permanent capacity. A battery stored at 0% can enter deep-discharge protection and require specialized equipment to recover.</div>
+                    <h2>3. Signs Your Battery Needs Professional Service</h2>
+                    <p>Book a BMS diagnostic at VoltGlide if you notice:</p>
+                    <ul>
+                        <li>Range has dropped more than 30% compared to when the scooter was new</li>
+                        <li>Battery percentage jumps suddenly (e.g., drops from 40% to 10% instantly)</li>
+                        <li>The scooter cuts out under load (climbing hills) even at 50%+ charge</li>
+                        <li>The charger's green light flickers or takes more than 6 hours for a full charge</li>
+                        <li>The battery housing feels noticeably warm to the touch after a short ride</li>
+                    </ul>
+                    <div class="tip-box"><strong>✓ Our Diagnostic Service:</strong> VoltGlide's BMS scan takes 45 minutes and identifies weak cells, unbalanced strings, and protection circuit faults. Starting from $120 with full warranty on any replaced components.</div>
+                </div>`
+        },
+        {
+            id: 'art2', cat: 'buying-guide', title: 'Xiaomi vs Segway 2026: Which Brand Should You Buy?',
+            excerpt: 'We compare build quality, range, repairability, and total cost of ownership across 8 models from both brands.',
+            img: './e1.jpg', author: 'Rachel Miller', authorImg: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100', authorRole: 'Lead Mechanical Specialist',
+            date: 'Jun 20, 2026', readTime: '12 min', views: 6310,
+            tags: ['Xiaomi', 'Segway', 'buying-guide', 'comparison'],
+            content: `
+                <div class="featured-meta"><span class="post-cat buying-guide">Buying Guide</span><span class="post-date"><i class="fa-regular fa-calendar"></i> Jun 20, 2026</span><span class="post-read-time"><i class="fa-solid fa-clock"></i> 12 min read</span></div>
+                <h1>Xiaomi vs Segway Ninebot 2026: The Definitive Buyer's Comparison</h1>
+                <img src="./e1.jpg" alt="Xiaomi vs Segway comparison" class="article-hero-img">
+                <div class="article-body">
+                    <p>After servicing over 18,000 electric scooters, our mechanics have an unmatched perspective on which brands hold up best over time. This is not a marketing review — it's a real-world breakdown from the repair bench.</p>
+                    <h2>Build Quality & Durability</h2>
+                    <p>Both Xiaomi (now marketed under the Scooter brand) and Segway use aluminum alloy frames, but the construction philosophy differs significantly. Xiaomi uses a lighter, more modular frame that makes panel replacement easier but creates more squeaking points over time. Segway's frames are heavier and more rigid, with fewer flex points.</p>
+                    <h3>Our Repair Frequency Data (2025-2026)</h3>
+                    <ul>
+                        <li><strong>Xiaomi M365 / Pro family:</strong> Most common issues are flat tires (pneumatic) and controller board failures after water ingress. Avg first repair: 8–12 months of daily use.</li>
+                        <li><strong>Segway Max G30 / G2:</strong> More robust controller sealing. Most common issues are brake lever sensors and deck cracking on heavier riders. Avg first repair: 12–18 months.</li>
+                    </ul>
+                    <h2>Battery Range — Real World vs Spec</h2>
+                    <p>Marketing range figures are measured at 15 km/h with a 70kg rider on flat ground. Real-world range typically hits 55–70% of spec. Here's what we actually see from our customers' logs:</p>
+                    <ul>
+                        <li>Xiaomi Pro 2 (spec: 45km) → Real: 28–32km urban mixed terrain</li>
+                        <li>Segway Max G30 (spec: 65km) → Real: 38–44km urban mixed terrain</li>
+                        <li>Xiaomi 4 Pro (spec: 55km) → Real: 35–40km with eco mode</li>
+                    </ul>
+                    <h2>Repairability Score (Our Rating)</h2>
+                    <ul>
+                        <li><strong>Xiaomi: 8/10</strong> — Extremely well-documented, huge parts availability, cheap controller boards.</li>
+                        <li><strong>Segway: 6/10</strong> — OEM parts more expensive, some proprietary connectors, but well-sealed internals.</li>
+                    </ul>
+                    <div class="tip-box"><strong>✓ Our Recommendation:</strong> For budget riders who want cheapest long-term running costs: Xiaomi. For riders who want less frequent repairs and don't mind higher initial cost: Segway Max G2.</div>
+                </div>`
+        },
+        {
+            id: 'art3', cat: 'diy', title: 'How to Replace Your E-Scooter Inner Tube in 20 Minutes',
+            excerpt: 'Step-by-step DIY flat tire repair guide. All you need is a tire lever, new tube, and 20 minutes. No shop required.',
+            img: './e1.jpg', author: 'Akira Sato', authorImg: './male2.jpg', authorRole: 'Controller Diagnostics Engineer',
+            date: 'Jun 15, 2026', readTime: '6 min', views: 8920,
+            tags: ['tires', 'DIY', 'flat tire', 'maintenance'],
+            content: `
+                <div class="featured-meta"><span class="post-cat diy">DIY</span><span class="post-date"><i class="fa-regular fa-calendar"></i> Jun 15, 2026</span><span class="post-read-time"><i class="fa-solid fa-clock"></i> 6 min read</span></div>
+                <h1>How to Replace Your E-Scooter Inner Tube in 20 Minutes</h1>
+                <img src="./e1.jpg" alt="Tire replacement guide" class="article-hero-img">
+                <div class="article-body">
+                    <p>Flat tires are the most common e-scooter failure and the one most riders can actually fix themselves at home. Here's the exact process our mechanics use — simplified for a first-timer.</p>
+                    <h2>Tools You'll Need</h2>
+                    <ul>
+                        <li>2× plastic tire levers (never metal — you'll pinch the new tube)</li>
+                        <li>A compatible replacement inner tube (check your wheel size: 8.5" or 10")</li>
+                        <li>A floor pump with a Schrader valve adapter</li>
+                        <li>A Phillips-head screwdriver and hex keys</li>
+                    </ul>
+                    <h2>Step 1: Remove the Wheel</h2>
+                    <p>For most models, you'll need to remove 3–4 bolts on the axle bracket. On Xiaomi M365, it's two 14mm bolts on the rear wheel. Disconnect the motor cable before fully removing.</p>
+                    <h2>Step 2: Deflate and Unseat the Tire</h2>
+                    <p>Press the Schrader valve core to fully deflate. Work two plastic levers around the tire bead 15cm apart and lever the bead off the rim. Go slowly — rushing causes lever slip and pinch damage.</p>
+                    <h2>Step 3: Remove the Old Tube</h2>
+                    <p>Pull the valve stem through the rim hole first, then pull the tube out in sections. Inspect the inside of the tire for the object that caused the flat — run your finger carefully around the inside.</p>
+                    <h2>Step 4: Install the New Tube</h2>
+                    <p>Inflate the new tube slightly (just enough to give it shape — about 2 PSI). Insert the valve stem into the rim hole, then tuck the tube inside the tire around the full circumference.</p>
+                    <h2>Step 5: Seat the Tire and Inflate</h2>
+                    <p>Work the tire bead back onto the rim by hand. Inflate to 35–40 PSI, checking the bead seats evenly all the way around. Re-attach the wheel and motor cable.</p>
+                    <div class="tip-box"><strong>✓ Pro Tip:</strong> If you keep getting flats on the same route, consider our solid tire conversion ($65 per wheel). Zero maintenance, zero flats — for life.</div>
+                    <div class="warning-box"><strong>⚠ When to bring it to us:</strong> If the outer tire casing has a sidewall split, or if you've had 3+ flats in under 300 miles, the tire needs replacing — not just the tube. A new tire costs $28–$40 at our shop.</div>
+                </div>`
+        },
+        {
+            id: 'art4', cat: 'maintenance', title: '5 Winter E-Scooter Care Tips to Avoid Costly Spring Repairs',
+            excerpt: 'Cold weather is the biggest killer of e-scooter batteries and electronics. Here\'s how to prep your ride for winter storage or cold-weather commuting.',
+            img: './e7.webp', author: 'Sergei Volkov', authorImg: './malw2.jpg', authorRole: 'Chief Electronics Tech',
+            date: 'Jun 10, 2026', readTime: '5 min', views: 3440,
+            tags: ['winter', 'battery', 'maintenance', 'storage'],
+            content: `<div class="featured-meta"><span class="post-cat maintenance">Maintenance</span></div><h1>5 Winter E-Scooter Care Tips</h1><img src="./e7.webp" class="article-hero-img"><div class="article-body"><p>Cold weather causes temporary range loss (up to 40%), permanent capacity degradation, and electronics moisture failure. Here's how to protect your investment.</p><h2>1. Never Charge a Frozen Battery</h2><p>Charging a battery below 5°C causes metallic lithium plating inside cells — a permanent, unrecoverable form of damage. Bring your scooter indoors for at least 2 hours before charging if it's been in the cold.</p><h2>2. Store at 50-60% SOC</h2><p>For winter hibernation, charge to exactly 50-60% state of charge. This minimizes calendar aging and prevents deep-discharge protection from triggering over 3+ months of storage.</p><h2>3. Waterproofing Check</h2><p>Before any wet-weather riding, inspect all cable entry points and the battery compartment seal. A small bead of silicone RTV sealant around the battery cover edge prevents moisture ingress that causes corrosion and short circuits.</p><h2>4. Tire Pressure Monitoring</h2><p>Pneumatic tires lose approximately 1 PSI per 5°C temperature drop. Check pressure weekly in winter — under-inflated tires increase flat risk by 300% and waste 15% of your battery range.</p><h2>5. Lubricate the Folding Stem</h2><p>Cold weather causes metal contraction. Apply a thin coat of waterproof lithium grease to the folding mechanism to prevent seizing and protect against salt-road corrosion.</p></div>`
+        },
+        {
+            id: 'art5', cat: 'comparison', title: 'Solid Tires vs Pneumatic: The Ultimate Commuter Guide',
+            excerpt: 'We test ride quality, puncture resistance, range impact, and replacement cost across both tire types. The answer may surprise you.',
+            img: './e1.jpg', author: 'Rachel Miller', authorImg: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100', authorRole: 'Lead Mechanical Specialist',
+            date: 'Jun 5, 2026', readTime: '7 min', views: 5120,
+            tags: ['tires', 'comparison', 'solid tires', 'commuting'],
+            content: `<div class="featured-meta"><span class="post-cat comparison">Comparison</span></div><h1>Solid Tires vs Pneumatic: The Ultimate Commuter Guide</h1><img src="./e1.jpg" class="article-hero-img"><div class="article-body"><p>The solid vs pneumatic debate is the most common question we get. After fitting thousands of both types, here's the real data.</p><h2>Puncture Risk</h2><p>Solid tires: <strong>Zero puncture risk</strong>. Pneumatic: Approximately 1 flat per 800–1,200 miles of urban commuting on UK/US city streets (glass and thorns).</p><h2>Ride Comfort</h2><p>Pneumatic tires absorb shocks significantly better. On bumpy roads, solid tires transmit about 30% more vibration to the deck. For smooth tarmac, the difference is barely noticeable.</p><h2>Range Impact</h2><p>Solid tires increase rolling resistance by approximately 8-12%, translating to 10-15% range reduction on most scooters. For a 30km range scooter, expect 25-27km instead.</p><h2>Our Recommendation</h2><ul><li><strong>Choose solid if:</strong> You commute through urban areas with frequent glass/debris, you're tired of maintenance, or you commute less than 20km per charge.</li><li><strong>Choose pneumatic if:</strong> You ride on rough terrain, need maximum range, or regularly travel off smooth tarmac.</li></ul><div class="tip-box"><strong>✓ Our solid tire conversion costs $65 per wheel</strong> — installed by our mechanics with a wheel press for perfect fitment. Most riders recoup the cost in avoided flat repairs within 6 months.</div></div>`
+        },
+        {
+            id: 'art6', cat: 'news', title: 'New EU Micro-Mobility Regulations 2026: What Every Rider Needs to Know',
+            excerpt: 'The EU\'s updated e-scooter framework changes speed limits, lighting requirements, and where you can legally ride. Full breakdown inside.',
+            img: './e2.webp', author: 'Rachel Miller', authorImg: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100', authorRole: 'Lead Mechanical Specialist',
+            date: 'May 30, 2026', readTime: '4 min', views: 2870,
+            tags: ['news', 'regulations', 'commuting', 'EU'],
+            content: `<div class="featured-meta"><span class="post-cat news">News</span></div><h1>New EU Micro-Mobility Regulations 2026</h1><img src="./e2.webp" class="article-hero-img"><div class="article-body"><p>The European Commission's updated micro-mobility directive takes effect August 2026 and introduces significant changes for personal e-scooter riders across member states.</p><h2>Key Changes</h2><ul><li><strong>Speed limit standardization:</strong> 25 km/h maximum on all public roads. Many member states that had higher limits must now conform.</li><li><strong>Mandatory lighting:</strong> Front white light and rear red light active whenever moving. Not just at night.</li><li><strong>Bicycle path priority:</strong> Where cycle lanes exist, e-scooters must use them rather than the road.</li><li><strong>Pedestrian zone restriction:</strong> Speed limit of 6 km/h in designated pedestrian zones (walking speed).</li></ul><h2>What This Means for Your Scooter</h2><p>If your scooter's factory firmware has been dechipped or speed-limited software removed, it may now be non-compliant. VoltGlide offers EU-compliance firmware re-flashing for $45 to restore factory speed limits and ensure your scooter passes any spot checks.</p></div>`
+        },
+        {
+            id: 'art7', cat: 'buying-guide', title: 'Best E-Scooter Under $800 in 2026: 5 Models Compared',
+            excerpt: 'Our mechanics compare 5 real-world budget champions. Performance, repairability, and total 3-year cost of ownership fully analyzed.',
+            img: './e1.jpg', author: 'Akira Sato', authorImg: './male2.jpg', authorRole: 'Controller Diagnostics Engineer',
+            date: 'May 22, 2026', readTime: '10 min', views: 9100,
+            tags: ['buying-guide', 'budget', 'comparison', 'Xiaomi'],
+            content: `<div class="featured-meta"><span class="post-cat buying-guide">Buying Guide</span></div><h1>Best E-Scooter Under $800 in 2026</h1><img src="./e1.jpg" class="article-hero-img"><div class="article-body"><p>The sub-$800 market has exploded in quality over the past 2 years. Here are the 5 models our workshop recommends based on actual repair data, not manufacturer specs.</p><h2>1. Xiaomi 4 Lite — $499</h2><p>The best entry-level scooter for flat-terrain city commuting. 20km real-world range, solid build, massive parts availability. Only downside: pneumatic front tire with no solid-conversion rim option.</p><h2>2. Segway Ninebot E2 — $599</h2><p>Air-filled tires, excellent LED lighting, IPX5 waterproofing. Our repair data shows the fewest electronics faults of any budget model we service.</p><h2>3. Apollo Air Pro — $749</h2><p>The range champion in this bracket with 35km real range. Semi-hydraulic brakes that we rarely need to service. Slightly heavier at 16kg.</p><h2>Our Top Pick</h2><div class="tip-box"><strong>✓ Winner: Segway E2 for most riders.</strong> The combination of durability, build quality, and low repair costs makes it the best total 3-year investment under $800.</div></div>`
+        },
+        {
+            id: 'art8', cat: 'diy', title: 'How to Read and Reset E-Scooter Error Codes',
+            excerpt: 'Error 14, Error 21, Error 39 — what do they mean and which can you fix at home? Full error code guide for Xiaomi, Segway, and Apollo.',
+            img: './e9.jpg', author: 'Sergei Volkov', authorImg: './malw2.jpg', authorRole: 'Chief Electronics Tech',
+            date: 'May 15, 2026', readTime: '9 min', views: 11230,
+            tags: ['DIY', 'controller', 'Xiaomi', 'Segway', 'error codes'],
+            content: `<div class="featured-meta"><span class="post-cat diy">DIY</span></div><h1>How to Read and Reset E-Scooter Error Codes</h1><img src="./e9.jpg" class="article-hero-img"><div class="article-body"><p>Error codes on your dashboard can be alarming, but many are easy to diagnose and some can even be fixed at home. Here's our complete reference.</p><h2>Xiaomi Error Code Reference</h2><ul><li><strong>Error 14:</strong> Throttle / Hall sensor fault. Try gently cleaning the throttle connector. If it persists, the throttle assembly needs replacement (~$22).</li><li><strong>Error 15:</strong> Brake sensor fault. Press and release the brake lever rapidly 5 times to reset. If it re-appears, the brake sensor magnet is failing.</li><li><strong>Error 21:</strong> Battery communication fault. Usually caused by loose battery connector. Power off, remove and re-seat the battery connector, power on.</li><li><strong>Error 39:</strong> Motor stall. Lift the rear wheel and spin it by hand. Any grinding = bearing failure requiring workshop service.</li></ul><h2>How to Clear Error Codes</h2><p>For Xiaomi: Hold the power button for 5 seconds while the scooter is powered off. This clears stored codes but not the underlying fault. The code will return if the fault remains.</p><div class="warning-box"><strong>⚠ Important:</strong> Never continue riding with active error codes related to brakes (Error 15) or motor (Error 39). These indicate safety-critical system failures.</div><h2>When to Call Us</h2><p>Any error that returns within 3 test rides after clearing, or any error code not listed above, should be professionally diagnosed. Our BMS scan reads live sensor data and identifies root causes that aren't visible to the error code system.</p></div>`
+        }
+    ];
+
+    let activeBlogCat = 'all';
+    let blogSearch = '';
+
+    function filterBlog(cat, btn) {
+        activeBlogCat = cat;
+        if (btn) {
+            document.querySelectorAll('.blog-filter-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        renderPosts();
+        scrollToElement('posts-grid');
+    }
+
+    function searchBlog(q) {
+        blogSearch = q.toLowerCase();
+        renderPosts();
+    }
+
+    function renderPosts() {
+        const grid = document.getElementById('posts-grid');
+        let posts = BLOG_POSTS.filter(p => {
+            const catOk = activeBlogCat === 'all' || p.cat === activeBlogCat;
+            const searchOk = !blogSearch || p.title.toLowerCase().includes(blogSearch) || p.excerpt.toLowerCase().includes(blogSearch) || p.tags.some(t => t.toLowerCase().includes(blogSearch));
+            return catOk && searchOk;
+        });
+
+        const catColors = { maintenance: 'maintenance', 'buying-guide': 'buying-guide', diy: 'diy', news: 'news', comparison: 'comparison' };
+        const catLabels = { maintenance: 'Maintenance', 'buying-guide': 'Buying Guide', diy: 'DIY Repair', news: 'News', comparison: 'Comparison' };
+
+        grid.innerHTML = posts.map(p => `
+            <div class="post-card" onclick="openArticle('${p.id}')" style="cursor:pointer;">
+                <img src="${p.img}" alt="${p.title}" class="post-card-img" loading="lazy">
+                <div class="post-card-body">
+                    <div class="post-card-meta">
+                        <span class="post-cat ${catColors[p.cat]}">${catLabels[p.cat]}</span>
+                        <span class="post-read-time"><i class="fa-solid fa-clock"></i> ${p.readTime}</span>
+                    </div>
+                    <div class="post-card-title">${p.title}</div>
+                    <div class="post-card-excerpt">${p.excerpt}</div>
+                </div>
+                <div class="post-card-footer">
+                    <div class="post-card-author">
+                        <img src="${p.authorImg}" alt="${p.author}">
+                        <span>${p.author} · ${p.date}</span>
+                    </div>
+                    <button class="read-btn"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>`).join('');
+
+        if (posts.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-dim);">
+                <i class="fa-solid fa-newspaper" style="font-size:2.5rem;display:block;margin-bottom:1rem;"></i>
+                No articles found. <a href="#" onclick="filterBlog('all',document.querySelector('.blog-filter-tab'))" style="color:var(--primary-color)">Clear filters</a>
+            </div>`;
+        }
+    }
+
+    function renderSidebarPopular() {
+        const sidebar = document.getElementById('sidebar-popular');
+        const popular = [...BLOG_POSTS].sort((a,b) => b.views - a.views).slice(0,4);
+        const catColors = { maintenance: 'maintenance', 'buying-guide': 'buying-guide', diy: 'diy', news: 'news', comparison: 'comparison' };
+        sidebar.innerHTML = popular.map(p => `
+            <div class="sidebar-post" onclick="openArticle('${p.id}')" style="cursor:pointer;">
+                <img src="${p.img}" alt="${p.title}">
+                <div>
+                    <div class="sidebar-post-title">${p.title}</div>
+                    <div class="sidebar-post-date">${p.readTime} read · ${p.views.toLocaleString()} views</div>
+                </div>
+            </div>`).join('');
+    }
+
+    function openArticle(id) {
+        const post = BLOG_POSTS.find(p => p.id === id);
+        if (!post) return;
+        const overlay = document.getElementById('article-overlay');
+        const content = document.getElementById('article-content');
+        content.innerHTML = post.content + `
+            <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border-color);display:flex;align-items:center;gap:1rem;">
+                <img src="${post.authorImg}" style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
+                <div><strong>${post.author}</strong><br><span style="color:var(--text-dim);font-size:0.85rem;">${post.authorRole} at VoltGlide</span></div>
+                <div style="margin-left:auto;display:flex;gap:0.8rem;flex-wrap:wrap;">
+                    <button class="btn btn-primary btn-sm" onclick="openBookingModal()"><i class="fa-solid fa-calendar-plus"></i> Book Repair</button>
+                    <a href="parts-shop.html" class="btn btn-secondary btn-sm"><i class="fa-solid fa-cart-shopping"></i> Shop Parts</a>
+                </div>
+            </div>`;
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        overlay.scrollTop = 0;
+    }
+
+    function closeArticle() {
+        document.getElementById('article-overlay').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeArticle(); });
+
+    function subscribeNewsletter(e) {
+        e.preventDefault();
+        showToast('Subscribed! Weekly rider tips incoming. ✓');
+        e.target.reset();
+    }
+
+    function scrollToElement(id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderPosts();
+        renderSidebarPopular();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltGlide | Profile Settings</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description" content="Manage your VoltGlide account profile settings.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme" style="padding-top: 0;">
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- PROFILE PAGE -->
+    <main id="profile-view" class="view-container">
+        <div class="auth-page-wrapper">
+            <div class="auth-header-toggles">
+                <button class="theme-btn dashboard-theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button class="rtl-btn dashboard-rtl-btn" onclick="toggleDirection()" aria-label="Toggle Layout Direction">
+                    <span class="rtl-circle">LTR</span>
+                </button>
+            </div>
+
+            <div class="auth-container glass-card profile-card">
+                <div class="auth-logo">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                </div>
+                <h2>Profile Settings</h2>
+                <p class="auth-subtitle">Update your account details and manage your dashboard preferences.</p>
+
+                <div class="profile-summary">
+                    <div class="profile-avatar-box">
+                        <img id="profile-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100" alt="Profile Avatar">
+                    </div>
+                    <div class="profile-meta">
+                        <p><strong id="profile-name">Marcus Vance</strong></p>
+                        <p id="profile-email" class="text-dim">rider@voltglide.com</p>
+                        <p id="profile-id" class="text-dim">User ID: VG-90210</p>
+                    </div>
+                </div>
+
+                <form id="profile-form" onsubmit="handleProfileUpdate(event)">
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="profile-name-input">Full Name</label>
+                        <input type="text" id="profile-name-input" required>
+                    </div>
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="profile-email-input">Email Address</label>
+                        <input type="email" id="profile-email-input" required>
+                    </div>
+                    <div class="form-group text-left" style="text-align: left;">
+                        <label for="profile-password-input">New Password</label>
+                        <input type="password" id="profile-password-input" placeholder="Leave blank to keep current password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full margin-top-md">Save Changes</button>
+                </form>
+
+                <div class="auth-footer-link">
+                    <a href="user-dashboard.html">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

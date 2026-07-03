@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltGlide | About Us - Pioneering Urban Micro-Mobility Care</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description" content="Founded in 2019, VoltGlide is the leading urban micro-mobility repair laboratory dedicated to safe, clean, and cost-effective e-scooter care.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                    <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">
+                            Home <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html" class="dropdown-link">Home 1</a></li>
+                            <li><a href="home2.html" class="dropdown-link">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link active">About</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a href="parts-shop.html" class="nav-link">Shop</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">
+                            Dashboard <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="user-dashboard.html" class="dropdown-link">User Dashboard</a></li>
+                            <li><a href="admin-dashboard.html" class="dropdown-link">Admin Dashboard</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button id="rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction">
+                    <span class="rtl-circle">LTR</span>
+                </button>
+                <button id="login-nav-btn" class="login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i>
+                    <span class="btn-text">Login</span>
+                </button>
+                <button class="mobile-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars hamburger"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-nav-header" style="justify-content: flex-end;">
+            <button class="close-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mobile-nav-body">
+            <ul class="mobile-list">
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)">
+                        <span>Home</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i>
+                    </button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="index.html" class="mobile-dropdown-link">Home 1</a></li>
+                        <li><a href="home2.html" class="mobile-dropdown-link">Home 2</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item"><a href="about.html" class="mobile-link">About</a></li>
+                <li class="mobile-nav-item"><a href="services.html" class="mobile-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="pricing.html" class="mobile-link">Pricing</a></li>
+                <li class="mobile-nav-item"><a href="parts-shop.html" class="mobile-link">Shop</a></li>
+                <li class="mobile-nav-item"><a href="blog.html" class="mobile-link">Blog</a></li>
+                <li class="mobile-nav-item"><a href="contact.html" class="mobile-link">Contact</a></li>
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)">
+                        <span>Dashboard</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i>
+                    </button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="user-dashboard.html" class="mobile-dropdown-link">User Dashboard</a></li>
+                        <li><a href="admin-dashboard.html" class="mobile-dropdown-link">Admin Dashboard</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="mobile-nav-actions">
+                <div class="mobile-toggles-row">
+                    <button id="mobile-theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                        <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                        <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                    </button>
+                    <button id="mobile-rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction">
+                        <span class="rtl-circle">LTR</span>
+                    </button>
+                </div>
+                <button id="mobile-login-btn" class="login-btn mobile-login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i>
+                    <span class="btn-text">Login</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ABOUT US VIEW -->
+    <main id="about-view" class="view-container">
+        <!-- Hero Section -->
+        <section class="about-hero">
+            <div class="section-container grid-2-align-center">
+                <div class="about-hero-content">
+                    <span class="badge-pill"><i class="fa-solid fa-history"></i> Our Commute Journey</span>
+                    <h1 class="about-title">Pioneering Urban Micro-Mobility Care</h1>
+                    <p class="about-desc">Founded in 2019, VoltGlide started as a small local garage fixing flat tires for early e-scooter riders. As electric commuting exploded, we engineered professional-grade electronic diagnostics systems to handle controller chips, custom firmware calibrations, and advanced high-capacity lithium battery welding.</p>
+                    <p class="about-desc">Today, we are the leading urban micro-mobility repair laboratory, dedicated to keeping riders moving cleanly, safely, and cost-effectively.</p>
+                </div>
+                <div class="about-hero-img-box">
+                    <img src="./ab.jpg" alt="VoltGlide Workshop" class="about-main-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="about-stats-section">
+            <div class="section-container">
+                <div class="stats-grid">
+                    <div class="stat-card-box"><h3>18,500+</h3><p>Scooters Serviced</p></div>
+                    <div class="stat-card-box"><h3>99.2%</h3><p>Satisfaction Rating</p></div>
+                    <div class="stat-card-box"><h3>12 Months</h3><p>Warranty Protection</p></div>
+                    <div class="stat-card-box"><h3>14 Core</h3><p>Brands Supported</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Our Master Mechanics &amp; Specialists</h2>
+                    <p class="section-subtitle">Meet the electronics engineers and mechanical wizards who inspect and tune your rides.</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="./malw2.jpg" alt="Team Lead" class="team-avatar">
+                        <h3>Sergei Volkov</h3>
+                        <p class="team-role">Founder &amp; Chief Electronics Tech</p>
+                        <p class="team-bio">Specialist in BMS diagnostics, custom firmware configuration, and battery cell mapping.</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200" alt="Technician" class="team-avatar">
+                        <h3>Rachel Miller</h3>
+                        <p class="team-role">Lead Mechanical Specialist</p>
+                        <p class="team-bio">Tire conversion guru, brake bleeding expert, and structural frame safety analyst.</p>
+                    </div>
+                    <div class="team-card">
+                        <img src="./male2.jpg" alt="Technician" class="team-avatar">
+                        <h3>Akira Sato</h3>
+                        <p class="team-role">Controller Diagnostics Engineer</p>
+                        <p class="team-bio">Specialist in brushless hub motor rewiring and hall-sensor board debugging.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Laboratory Safety Showoff -->
+        <section class="lab-safety-section">
+            <div class="section-container grid-2-align-center">
+                <div class="lab-image">
+                    <img src="./e7.webp" alt="VoltGlide Laboratory Testing Chamber" class="rounded-img">
+                </div>
+                <div class="lab-content">
+                    <h2>Our Static-Free Electronics Laboratory</h2>
+                    <p>Unlike standard bicycle repair shops, VoltGlide runs a clean room chamber dedicated exclusively to micro-electronics repair. We solder under stereo microscopes, use digital oscilloscopes to inspect controller signals, and execute battery cycle-capacity load testing inside safety-certified steel battery chambers.</p>
+                    <p>Your scooter's electronic heart is highly sensitive. We protect it from ESD damage, incorrect voltage spikes, and improper thermal sealings.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Values Section -->
+        <section class="about-values-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Core Values We Solder By</h2>
+                    <p class="section-subtitle">The principles that guide our technical laboratory and customer service standards.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-shield-halved text-green"></i></div>
+                        <h3>Lithium Safety Absolute</h3>
+                        <p>All battery diagnostics and balance welding are completed inside fireproof steel enclosures under static-free conditions.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-leaf text-green"></i></div>
+                        <h3>E-Waste Reduction</h3>
+                        <p>We actively salvage circuit board components and correctly recycle lithium cells, minimizing local urban e-waste footprint.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-scale-balanced text-green"></i></div>
+                        <h3>Honest Appraisals</h3>
+                        <p>If your scooter controller doesn't need to be replaced, we don't bill you. We repair rather than discard whenever possible.</p>
+                    </div>
+                    <div class="feature-card glass-card">
+                        <div class="feature-icon"><i class="fa-solid fa-handshake text-green"></i></div>
+                        <h3>Transparent Service Guarantees</h3>
+                        <p>Every repair includes clear pricing and service promises so you know exactly what is covered and what to expect.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Green Impact Calculator Section -->
+        <section class="green-impact-section">
+            <div class="section-container grid-2-align-center">
+                <div class="green-content">
+                    <span class="badge-pill secondary"><i class="fa-solid fa-leaf"></i> Interactive Eco-Tracker</span>
+                    <h2>Track Your Carbon Reduction Impact</h2>
+                    <p>Electric scooters are one of the most carbon-efficient transit options. Slide your daily commute mileage below to calculate your estimated annual CO2 emissions savings and green offset impact compared to a gasoline car.</p>
+                    
+                    <div class="calculator-slider-box margin-top-md">
+                        <label for="green-mileage-range">Your Daily Commute Distance: <strong id="green-miles-val">15 miles</strong></label>
+                        <input type="range" id="green-mileage-range" min="2" max="60" value="15" class="green-slider" oninput="updateGreenImpact()">
+                    </div>
+                    
+                    <div class="green-results-grid margin-top-md">
+                        <div class="green-result-card">
+                            <span class="result-number text-green" id="green-co2-val">1,240 lbs</span>
+                            <span class="result-label">CO2 Saved / Year</span>
+                        </div>
+                        <div class="green-result-card">
+                            <span class="result-number text-green" id="green-trees-val">14 Trees</span>
+                            <span class="result-label">Trees Equivalent Offset</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="green-visual">
+                    <img src="./e12.jpg" alt="Eco Ride Energy Saved" class="rounded-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- VoltGlide Innovation Timeline Section -->
+        <section class="about-timeline-section">
+            <div class="section-container">
+                <div class="section-header center">
+                    <h2 class="section-title">Milestones &amp; Technical Evolution</h2>
+                    <p class="section-subtitle">From a small flat-tire fixing garage to a certified micro-mobility laboratory.</p>
+                </div>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2019</div>
+                        <div class="timeline-content glass-card">
+                            <h3>Humble Intake Garage</h3>
+                            <p>VoltGlide launches in a small storefront in Silicon District, focusing on standard tube replacements and brake pads alignment.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2021</div>
+                        <div class="timeline-content glass-card">
+                            <h3>BMS Diagnostics Upgrade</h3>
+                            <p>We designed our proprietary computer-connected BMS diagnostics box to identify faulty lithium cells without complete pack dismantling.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2023</div>
+                        <div class="timeline-content glass-card">
+                            <h3>UN38.3 Safe Chambers</h3>
+                            <p>Installed professional static-free workbenches and steel-chamber load testing bays for maximum safety during electric repairs.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2025</div>
+                        <div class="timeline-content glass-card">
+                            <h3>15,000+ Commutes Serviced</h3>
+                            <p>Secured partnerships with fleet delivery operators and built our interactive digital booking platform for public retail riders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                    <p class="footer-tagline">Premium engineering diagnostics, professional micro-mobility repairs, and genuine e-scooter parts shop.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="index.html">Home 1 (Default)</a></li>
+                        <li><a href="home2.html">Home 2 (Promo)</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Repair Services</a></li>
+                        <li><a href="contact.html">Find Location</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Repair Fixes</h3>
+                    <ul>
+                        <li><a href="services.html">Solid Tire Swap</a></li>
+                        <li><a href="services.html">Lithium BMS Repair</a></li>
+                        <li><a href="services.html">Disc Brake Calibrations</a></li>
+                        <li><a href="services.html">Smart Controller Flash</a></li>
+                        <li><a href="services.html">Motor Hall Sensor Tuning</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Safety Certification</h3>
+                    <p>All battery diagnostics are completed under certified ESD and spark-proof safety enclosures.</p>
+                    <div class="safety-badge-row">
+                        <span class="safety-badge"><i class="fa-solid fa-shield-virus"></i> ESD Safe</span>
+                        <span class="safety-badge"><i class="fa-solid fa-triangle-exclamation"></i> UN38.3 Tech</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VoltGlide Micro-Mobility Inc. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

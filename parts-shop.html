@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoltGlide Parts Shop | OEM E-Scooter Tires, Batteries &amp; Brakes</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description" content="Shop genuine OEM e-scooter parts — solid tires, lithium batteries, brake pads, controllers, and motors for Xiaomi, Segway, Apollo, and more.">
+    <meta name="keywords" content="e-scooter parts shop, scooter tires online, xiaomi battery replacement, segway spare parts, solid tires, brake pads escooter">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Parts Shop Specific ── */
+        .shop-hero { padding: 5.5rem 0 3.5rem; background: radial-gradient(ellipse at 30% 0%, rgba(14,165,233,0.1) 0%, transparent 60%); }
+        .shop-hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        @media (max-width: 900px) { .shop-hero-inner { grid-template-columns: 1fr; text-align: center; } .shop-hero-img { display: none; } }
+        .shop-hero-text h1 { font-size: clamp(1.9rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.2; margin: 1rem 0; }
+        .shop-hero-img img { width: 100%; border-radius: 20px; box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
+
+        /* Category tabs */
+        .shop-layout { padding: 4rem 0 6rem; }
+        .shop-category-sidebar { display: flex; flex-direction: column; gap: 0.4rem; }
+        .cat-tab { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1.2rem; border-radius: 12px; border: none; background: transparent; color: var(--text-dim); cursor: pointer; font-size: 0.9rem; font-weight: 500; text-align: left; transition: all 0.2s; width: 100%; }
+        .cat-tab:hover { background: var(--bg-card); color: var(--text-primary); }
+        .cat-tab.active { background: rgba(0,255,136,0.1); color: var(--primary-color); font-weight: 600; }
+        .cat-tab i { width: 20px; font-size: 1rem; text-align: center; }
+        .cat-count { margin-left: auto; background: var(--bg-input); border-radius: 30px; padding: 2px 8px; font-size: 0.75rem; }
+        .cat-tab.active .cat-count { background: rgba(0,255,136,0.2); color: var(--primary-color); }
+
+        /* Shop two-column layout */
+        .shop-body { display: grid; grid-template-columns: 220px 1fr; gap: 2.5rem; }
+        @media (max-width: 900px) { .shop-body { grid-template-columns: 1fr; } .shop-category-sidebar { flex-direction: row; flex-wrap: wrap; } .cat-tab { flex: 0 0 auto; } }
+
+        /* Search/sort bar */
+        .shop-controls { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .shop-search { flex: 1; min-width: 200px; display: flex; align-items: center; gap: 0.6rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.6rem 1rem; }
+        .shop-search i { color: var(--text-dim); }
+        .shop-search input { background: none; border: none; outline: none; color: var(--text-primary); font-size: 0.9rem; width: 100%; }
+        .sort-select { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.6rem 1rem; color: var(--text-primary); font-size: 0.9rem; outline: none; }
+        .results-count { color: var(--text-dim); font-size: 0.85rem; white-space: nowrap; }
+
+        /* Product cards */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; position: relative; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-color: rgba(0,255,136,0.3); }
+        .product-img-wrap { width: 100%; height: 190px; overflow: hidden; position: relative; background: var(--bg-secondary); }
+        .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+        .product-card:hover .product-img-wrap img { transform: scale(1.05); }
+        .product-badge { position: absolute; top: 10px; left: 10px; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 30px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .product-badge.new { background: var(--primary-color); color: #000; }
+        .product-badge.sale { background: #ef4444; color: #fff; }
+        .product-badge.popular { background: var(--secondary); color: #fff; }
+        .product-badge.low { background: rgba(245,158,11,0.9); color: #000; }
+        .product-info { padding: 1.2rem; flex-grow: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+        .product-cat { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); font-weight: 600; }
+        .product-name { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); line-height: 1.4; }
+        .product-compat { font-size: 0.78rem; color: var(--text-dim); }
+        .product-compat i { color: var(--primary-color); margin-right: 4px; }
+        .product-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding: 1rem 1.2rem; border-top: 1px solid var(--border-color); gap: 0.8rem; }
+        .product-price { font-size: 1.15rem; font-weight: 800; color: var(--primary-color); }
+        .product-price .old-price { font-size: 0.8rem; color: var(--text-dim); text-decoration: line-through; font-weight: 400; display: block; }
+        .add-cart-btn { display: flex; align-items: center; gap: 0.4rem; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3); color: var(--primary-color); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .add-cart-btn:hover { background: var(--primary-color); color: #000; }
+        .stock-indicator { display: flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: var(--primary-color); }
+        .stock-indicator.low { color: var(--accent-amber); }
+        .stock-indicator.out { color: #f87171; }
+        .stock-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+        /* Brand filter pills */
+        .brand-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .brand-pill { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 30px; padding: 4px 14px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; color: var(--text-dim); }
+        .brand-pill:hover, .brand-pill.active { background: rgba(0,255,136,0.1); border-color: var(--primary-color); color: var(--primary-color); font-weight: 600; }
+
+        /* Cart float button */
+        .cart-float-btn { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary-color); color: #000; border: none; border-radius: 50px; padding: 0.9rem 1.5rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.6rem; box-shadow: 0 8px 30px rgba(0,255,136,0.4); transition: transform 0.2s, box-shadow 0.2s; z-index: 200; }
+        .cart-float-btn:hover { transform: scale(1.05); box-shadow: 0 12px 40px rgba(0,255,136,0.5); }
+        .cart-float-count { background: #000; color: var(--primary-color); border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; }
+
+        /* Install banner */
+        .install-banner { background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(14,165,233,0.05)); border: 1px solid rgba(0,255,136,0.15); border-radius: 20px; padding: 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-top: 3rem; }
+        .install-banner-text h3 { font-size: 1.3rem; margin-bottom: 0.3rem; }
+        .install-banner-text p { color: var(--text-dim); font-size: 0.9rem; }
+
+        /* Why buy from us strip */
+        .why-buy-strip { padding: 4rem 0; background: var(--bg-secondary); }
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2.5rem; }
+        .why-item { text-align: center; }
+        .why-icon { width: 56px; height: 56px; border-radius: 16px; background: rgba(0,255,136,0.08); color: var(--primary-color); font-size: 1.4rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+        .why-item h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .why-item p { color: var(--text-dim); font-size: 0.82rem; line-height: 1.5; }
+    </style>
+</head>
+<body class="dark-theme">
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                    <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                </a>
+            </div>
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">Home <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html" class="dropdown-link">Home 1</a></li>
+                            <li><a href="home2.html" class="dropdown-link">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+                    <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a href="parts-shop.html" class="nav-link active">Shop</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link" onclick="event.preventDefault()">Dashboard <i class="fa-solid fa-chevron-down dropdown-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="user-dashboard.html" class="dropdown-link">User Dashboard</a></li>
+                            <li><a href="admin-dashboard.html" class="dropdown-link">Admin Dashboard</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                    <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                    <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                </button>
+                <button id="rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction"><span class="rtl-circle">LTR</span></button>
+                <button id="login-nav-btn" class="login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i><span class="btn-text">Login</span>
+                </button>
+                <button class="mobile-toggle" id="mobileMenuToggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars hamburger"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav-backdrop" id="mobileNavBackdrop" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <div class="mobile-nav-header" style="justify-content: flex-end;">
+            <button class="close-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="mobile-nav-body">
+            <ul class="mobile-list">
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)"><span>Home</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i></button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="index.html" class="mobile-dropdown-link">Home 1</a></li>
+                        <li><a href="home2.html" class="mobile-dropdown-link">Home 2</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item"><a href="about.html" class="mobile-link">About</a></li>
+                <li class="mobile-nav-item"><a href="services.html" class="mobile-link">Services</a></li>
+                <li class="mobile-nav-item"><a href="pricing.html" class="mobile-link">Pricing</a></li>
+                <li class="mobile-nav-item"><a href="parts-shop.html" class="mobile-link">Shop</a></li>
+                <li class="mobile-nav-item"><a href="blog.html" class="mobile-link">Blog</a></li>
+                <li class="mobile-nav-item"><a href="contact.html" class="mobile-link">Contact</a></li>
+                <li class="mobile-nav-item mobile-has-dropdown">
+                    <button class="mobile-dropdown-btn" onclick="toggleMobileDropdown(this)"><span>Dashboard</span><i class="fa-solid fa-chevron-down mobile-dropdown-arrow"></i></button>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="user-dashboard.html" class="mobile-dropdown-link">User Dashboard</a></li>
+                        <li><a href="admin-dashboard.html" class="mobile-dropdown-link">Admin Dashboard</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="mobile-nav-actions">
+                <div class="mobile-toggles-row">
+                    <button id="mobile-theme-toggle" class="theme-btn" aria-label="Toggle Theme">
+                        <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
+                        <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
+                    </button>
+                    <button id="mobile-rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction"><span class="rtl-circle">LTR</span></button>
+                </div>
+                <button id="mobile-login-btn" class="login-btn mobile-login-btn" onclick="window.location.href='login.html'">
+                    <i class="fa-solid fa-user-lock btn-icon"></i><span class="btn-text">Login</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ══ SHOP HERO ══ -->
+    <main>
+        <section class="shop-hero">
+            <div class="section-container">
+                <div class="shop-hero-inner">
+                    <div class="shop-hero-text">
+                        <span class="badge-pill secondary"><i class="fa-solid fa-bolt"></i> OEM-Certified Stock</span>
+                        <h1>The E-Scooter<br><span class="gradient-text">Parts Store</span></h1>
+                        <p style="color: var(--text-dim); font-size: 1.05rem; margin: 1rem 0 2rem; line-height: 1.7;">Tires, batteries, brakes, controllers, and motors — all genuine OEM parts stocked and ready to ship or install same-day. This is our main mission.</p>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button class="btn btn-primary" onclick="scrollToElement('shop-section')"><i class="fa-solid fa-magnifying-glass"></i> Browse All Parts</button>
+                            <button class="btn btn-secondary" onclick="document.getElementById('cat-tires').click()"><i class="fa-solid fa-circle-dot"></i> Shop Tires First</button>
+                        </div>
+                    </div>
+                    <div class="shop-hero-img">
+                        <img src="./e2.webp" alt="VoltGlide E-Scooter Parts Collection">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Why Buy from us ── -->
+        <section class="why-buy-strip">
+            <div class="section-container">
+                <div class="why-grid">
+                    <div class="why-item">
+                        <div class="why-icon"><i class="fa-solid fa-certificate"></i></div>
+                        <h4>100% OEM Genuine</h4>
+                        <p>Every part is sourced from manufacturer-certified supply chains. No grey-market clones.</p>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                        <h4>Same-Day Install</h4>
+                        <p>Buy online, arrive at our shop, and we install it on the same day for most items.</p>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h4>12-Month Warranty</h4>
+                        <p>All parts carry our full one-year warranty when installed by VoltGlide technicians.</p>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon"><i class="fa-solid fa-recycle"></i></div>
+                        <h4>Free Old Part Recycling</h4>
+                        <p>We safely recycle your old batteries and electronics at zero extra cost.</p>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon"><i class="fa-solid fa-headset"></i></div>
+                        <h4>Expert Fit Advice</h4>
+                        <p>Not sure what fits your scooter? Our technicians verify compatibility before every order.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ MAIN SHOP SECTION ══ -->
+        <section class="shop-layout" id="shop-section">
+            <div class="section-container">
+                <div class="shop-body">
+
+                    <!-- Sidebar Categories -->
+                    <aside>
+                        <h4 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.8rem; font-weight: 600;">Categories</h4>
+                        <div class="shop-category-sidebar" id="cat-sidebar">
+                            <button id="cat-all" class="cat-tab active" onclick="filterProducts('all', this)">
+                                <i class="fa-solid fa-th-large"></i> All Parts <span class="cat-count">24</span>
+                            </button>
+                            <button id="cat-tires" class="cat-tab" onclick="filterProducts('tires', this)">
+                                <i class="fa-solid fa-circle-dot"></i> Tires &amp; Tubes <span class="cat-count">6</span>
+                            </button>
+                            <button id="cat-battery" class="cat-tab" onclick="filterProducts('battery', this)">
+                                <i class="fa-solid fa-battery-full"></i> Batteries &amp; BMS <span class="cat-count">5</span>
+                            </button>
+                            <button id="cat-brakes" class="cat-tab" onclick="filterProducts('brakes', this)">
+                                <i class="fa-solid fa-circle-stop"></i> Brakes &amp; Pads <span class="cat-count">4</span>
+                            </button>
+                            <button id="cat-electronics" class="cat-tab" onclick="filterProducts('electronics', this)">
+                                <i class="fa-solid fa-microchip"></i> Electronics <span class="cat-count">5</span>
+                            </button>
+                            <button id="cat-motor" class="cat-tab" onclick="filterProducts('motor', this)">
+                                <i class="fa-solid fa-gear"></i> Motors &amp; Bearings <span class="cat-count">4</span>
+                            </button>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div style="margin-top: 2rem;">
+                            <h4 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.8rem; font-weight: 600;">Price Range</h4>
+                            <input type="range" id="price-range" min="10" max="300" value="300" class="green-slider" style="width: 100%;" oninput="updatePriceFilter(this.value)">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">
+                                <span>$10</span><span id="price-max-label">Up to $300</span>
+                            </div>
+                        </div>
+
+                        <!-- Compatibility filter -->
+                        <div style="margin-top: 1.5rem;">
+                            <h4 style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.8rem; font-weight: 600;">Brand Compatibility</h4>
+                            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                                <label style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; cursor: pointer;"><input type="checkbox" checked> Xiaomi</label>
+                                <label style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; cursor: pointer;"><input type="checkbox" checked> Segway / Ninebot</label>
+                                <label style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; cursor: pointer;"><input type="checkbox" checked> Apollo</label>
+                                <label style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; cursor: pointer;"><input type="checkbox" checked> Kaabo</label>
+                                <label style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; cursor: pointer;"><input type="checkbox"> Universal Fit</label>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Products Main Area -->
+                    <div>
+                        <!-- Controls bar -->
+                        <div class="shop-controls">
+                            <div class="shop-search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="shop-search-input" placeholder="Search parts, models, brands..." oninput="searchProducts(this.value)">
+                            </div>
+                            <select class="sort-select" onchange="sortProducts(this.value)">
+                                <option value="popular">Sort: Popular</option>
+                                <option value="price-asc">Price: Low to High</option>
+                                <option value="price-desc">Price: High to Low</option>
+                                <option value="new">Newest First</option>
+                            </select>
+                            <span class="results-count" id="results-count">24 products</span>
+                        </div>
+
+                        <!-- Products grid -->
+                        <div class="products-grid" id="products-grid">
+                            <!-- Products are rendered by JS below -->
+                        </div>
+
+                        <!-- Professional installation banner -->
+                        <div class="install-banner">
+                            <div class="install-banner-text">
+                                <h3><i class="fa-solid fa-screwdriver-wrench" style="color: var(--primary-color); margin-right: 8px;"></i> Need it Installed?</h3>
+                                <p>Add professional installation to any part at checkout. Our techs will fit it same-day in our Silicon District workshop.</p>
+                            </div>
+                            <button class="btn btn-primary" onclick="openBookingModal()"><i class="fa-solid fa-calendar-plus"></i> Book Install Slot</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- GLOBAL FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo-link">
+                        <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
+                        <span class="logo-text">Volt<span class="highlight">Glide</span></span>
+                    </a>
+                    <p class="footer-tagline">Premium engineering diagnostics, professional micro-mobility repairs, and genuine e-scooter parts shop.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="parts-shop.html">Shop</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Shop Categories</h3>
+                    <ul>
+                        <li><a href="#" onclick="filterProducts('tires', document.getElementById('cat-tires'))">Tires &amp; Tubes</a></li>
+                        <li><a href="#" onclick="filterProducts('battery', document.getElementById('cat-battery'))">Batteries &amp; BMS</a></li>
+                        <li><a href="#" onclick="filterProducts('brakes', document.getElementById('cat-brakes'))">Brakes &amp; Pads</a></li>
+                        <li><a href="#" onclick="filterProducts('electronics', document.getElementById('cat-electronics'))">Controllers &amp; Screens</a></li>
+                        <li><a href="#" onclick="filterProducts('motor', document.getElementById('cat-motor'))">Motors &amp; Bearings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Safety Certification</h3>
+                    <p>All battery parts are certified ESD-safe and ship in UN38.3-compliant packaging.</p>
+                    <div class="safety-badge-row">
+                        <span class="safety-badge"><i class="fa-solid fa-shield-virus"></i> ESD Safe</span>
+                        <span class="safety-badge"><i class="fa-solid fa-triangle-exclamation"></i> UN38.3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VoltGlide Micro-Mobility Inc. All rights reserved.</p>
+                <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Button -->
+    <button class="cart-float-btn" id="cart-float" onclick="toggleCartModal()" style="display: none;">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Cart <span class="cart-float-count" id="cart-float-count">0</span>
+    </button>
+
+    <!-- SHOPPING CART MODAL -->
+    <div class="modal-backdrop" id="cartModal">
+        <div class="modal-card cart-modal-card">
+            <button class="modal-close" onclick="toggleCartModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-cart">
+                <h2><i class="fa-solid fa-cart-shopping card-icon-green"></i> Your Shopping Cart</h2>
+                <p>Review items and checkout to simulate purchase.</p>
+            </div>
+            <div class="cart-items-wrapper" id="cart-items-list"></div>
+            <div class="cart-summary-box">
+                <div class="cart-total-row"><span>Subtotal:</span><strong id="cart-total-price">$0.00</strong></div>
+                <button class="btn btn-primary btn-full" onclick="checkoutCart()">Confirm Simulated Purchase</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING MODAL -->
+    <div class="modal-backdrop" id="bookingModal">
+        <div class="modal-card booking-modal-card">
+            <button class="modal-close" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-booking">
+                <h2><i class="fa-solid fa-calendar-plus card-icon-green"></i> Book Installation Slot</h2>
+                <p>Book a technician to install your purchased parts same-day.</p>
+            </div>
+            <form id="modal-booking-form" onsubmit="handleModalBooking(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-scooter">Scooter Model / Brand</label>
+                        <input type="text" id="m-book-scooter" placeholder="Xiaomi Pro 2" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-service">Parts to Install</label>
+                        <select id="m-book-service">
+                            <option value="Solid Tire Conversion">Solid Tire Installation ($65.00)</option>
+                            <option value="Inner Tube Replacement">Tube Replacement ($45.00)</option>
+                            <option value="Battery Diagnostics / BMS Fix">Battery BMS Install ($120.00)</option>
+                            <option value="Brake Pads Replacement">Brake Pads ($35.00)</option>
+                            <option value="Controller Board Assembly">Controller Install ($110.00)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="m-book-date">Appointment Date</label>
+                        <input type="date" id="m-book-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="m-book-time">Preferred Time</label>
+                        <select id="m-book-time">
+                            <option value="09:00 AM">09:00 AM</option>
+                            <option value="11:30 AM">11:30 AM</option>
+                            <option value="02:00 PM">02:00 PM</option>
+                            <option value="04:30 PM">04:30 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Book Installation</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    // ── Parts Shop Product Catalogue ──
+    const SHOP_PRODUCTS = [
+        // TIRES
+        { id:'t1', cat:'tires', name:'Solid Honeycomb Tire – 8.5"', compat:'Xiaomi M365, Pro, 1S, Essential', price:28, oldPrice:35, badge:'popular', stock:'In Stock', img:'./e4.jpg' },
+        { id:'t2', cat:'tires', name:'Solid Tire – 10"', compat:'Segway Max G2, Ninebot F40', price:32, oldPrice:null, badge:'new', stock:'In Stock', img:'./e4.jpg' },
+        { id:'t3', cat:'tires', name:'Street Inner Tube 8.5" (2-pack)', compat:'Universal 8.5" rim', price:14, oldPrice:18, badge:'sale', stock:'In Stock', img:'./e4.jpg' },
+        { id:'t4', cat:'tires', name:'Offroad Pneumatic Tire 10"', compat:'Apollo City, Ghost, Kaabo Mantis', price:38, oldPrice:null, badge:null, stock:'In Stock', img:'./e4.jpg' },
+        { id:'t5', cat:'tires', name:'Tubeless Gel Sealant Kit (500ml)', compat:'Universal', price:19, oldPrice:null, badge:null, stock:'In Stock', img:'./e4.jpg' },
+        { id:'t6', cat:'tires', name:'Foam Fill Tire 8.5" Set (pair)', compat:'Xiaomi, Segway 8.5"', price:55, oldPrice:70, badge:'sale', stock:'Low Stock', img:'./e4.jpg' },
+        // BATTERY
+        { id:'b1', cat:'battery', name:'36V 7.5Ah Li-ion Replacement Pack', compat:'Xiaomi M365, Essential', price:145, oldPrice:180, badge:'popular', stock:'In Stock', img:'./e5.jpg' },
+        { id:'b2', cat:'battery', name:'36V 10.5Ah Extended Range Battery', compat:'Xiaomi Pro / Pro 2', price:195, oldPrice:null, badge:'new', stock:'In Stock', img:'./e5.jpg' },
+        { id:'b3', cat:'battery', name:'48V BMS Controller Board (15A)', compat:'Apollo City / Pro Universal', price:68, oldPrice:85, badge:'sale', stock:'In Stock', img:'./e5.jpg' },
+        { id:'b4', cat:'battery', name:'Segway Max 551Wh OEM Battery Pack', compat:'Segway Ninebot Max G30', price:260, oldPrice:null, badge:null, stock:'Low Stock', img:'./e5.jpg' },
+        { id:'b5', cat:'battery', name:'Lithium Cell Spot-Weld Strip (Nickel)', compat:'DIY battery repair universal', price:22, oldPrice:null, badge:null, stock:'In Stock', img:'./e5.jpg' },
+        // BRAKES
+        { id:'br1', cat:'brakes', name:'Semi-Metallic Disc Brake Pads (pair)', compat:'Xiaomi, Segway, Apollo', price:18, oldPrice:24, badge:'popular', stock:'In Stock', img:'./e10.jpg' },
+        { id:'br2', cat:'brakes', name:'Organic Resin Brake Pads – Racing Grade', compat:'Kaabo Mantis, Wolf Warrior', price:26, oldPrice:null, badge:'new', stock:'In Stock', img:'./e10.jpg' },
+        { id:'br3', cat:'brakes', name:'DOT 4 Hydraulic Brake Fluid (250ml)', compat:'Universal hydraulic systems', price:12, oldPrice:null, badge:null, stock:'In Stock', img:'./e10.jpg' },
+        { id:'br4', cat:'brakes', name:'Brake Lever Sensor Assembly (Left+Right)', compat:'Xiaomi Pro 2, 4 Pro', price:34, oldPrice:42, badge:'sale', stock:'Low Stock', img:'./e10.jpg' },
+        // ELECTRONICS
+        { id:'e1', cat:'electronics', name:'OEM LCD Dashboard Screen – Xiaomi', compat:'Xiaomi M365, Pro, 1S', price:45, oldPrice:60, badge:'popular', stock:'In Stock', img:'./e9.webp' },
+        { id:'e2', cat:'electronics', name:'Smart Controller Board 350W', compat:'Xiaomi M365, Essential', price:88, oldPrice:null, badge:null, stock:'In Stock', img:'./e9.webp' },
+        { id:'e3', cat:'electronics', name:'Throttle Thumb Accelerator (with cable)', compat:'Universal 22mm bar fit', price:22, oldPrice:28, badge:'sale', stock:'In Stock', img:'./e9.webp' },
+        { id:'e4', cat:'electronics', name:'Segway G30 Controller Board', compat:'Segway Max G30, G30D', price:110, oldPrice:135, badge:null, stock:'Low Stock', img:'./e9.webp' },
+        { id:'e5', cat:'electronics', name:'Bluetooth Module V4.2 (M365-compatible)', compat:'Xiaomi M365, Pro, Essential', price:18, oldPrice:null, badge:'new', stock:'In Stock', img:'./e9.webp' },
+        // MOTORS
+        { id:'m1', cat:'motor', name:'Hall Sensor Set 3pcs (5-wire)', compat:'Universal 350-500W hub motors', price:14, oldPrice:18, badge:'popular', stock:'In Stock', img:'./e11.jpg' },
+        { id:'m2', cat:'motor', name:'350W Brushless Hub Motor – 8.5"', compat:'Xiaomi M365 / M365 Pro', price:165, oldPrice:200, badge:null, stock:'In Stock', img:'./e11.jpg' },
+        { id:'m3', cat:'motor', name:'608ZZ Wheel Bearing Set (4pcs)', compat:'Universal 8.5" and 10" hubs', price:9, oldPrice:null, badge:null, stock:'In Stock', img:'./e11.jpg' },
+        { id:'m4', cat:'motor', name:'500W Dual-Drive Rear Hub Motor 10"', compat:'Apollo, Kaabo, Dualtron wide deck', price:220, oldPrice:null, badge:'new', stock:'Low Stock', img:'./e11.jpg' },
+    ];
+
+    let activeCategory = 'all';
+    let maxPrice = 300;
+    let searchQuery = '';
+    let cartCount = 0;
+
+    function filterProducts(cat, btn) {
+        activeCategory = cat;
+        document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        renderProducts();
+    }
+
+    function searchProducts(q) {
+        searchQuery = q.toLowerCase();
+        renderProducts();
+    }
+
+    function updatePriceFilter(val) {
+        maxPrice = parseInt(val);
+        document.getElementById('price-max-label').textContent = 'Up to $' + val;
+        renderProducts();
+    }
+
+    function sortProducts(val) {
+        renderProducts(val);
+    }
+
+    function renderProducts(sortVal) {
+        const grid = document.getElementById('products-grid');
+        let products = SHOP_PRODUCTS.filter(p => {
+            const catMatch = activeCategory === 'all' || p.cat === activeCategory;
+            const priceMatch = p.price <= maxPrice;
+            const searchMatch = !searchQuery || p.name.toLowerCase().includes(searchQuery) || p.compat.toLowerCase().includes(searchQuery);
+            return catMatch && priceMatch && searchMatch;
+        });
+
+        sortVal = sortVal || document.querySelector('.sort-select').value;
+        if (sortVal === 'price-asc') products.sort((a,b) => a.price - b.price);
+        else if (sortVal === 'price-desc') products.sort((a,b) => b.price - a.price);
+        else if (sortVal === 'new') products.sort((a,b) => (b.badge === 'new') - (a.badge === 'new'));
+
+        document.getElementById('results-count').textContent = products.length + ' product' + (products.length !== 1 ? 's' : '');
+
+        const badgeClasses = { new: 'new', sale: 'sale', popular: 'popular', low: 'low' };
+        const badgeLabels = { new: 'New Arrival', sale: 'On Sale', popular: 'Best Seller', low: 'Low Stock' };
+        const stockClass = (s) => s === 'Low Stock' ? 'low' : s === 'Out of Stock' ? 'out' : '';
+
+        grid.innerHTML = products.map(p => `
+            <div class="product-card" id="prod-${p.id}">
+                <div class="product-img-wrap">
+                    <img src="${p.img}" alt="${p.name}" loading="lazy">
+                    ${p.badge ? `<span class="product-badge ${badgeClasses[p.badge]}">${badgeLabels[p.badge]}</span>` : ''}
+                    ${p.stock === 'Low Stock' ? `<span class="product-badge low" style="top:auto;bottom:10px;">Low Stock</span>` : ''}
+                </div>
+                <div class="product-info">
+                    <span class="product-cat">${p.cat.charAt(0).toUpperCase() + p.cat.slice(1)}</span>
+                    <span class="product-name">${p.name}</span>
+                    <span class="product-compat"><i class="fa-solid fa-circle-check"></i> Fits: ${p.compat}</span>
+                    <div class="stock-indicator ${stockClass(p.stock)}">
+                        <span class="stock-dot"></span>${p.stock}
+                    </div>
+                </div>
+                <div class="product-bottom">
+                    <div class="product-price">
+                        ${p.oldPrice ? `<span class="old-price">$${p.oldPrice}</span>` : ''}
+                        $${p.price.toFixed(2)}
+                    </div>
+                    <button class="add-cart-btn" onclick="addToShopCart('${p.id}')">
+                        <i class="fa-solid fa-cart-plus"></i> Add
+                    </button>
+                </div>
+            </div>`).join('');
+
+        if (products.length === 0) {
+            grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-dim);">
+                <i class="fa-solid fa-box-open" style="font-size: 3rem; margin-bottom: 1rem; display:block;"></i>
+                No parts found matching your filters. <a href="#" onclick="filterProducts('all',document.getElementById('cat-all'))" style="color:var(--primary-color);">Clear filters</a>
+            </div>`;
+        }
+    }
+
+    function addToShopCart(productId) {
+        const p = SHOP_PRODUCTS.find(x => x.id === productId);
+        if (!p) return;
+
+        // Use the shared state cart from script.js if available
+        if (typeof state !== 'undefined' && state.cart !== undefined) {
+            const existing = state.cart.find(i => i.id === productId);
+            if (existing) { existing.qty++; } else { state.cart.push({ id: p.id, name: p.name, price: p.price, qty: 1, img: p.img }); }
+            localStorage.setItem('vg_cart', JSON.stringify(state.cart));
+            updateCartFloat();
+        }
+
+        // Visual feedback on button
+        const card = document.getElementById('prod-' + productId);
+        if (card) {
+            const btn = card.querySelector('.add-cart-btn');
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Added!';
+            btn.style.background = 'var(--primary-color)';
+            btn.style.color = '#000';
+            setTimeout(() => { btn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> Add'; btn.style.background = ''; btn.style.color = ''; }, 1500);
+        }
+
+        showToast(`${p.name} added to cart`);
+    }
+
+    function updateCartFloat() {
+        if (typeof state === 'undefined') return;
+        const total = state.cart.reduce((sum, i) => sum + i.qty, 0);
+        const floatBtn = document.getElementById('cart-float');
+        const floatCount = document.getElementById('cart-float-count');
+        if (total > 0) { floatBtn.style.display = 'flex'; floatCount.textContent = total; }
+        else { floatBtn.style.display = 'none'; }
+    }
+
+    function updatePriceFilter(val) {
+        maxPrice = parseInt(val);
+        document.getElementById('price-max-label').textContent = 'Up to $' + val;
+        renderProducts();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderProducts();
+        updateCartFloat();
+    });
+    </script>
+</body>
+</html>
