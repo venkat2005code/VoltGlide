@@ -188,7 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Detect current page and run page-specific logic
     const path = window.location.pathname;
-    const page = path.substring(path.lastIndexOf('/') + 1);
+    const page = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
+    
+    updateNavHighlight(page);
 
     if (page === 'user-dashboard.html') {
         if (!state.currentUser) {
@@ -308,19 +310,16 @@ function navigateTo(viewId) {
 function updateNavHighlight(viewId) {
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => item.classList.remove('active'));
-
-    // Detect mapping
-    if (viewId === 'home1' || viewId === 'home2') {
-        navItems[0].classList.add('active'); // Home item
-    } else if (viewId === 'about') {
-        navItems[1].classList.add('active');
-    } else if (viewId === 'services') {
-        navItems[2].classList.add('active');
-    } else if (viewId === 'contact') {
-        navItems[3].classList.add('active');
-    } else if (viewId === 'user-dashboard' || viewId === 'admin-dashboard') {
-        navItems[4].classList.add('active'); // Dashboard item
-    }
+    const links = document.querySelectorAll('.nav-link, .dropdown-link');
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === viewId || (viewId === 'index.html' && href === '#')) {
+            const parentItem = link.closest('.nav-item');
+            if (parentItem) {
+                parentItem.classList.add('active');
+            }
+        }
+    });
 }
 
 // --- Authentication Simulation ---
@@ -373,12 +372,12 @@ function handleLoginSubmit(event) {
         state.currentUser = { ...DEFAULT_ADMIN, email: email };
         localStorage.setItem('vg_current_user', JSON.stringify(state.currentUser));
         showToast("Logged in as Sergei (Administrator)");
-        setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 800);
+        setTimeout(() => { window.location.href = 'index.html'; }, 800);
     } else {
         state.currentUser = { ...DEFAULT_USER, email: email };
         localStorage.setItem('vg_current_user', JSON.stringify(state.currentUser));
         showToast("Logged in as Marcus (Customer)");
-        setTimeout(() => { window.location.href = 'user-dashboard.html'; }, 800);
+        setTimeout(() => { window.location.href = 'index.html'; }, 800);
     }
 
     updateUserInterfaceUI();

@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VoltGlide | E-Scooter Repair &amp; Parts Shop</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
-    <meta name="description" content="Premium E-Scooter diagnostic guides, repair booking, parts catalog, and DIY guides. Keep your e-scooter running like new.">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300ff88'%3E%3Cpath d='M12 2L3.5 14h6.5v8l8.5-12h-6.5z'/%3E%3C/svg%3E">
+    <meta name="description"
+        content="Premium E-Scooter diagnostic guides, repair booking, parts catalog, and DIY guides. Keep your e-scooter running like new.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="dark-theme">
 
     <!-- Toast Notification Container -->
@@ -31,7 +37,7 @@
                 </a>
             </div>
 
-           
+
             <nav class="nav-menu" id="navMenu">
                 <ul class="nav-list">
                     <li class="nav-item has-dropdown">
@@ -150,7 +156,7 @@
                     </ul>
                 </li>
             </ul>
-            
+
             <!-- Mobile Actions: Toggles and Login -->
             <div class="mobile-nav-actions">
                 <div class="mobile-toggles-row">
@@ -159,15 +165,16 @@
                         <span class="theme-icon-light"><i class="fa-solid fa-sun"></i></span>
                         <span class="theme-icon-dark"><i class="fa-solid fa-moon"></i></span>
                     </button>
-                    
+
                     <!-- LTR/RTL Toggle Switch -->
                     <button id="mobile-rtl-toggle" class="rtl-btn" aria-label="Toggle Layout Direction">
                         <span class="rtl-circle">LTR</span>
                     </button>
                 </div>
-                
+
                 <!-- Login Button -->
-                <button id="mobile-login-btn" class="login-btn mobile-login-btn" onclick="window.location.href='login.html'">
+                <button id="mobile-login-btn" class="login-btn mobile-login-btn"
+                    onclick="window.location.href='login.html'">
                     <i class="fa-solid fa-user-lock btn-icon"></i>
                     <span class="btn-text">Login</span>
                 </button>
@@ -183,11 +190,15 @@
             <div class="section-container grid-2">
                 <div class="hero-content">
                     <div class="badge-pill"><i class="fa-solid fa-gauge-high"></i> Next-Gen Scooter Diagnostics</div>
-                    <h1 class="hero-title">Electric Scooter Repairs <br><span class="gradient-text">Engineered For Performance</span></h1>
-                    <p class="hero-desc">Experiencing battery drain, squeaky brakes, or controller errors? Book expert technicians, order authentic parts, or diagnose issues instantly with our smart tools.</p>
+                    <h1 class="hero-title">Electric Scooter Repairs <br><span class="gradient-text">Engineered For
+                            Performance</span></h1>
+                    <p class="hero-desc">Experiencing battery drain, squeaky brakes, or controller errors? Book expert
+                        technicians, order authentic parts, or diagnose issues instantly with our smart tools.</p>
                     <div class="hero-actions">
-                        <button class="btn btn-primary" onclick="openBookingModal()"><i class="fa-solid fa-calendar-check"></i> Book Repair Now</button>
-                        <button class="btn btn-secondary" onclick="scrollToElement('diagnostic-guide-section')"><i class="fa-solid fa-screwdriver-wrench"></i> Start Diagnostics</button>
+                        <button class="btn btn-primary" onclick="openBookingModal()"><i
+                                class="fa-solid fa-calendar-check"></i> Book Repair Now</button>
+                        <button class="btn btn-secondary" onclick="scrollToElement('diagnostic-guide-section')"><i
+                                class="fa-solid fa-screwdriver-wrench"></i> Start Diagnostics</button>
                     </div>
                 </div>
                 <div class="hero-image-container">
@@ -215,28 +226,33 @@
             <div class="section-container">
                 <div class="section-header center">
                     <h2 class="section-title">Why E-Scooter Owners Trust VoltGlide</h2>
-                    <p class="section-subtitle">We combine tech-forward diagnostics with original components to ensure maximum scooter safety.</p>
+                    <p class="section-subtitle">We combine tech-forward diagnostics with original components to ensure
+                        maximum scooter safety.</p>
                 </div>
                 <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon"><i class="fa-solid fa-laptop-medical"></i></div>
                         <h3>Smart Diagnostics</h3>
-                        <p>Our digital tools pinpoint controller and battery hardware issues instantly, preventing unnecessary repairs.</p>
+                        <p>Our digital tools pinpoint controller and battery hardware issues instantly, preventing
+                            unnecessary repairs.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon"><i class="fa-solid fa-user-gear"></i></div>
                         <h3>Certified Techs</h3>
-                        <p>Our specialists have repaired over 15,000+ custom and premium e-scooter powertrains and controller boards.</p>
+                        <p>Our specialists have repaired over 15,000+ custom and premium e-scooter powertrains and
+                            controller boards.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon"><i class="fa-solid fa-boxes-packing"></i></div>
                         <h3>Original Components</h3>
-                        <p>We stock only genuine OEM batteries, motors, brake calipers, and tires for brands like Segway, Xiaomi, and Apollo.</p>
+                        <p>We stock only genuine OEM batteries, motors, brake calipers, and tires for brands like
+                            Segway, Xiaomi, and Apollo.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
                         <h3>Same-Day Turnaround</h3>
-                        <p>Standard fixes like flats, brakes tuning, and firmware flash updates are finished in under 3 hours.</p>
+                        <p>Standard fixes like flats, brakes tuning, and firmware flash updates are finished in under 3
+                            hours.</p>
                     </div>
                 </div>
             </div>
@@ -247,7 +263,8 @@
             <div class="section-container">
                 <div class="section-header center">
                     <h2 class="section-title">Smart Troubleshooting Diagnostic Assistant</h2>
-                    <p class="section-subtitle">Is your scooter flashing an error code or behaving strangely? Select a category to see common fixes, estimated repair costs, and repair steps.</p>
+                    <p class="section-subtitle">Is your scooter flashing an error code or behaving strangely? Select a
+                        category to see common fixes, estimated repair costs, and repair steps.</p>
                 </div>
                 <div class="diagnostic-assistant-wrapper">
                     <!-- Symptoms Selector -->
@@ -283,9 +300,11 @@
                 <div class="section-header split">
                     <div>
                         <h2 class="section-title">Premium Parts &amp; Upgrade Catalog</h2>
-                        <p class="section-subtitle font-sm">Explore our highest-selling OEM parts, certified for maximum performance.</p>
+                        <p class="section-subtitle font-sm">Explore our highest-selling OEM parts, certified for maximum
+                            performance.</p>
                     </div>
-                    <button class="btn btn-secondary" onclick="window.location.href='user-dashboard.html'"><i class="fa-solid fa-basket-shopping"></i> Visit Full Store</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='user-dashboard.html'"><i
+                            class="fa-solid fa-basket-shopping"></i> Visit Full Store</button>
                 </div>
                 <div class="parts-grid-preview" id="parts-preview-container">
                     <!-- Loaded dynamically via Javascript -->
@@ -298,7 +317,8 @@
             <div class="section-container">
                 <div class="section-header center">
                     <h2 class="section-title">E-Scooter DIY Maintenance Video Hub</h2>
-                    <p class="section-subtitle">Learn how to maintain tire pressure, check brake pads, and clean throttle controllers at home.</p>
+                    <p class="section-subtitle">Learn how to maintain tire pressure, check brake pads, and clean
+                        throttle controllers at home.</p>
                 </div>
                 <div class="video-grid" id="home1-video-grid">
                     <!-- Loaded dynamically -->
@@ -311,14 +331,20 @@
             <div class="section-container">
                 <div class="section-header center">
                     <h2 class="section-title">Rider Reviews</h2>
-                    <p class="section-subtitle">Check out what fellow urban commuters say about our repair speed and parts quality.</p>
+                    <p class="section-subtitle">Check out what fellow urban commuters say about our repair speed and
+                        parts quality.</p>
                 </div>
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
-                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                        <p class="testimonial-text">"My Segway Max had error 14 (throttle). The diagnostic wizard on VoltGlide pinpointed it instantly. Brought it in, they fixed it in 2 hours for exactly the estimated price!"</p>
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimonial-text">"My Segway Max had error 14 (throttle). The diagnostic wizard on
+                            VoltGlide pinpointed it instantly. Brought it in, they fixed it in 2 hours for exactly the
+                            estimated price!"</p>
                         <div class="testimonial-user">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100" alt="Customer Profile">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100"
+                                alt="Customer Profile">
                             <div>
                                 <h4>Marcus Vance</h4>
                                 <span>Segway Ninebot Max Owner</span>
@@ -326,10 +352,15 @@
                         </div>
                     </div>
                     <div class="testimonial-card">
-                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                        <p class="testimonial-text">"Fantastic shop. Finding high-quality tires for Xiaomi M365 is tough, but their parts catalog had original solid tires in stock. Their booking portal made scheduling a breeze."</p>
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimonial-text">"Fantastic shop. Finding high-quality tires for Xiaomi M365 is
+                            tough, but their parts catalog had original solid tires in stock. Their booking portal made
+                            scheduling a breeze."</p>
                         <div class="testimonial-user">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100" alt="Customer Profile">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100"
+                                alt="Customer Profile">
                             <div>
                                 <h4>Elena Rostova</h4>
                                 <span>Xiaomi Pro 2 Rider</span>
@@ -337,10 +368,15 @@
                         </div>
                     </div>
                     <div class="testimonial-card">
-                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                        <p class="testimonial-text">"Upgraded my battery capacity for Apollo Ghost here. Excellent communication. The technician updated my job details in my dashboard, and I watched the repair status step-by-step!"</p>
+                        <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                class="fa-solid fa-star"></i></div>
+                        <p class="testimonial-text">"Upgraded my battery capacity for Apollo Ghost here. Excellent
+                            communication. The technician updated my job details in my dashboard, and I watched the
+                            repair status step-by-step!"</p>
                         <div class="testimonial-user">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100" alt="Customer Profile">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=100"
+                                alt="Customer Profile">
                             <div>
                                 <h4>Jason Carver</h4>
                                 <span>Apollo Ghost Commuter</span>
@@ -363,7 +399,8 @@
                         <span class="logo-icon"><i class="fa-solid fa-bolt-lightning"></i></span>
                         <span class="logo-text">Volt<span class="highlight">Glide</span></span>
                     </a>
-                    <p class="footer-tagline">Premium engineering diagnostics, professional micro-mobility repairs, and genuine e-scooter parts shop.</p>
+                    <p class="footer-tagline">Premium engineering diagnostics, professional micro-mobility repairs, and
+                        genuine e-scooter parts shop.</p>
                     <div class="footer-socials">
                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
@@ -388,11 +425,16 @@
                 <div class="footer-links">
                     <h3>Repair Fixes</h3>
                     <ul>
-                        <li><a href="#" onclick="openBookingWithService('Solid Tire Conversion')">Solid Tire Swap</a></li>
-                        <li><a href="#" onclick="openBookingWithService('Battery Cell Diagnostics')">Lithium BMS Repair</a></li>
-                        <li><a href="#" onclick="openBookingWithService('Brake Pads Replacement')">Disc Brake Calibrations</a></li>
-                        <li><a href="#" onclick="openBookingWithService('Controller Board Assembly')">Smart Controller Flash</a></li>
-                        <li><a href="#" onclick="openBookingWithService('Hall Sensor Replacement')">Motor Hall Sensor Tuning</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Solid Tire Conversion')">Solid Tire Swap</a>
+                        </li>
+                        <li><a href="#" onclick="openBookingWithService('Battery Cell Diagnostics')">Lithium BMS
+                                Repair</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Brake Pads Replacement')">Disc Brake
+                                Calibrations</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Controller Board Assembly')">Smart Controller
+                                Flash</a></li>
+                        <li><a href="#" onclick="openBookingWithService('Hall Sensor Replacement')">Motor Hall Sensor
+                                Tuning</a></li>
                     </ul>
                 </div>
 
@@ -408,7 +450,8 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 VoltGlide Micro-Mobility Inc. All rights reserved. Registered under silicon repairs directory. All code demo items simulation only.</p>
+                <p>&copy; 2026 VoltGlide Micro-Mobility Inc. All rights reserved. Registered under silicon repairs
+                    directory. All code demo items simulation only.</p>
                 <div class="footer-bottom-links">
                     <a href="#">Privacy Policy</a>
                     <a href="#">Terms of Use</a>
@@ -437,11 +480,14 @@
                         <select id="m-book-service">
                             <option value="Solid Tire Conversion">Solid Tire Conversion ($65.00)</option>
                             <option value="Inner Tube Replacement">Standard Tube Replacement ($45.00)</option>
-                            <option value="Brakes Replacement &amp; Tuning">Brake Replacement &amp; Tuning ($35.00)</option>
+                            <option value="Brakes Replacement &amp; Tuning">Brake Replacement &amp; Tuning ($35.00)
+                            </option>
                             <option value="Hydraulic System Bleed">Hydraulic System Bleeding ($55.00)</option>
-                            <option value="Battery Diagnostics / BMS Fix">Battery Cell &amp; BMS Diagnostics ($120.00)</option>
+                            <option value="Battery Diagnostics / BMS Fix">Battery Cell &amp; BMS Diagnostics ($120.00)
+                            </option>
                             <option value="Brushless Hub Motor Repair">Brushless Hub Motor Repair ($95.00)</option>
-                            <option value="Custom General Inspection">General Scooter Tuning &amp; Inspection ($40.00)</option>
+                            <option value="Custom General Inspection">General Scooter Tuning &amp; Inspection ($40.00)
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -464,7 +510,8 @@
 
                 <div class="form-group">
                     <label for="m-book-notes">Describe Symptoms (Optional)</label>
-                    <textarea id="m-book-notes" rows="3" placeholder="Tell our mechanics what's happening..."></textarea>
+                    <textarea id="m-book-notes" rows="3"
+                        placeholder="Tell our mechanics what's happening..."></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-full">Submit Appointment Details</button>
@@ -497,4 +544,5 @@
     <!-- Main JS logic -->
     <script src="script.js"></script>
 </body>
+
 </html>

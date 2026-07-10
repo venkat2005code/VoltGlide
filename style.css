@@ -859,6 +859,8 @@ body.light-theme .mobile-dropdown-menu {
     max-width: none;
     width: 100%;
     padding: 0 1.5rem;
+    gap: 0;
+    align-items: center;
 }
 .hero-section.alt-hero .hero-content {
     padding-right: 0;
@@ -2052,6 +2054,11 @@ body.light-theme .map-overlay {
     overflow-x: hidden;
     padding-right: 0;
     box-sizing: border-box;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.dashboard-content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
 }
 @media (min-width: 992px) {
     .dashboard-content {
@@ -3297,29 +3304,48 @@ html[dir="rtl"] .toast.toast-error {
     color: var(--text-secondary);
     font-size: 0.92rem;
 }
-.btn-social-google:hover {
+.btn-social-google {
+    background-color: #ea4335;
     border-color: #ea4335;
-    color: #ea4335;
-    background-color: rgba(234, 67, 53, 0.05);
+    color: #ffffff;
+}
+.btn-social-google:hover {
+    background-color: #d33828;
+    border-color: #d33828;
+    color: #ffffff;
+}
+
+.btn-social-facebook {
+    background-color: #1877f2;
+    border-color: #1877f2;
+    color: #ffffff;
 }
 .btn-social-facebook:hover {
-    border-color: #1877f2;
-    color: #1877f2;
-    background-color: rgba(24, 119, 242, 0.05);
+    background-color: #1461c7;
+    border-color: #1461c7;
+    color: #ffffff;
+}
+
+.btn-social-apple {
+    background-color: #000000;
+    border-color: #000000;
+    color: #ffffff;
 }
 .btn-social-apple:hover {
-    border-color: #000000;
-    color: #000000;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #333333;
+    border-color: #333333;
+    color: #ffffff;
 }
-body.light-theme .btn-social-apple:hover {
-    border-color: #000000;
+
+body.dark-theme .btn-social-apple {
+    background-color: #ffffff;
+    border-color: #ffffff;
     color: #000000;
 }
 body.dark-theme .btn-social-apple:hover {
-    border-color: #ffffff;
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #e6e6e6;
+    border-color: #e6e6e6;
+    color: #000000;
 }
 .auth-footer-link {
     font-size: 0.88rem;
